@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/guns/basic/BasicGun.gd" type="Script" id=1]
+[ext_resource path="res://weapons/guns/basic/BasicGun.png" type="Texture" id=2]
+[ext_resource path="res://weapons/guns/Gun.tscn" type="PackedScene" id=3]
+
+[node name="BasicGun" instance=ExtResource( 3 )]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+FIRE_RATE = 0.01
+BULLET_SPEED = 512
+
+[node name="FireRateTimer" parent="." index="0"]
+one_shot = true
+
+[node name="FirePosition" parent="." index="1"]
+position = Vector2( 14, 0 )
