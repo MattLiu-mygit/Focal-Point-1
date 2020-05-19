@@ -6,26 +6,22 @@ class_name Bullet
 
 var motion := Vector2.ZERO
 
-onready var raycast : RayCast2D = $RayCast
 onready var hitbox : Area2D = $Hitbox
 
 
 func _physics_process(delta: float) -> void:
-	update_motion()
+	update_motion(delta)
 	move(delta)
-	if raycast.is_colliding():
-		handle_raycast_collision()
 
 
-func init_check():
+func collision_test() -> void:
 	var collision := move_and_collide(Vector2.ZERO)
 	if collision:
 		handle_kinematic_collision(collision)
-	if raycast.is_colliding():
-		handle_raycast_collision()
 
 
-func update_motion() -> void:
+
+func update_motion(_delta: float) -> void:
 	pass
 
 
@@ -33,10 +29,6 @@ func move(delta: float) -> void:
 	var collision := move_and_collide(motion * delta)
 	if collision:
 		handle_kinematic_collision(collision)
-
-
-func handle_raycast_collision() -> void:
-	queue_free()
 
 
 func handle_kinematic_collision(_collision: KinematicCollision2D) -> void:

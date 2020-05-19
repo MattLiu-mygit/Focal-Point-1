@@ -13,10 +13,11 @@ position = Vector2( 0, 0.258839 )
 
 [node name="BasicGun" parent="." index="2" instance=ExtResource( 2 )]
 position = Vector2( 0, 0.258839 )
-rotation = -1.57079
+rotation = -1.08395
 scale = Vector2( 0.683922, 0.683922 )
+MASK_BIT = 4
 
-[node name="Hurtbox" parent="." index="3"]
+[node name="Hurtbox" parent="." index="4"]
 position = Vector2( 0, 4.25884 )
 
 [editable path="Hurtbox"]

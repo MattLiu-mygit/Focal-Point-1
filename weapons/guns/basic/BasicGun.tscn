@@ -7,11 +7,6 @@
 [node name="BasicGun" instance=ExtResource( 3 )]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
-FIRE_RATE = 0.01
+FIRE_RATE = 0.25
 BULLET_SPEED = 512
-
-[node name="FireRateTimer" parent="." index="0"]
-one_shot = true
-
-[node name="FirePosition" parent="." index="1"]
-position = Vector2( 14, 0 )
+MASK_BIT = 0

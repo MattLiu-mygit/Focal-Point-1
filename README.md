@@ -1,4 +1,4 @@
-# Focal-Point
+# Focal Point
 
 2D Shooter/Platformer where aiming and shooting aren't so straightforward.
 

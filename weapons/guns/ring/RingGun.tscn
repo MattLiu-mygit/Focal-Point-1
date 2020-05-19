@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://weapons/guns/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://weapons/guns/ring/RingGun.png" type="Texture" id=2]
+[ext_resource path="res://weapons/guns/ring/RingGun.gd" type="Script" id=3]
+
+[node name="RingGun" instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+FIRE_RATE = 0.25

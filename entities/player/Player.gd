@@ -22,6 +22,12 @@ var motion := Vector2.ZERO
 var jumped := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
+onready var gun: Gun = $BasicGun
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("rotate"):
+		gun.rotate_gun()
 
 
 func _physics_process(delta: float) -> void:

@@ -1,7 +1,6 @@
 extends Gun
-# The basic gun fires a basic bullet four times per second.
 
-const BasicBullet := preload("res://weapons/bullets/magic/MagicBullet.tscn")
+const ReflectBullet := preload("res://weapons/bullets/reflect/ReflectBullet.tscn")
 
 
 func instance_bullet(Bullet_: PackedScene) -> Bullet:
@@ -15,4 +14,4 @@ func instance_bullet(Bullet_: PackedScene) -> Bullet:
 func fire() -> void:
 	.fire()
 	# warning-ignore:return_value_discarded
-	instance_bullet(BasicBullet)
+	instance_bullet(ReflectBullet)
