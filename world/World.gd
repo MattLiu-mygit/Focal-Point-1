@@ -6,9 +6,11 @@ extends Node2D
 onready var camera : Camera2D = $Camera
 onready var player : Player = $Player
 
+var mouse_cursor = load("res://MouseCursor.png")
 
 func _ready() -> void:
 	VisualServer.set_default_clear_color(Color.black)
+	Input.set_custom_mouse_cursor(mouse_cursor)
 
 
 func _process(_delta: float) -> void:
