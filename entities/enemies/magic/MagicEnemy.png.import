@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Turret.png-f079151c9fb7ae84a6f684b9701f8c6f.stex"
+path="res://.import/MagicEnemy.png-cc36a7ae10fbc841dd05ff655d513912.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/turrets/Turret.png"
-dest_files=[ "res://.import/Turret.png-f079151c9fb7ae84a6f684b9701f8c6f.stex" ]
+source_file="res://entities/enemies/magic/MagicEnemy.png"
+dest_files=[ "res://.import/MagicEnemy.png-cc36a7ae10fbc841dd05ff655d513912.stex" ]
 
 [params]
 
