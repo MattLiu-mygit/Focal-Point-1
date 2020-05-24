@@ -1,7 +1,5 @@
 extends Node2D
 # The World is the level loader and the scene where everything takes place.
-# The camera's left limit should be set to (-offset + 1) because it fixes a 
-# weird pixel glitch.
 
 onready var camera : Camera2D = $Camera
 onready var player : Player = $Player

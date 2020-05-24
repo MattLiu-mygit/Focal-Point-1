@@ -1,4 +1,5 @@
 extends Bullet
+# The PhysicsBullet is a bullet that falls due to gravity and bounces
 
 export (int) var GRAVITY = 832
 export (float) var BOUNCINESS = 0.25

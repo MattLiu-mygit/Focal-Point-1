@@ -1,7 +1,7 @@
 extends Gun
-
-# The ring gun fires a ring bullet that moves in an elliptical path.
-# It also hits where the mouse is pointed at, but continues curving
+# The RingGun fires a RingBullet that moves in an elliptical path.
+# It hits where the mouse is pointed at, but continues curving. Its rotation
+# always points to the path that the ellipse will travel in.
 
 const RingBullet := preload("res://weapons/bullets/ring/RingBullet.tscn")
 
