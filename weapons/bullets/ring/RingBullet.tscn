@@ -23,29 +23,32 @@ tracks/0/keys = {
 }
 
 [node name="RingBullet" instance=ExtResource( 1 )]
+collision_mask = 25
 script = ExtResource( 4 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 hframes = 4
-frame = 3
 
 [node name="Collider" parent="." index="1"]
 shape = ExtResource( 3 )
 
+[node name="Hitbox" parent="." index="2"]
+DAMAGE = 1
+
 [node name="Collider" parent="Hitbox" index="0"]
 shape = ExtResource( 3 )
 
-[node name="VisibilityNotifier" parent="." index="4"]
-position = Vector2( -3.46452e-07, -1 )
+[node name="VisibilityNotifier" parent="." index="3"]
+position = Vector2( 0, -1 )
 scale = Vector2( 0.4, 0.3 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "Fly"
 anims/Fly = SubResource( 1 )
 
-[node name="KillTimer" type="Timer" parent="." index="6"]
-wait_time = 2.093
+[node name="KillTimer" type="Timer" parent="." index="5"]
+wait_time = 2.33
 one_shot = true
 autostart = true
 [connection signal="timeout" from="KillTimer" to="." method="queue_free"]

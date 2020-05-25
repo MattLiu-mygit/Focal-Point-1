@@ -10,6 +10,7 @@ extents = Vector2( 1, 1 )
 extents = Vector2( 1, 1 )
 
 [node name="BasicBullet" instance=ExtResource( 1 )]
+collision_mask = 25
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
@@ -17,14 +18,16 @@ texture = ExtResource( 2 )
 [node name="Collider" parent="." index="1"]
 shape = SubResource( 1 )
 
-[node name="Hitbox" parent="." index="3"]
+[node name="Hitbox" parent="." index="2"]
 DAMAGE = 1
 
 [node name="Collider" parent="Hitbox" index="0"]
 shape = SubResource( 2 )
 
-[node name="VisibilityNotifier" parent="." index="4"]
+[node name="VisibilityNotifier" parent="." index="3"]
 position = Vector2( 4.76837e-07, 0 )
 scale = Vector2( 0.2, 0.2 )
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 
 [editable path="Hitbox"]

@@ -9,4 +9,6 @@ texture = ExtResource( 2 )
 script = ExtResource( 1 )
 FIRE_RATE = 0.25
 BULLET_SPEED = 512
-MASK_BIT = 0
+
+[node name="Muzzle" parent="." index="1"]
+position = Vector2( 19, 0 )

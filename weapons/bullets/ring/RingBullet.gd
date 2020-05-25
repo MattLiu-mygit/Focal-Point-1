@@ -17,3 +17,5 @@ func get_opposite_position(position: Vector2) -> Vector2:
 	var opposite_x := center.x + (center.x - position.x)
 	var opposite_y := center.y + (center.y - position.y)
 	return Vector2(opposite_x, opposite_y)
+
+
