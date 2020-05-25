@@ -17,9 +17,6 @@ texture = ExtResource( 1 )
 [node name="Collider" parent="." index="1"]
 shape = SubResource( 1 )
 
-[node name="EnemyStats" parent="." index="2"]
-max_health = 1
-
 [node name="Hurtbox" parent="." index="3"]
 position = Vector2( 0, 4 )
 

@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/Monster_Creatures_Fantasy(Version 1.2)/Monsters_Creatures_Fantasy/Goblin/Run.png" type="Texture" id=2]
+[ext_resource path="res://entities/enemies/WalkingEnemy.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3, 14 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10.1656, 17.5785 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Run"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 7, 16 )
+
+[node name="WalkingEnemy" instance=ExtResource( 1 )]
+collision_layer = 4
+script = ExtResource( 3 )
+WALKING_DIRECTION = 1
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, -23.8852 )
+texture = ExtResource( 2 )
+hframes = 8
+frame = 7
+
+[node name="Collider" parent="." index="1"]
+position = Vector2( 2, -14 )
+shape = SubResource( 1 )
+
+[node name="EnemyStats" parent="." index="2"]
+max_health = 3
+
+[node name="FloorLeft" type="RayCast2D" parent="." index="3"]
+position = Vector2( -2, 0 )
+enabled = true
+cast_to = Vector2( 0, 6 )
+
+[node name="FloorRight" type="RayCast2D" parent="." index="4"]
+position = Vector2( 2, 0 )
+enabled = true
+cast_to = Vector2( 0, 6 )
+
+[node name="WallLeft" type="RayCast2D" parent="." index="5"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( -6, 0 )
+
+[node name="WallRight" type="RayCast2D" parent="." index="6"]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( 6, 0 )
+
+[node name="Collider" parent="Hurtbox" index="0"]
+position = Vector2( 2, -18 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="8"]
+autoplay = "Run"
+anims/Run = SubResource( 3 )
+
+[node name="Collider" parent="Hitbox" index="0"]
+position = Vector2( 2, -16 )
+shape = SubResource( 4 )
+
+[editable path="Hurtbox"]
+
+[editable path="Hitbox"]
