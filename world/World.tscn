@@ -1,12 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://world/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/World.gd" type="Script" id=3]
 [ext_resource path="res://entities/enemies/turrets/BasicTurret.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/enemies/Enemy.gd" type="Script" id=5]
+[ext_resource path="res://weapons/guns/basic/BasicGun.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapons/guns/ring/RingGun.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/enemies/WalkingEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/enemies/BackShieldEnemy.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Node2D"]
+self_modulate = Color( 1, 0, 0, 1 )
 script = ExtResource( 3 )
 
 [node name="TileMap" parent="." instance=ExtResource( 1 )]
@@ -17,11 +21,43 @@ offset = Vector2( 0, 144 )
 current = true
 limit_left = -1
 
+[node name="WalkingEnemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( 120.939, 271.972 )
+
+[node name="Gun" parent="WalkingEnemy/Sprite" index="0" instance=ExtResource( 5 )]
+position = Vector2( 13.5811, 5.88519 )
+
+[node name="WalkingEnemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 114.168, 144.376 )
+
+[node name="Gun" parent="WalkingEnemy2/Sprite" index="0" instance=ExtResource( 6 )]
+position = Vector2( 13.0843, 7.8852 )
+
+[node name="WalkingEnemy3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 265.09, 160.376 )
+
+[node name="Gun" parent="WalkingEnemy3/Sprite" index="0" instance=ExtResource( 6 )]
+position = Vector2( 13.569, 7.88519 )
+
 [node name="BasicTurret" parent="." instance=ExtResource( 4 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 232, 180 )
-collision_layer = 0
-script = ExtResource( 5 )
+position = Vector2( 231.539, 179.841 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 53, 257 )
+position = Vector2( 42.7219, 260.321 )
+
+[node name="BackShieldEnemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 79.9852, 270.83 )
+
+[editable path="WalkingEnemy"]
+
+[editable path="WalkingEnemy2"]
+
+[editable path="WalkingEnemy3"]
+
+[editable path="BasicTurret"]
+
+[editable path="BasicTurret/BasicGun"]
+
+[editable path="Player"]
+
+[editable path="Player/RingGun"]
