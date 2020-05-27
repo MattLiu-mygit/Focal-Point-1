@@ -5,7 +5,7 @@ extends Gun
 
 const RingBullet := preload("res://weapons/bullets/ring/RingBullet.tscn")
 
-
+#This limits gun rotation. Why???
 func set_gun_rotation(_mouse_angle: float) -> void:
 	var mouse_position = get_parent().get_local_mouse_position()
 	if mouse_position.y <= 0:
