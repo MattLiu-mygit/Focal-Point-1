@@ -17,10 +17,9 @@ export (int) var BULLET_SPEED
 export (HurtboxMaskBit) var MASK_BIT = HurtboxMaskBit.NONE
 
 var gun_rotation := 0
-var orientationX = 1
 
 onready var fire_rate_timer: Timer = $FireRateTimer
-onready var muzzle = $Muzzle
+
 
 func _ready() -> void:
 	fire_rate_timer.wait_time = FIRE_RATE
@@ -45,7 +44,7 @@ func set_gun_rotation(mouse_angle: float) -> void:
 func instance_bullet(Bullet_: PackedScene) -> Bullet:
 	# Bullets don't know which entity to hit, so the gun is responsible for that.
 	var bullet: Bullet = Utils.instance_scene_on_main(
-						 Bullet_, muzzle.global_position)
+						 Bullet_, global_position)
 	bullet.hitbox.set_collision_mask_bit(MASK_BIT, true)
 	if MASK_BIT == HurtboxMaskBit.ENEMY:
 		bullet.modulate = Color.red

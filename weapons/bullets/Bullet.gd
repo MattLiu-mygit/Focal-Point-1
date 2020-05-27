@@ -39,8 +39,11 @@ func _on_VisibilityNotifier_viewport_exited(_viewport: Viewport) -> void:
 	queue_free()
 
 
+# warning-ignore:unused_argument
 func _on_Hitbox_area_entered(area):
 	queue_free()
 
+
+# warning-ignore:unused_argument
 func _on_Hitbox_body_entered(body):
 	queue_free()
