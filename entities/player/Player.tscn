@@ -31,7 +31,6 @@ shape = SubResource( 1 )
 
 [node name="RingGun" parent="." instance=ExtResource( 4 )]
 rotation = -1.57079
-MASK_BIT = 4
 
 [node name="JumpDelayTimer" type="Timer" parent="."]
 wait_time = 0.06
@@ -41,5 +40,3 @@ one_shot = true
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 
 [editable path="Hurtbox"]
-
-[editable path="RingGun"]

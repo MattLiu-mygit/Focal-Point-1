@@ -1,5 +1,7 @@
 extends Sprite
-
+# The MouseHelper is a cursor that shows the relative position of the
+# mouse with respect to the current rotation. Bullets will target this 
+# cursor instead of the mouse because everything is relative to the mouse.
 
 var mouse_rotation := 0
 

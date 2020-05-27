@@ -1,7 +1,9 @@
 extends Node
 
 export (int) var max_health = 1
-onready var health = max_health setget set_health
+
+onready var health : int = max_health setget set_health
+
 signal enemy_died
 
 func set_health(value: int):

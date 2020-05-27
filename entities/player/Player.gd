@@ -33,6 +33,7 @@ func _process(_delta: float) -> void:
 		gun.rotate_gun()
 		mouse_helper.rotate_mouse()
 
+
 func _physics_process(delta: float) -> void:
 	jumped = false
 	var run_strength := get_run_strength()
