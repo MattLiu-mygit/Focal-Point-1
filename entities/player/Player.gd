@@ -25,12 +25,13 @@ onready var jump_delay_timer: Timer = $JumpDelayTimer
 onready var gun: Gun = $RingGun
 onready var mouse_helper: Sprite = $MouseHelper
 
+func _ready():
+	gun.MASK_BIT = gun.HurtboxMaskBit.PLAYER
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("rotate"):
 		gun.rotate_gun()
 		mouse_helper.rotate_mouse()
-
 
 func _physics_process(delta: float) -> void:
 	jumped = false
