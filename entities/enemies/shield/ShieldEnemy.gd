@@ -5,8 +5,6 @@ enum DIRECTION {LEFT = -1, RIGHT = 1}
 export(DIRECTION) var WALKING_DIRECTION = DIRECTION.LEFT
 export(int) var LEFTBOUND
 export(int) var RIGHTBOUND
-export(int) var right_bound
-export(int) var left_bound
 export(int) var globalX
 
 var state
@@ -32,8 +30,8 @@ func _physics_process(delta):
 	motion = move_and_slide_with_snap(motion, Vector2.DOWN * 8, Vector2.UP, true, 4, deg2rad(46))
 
 func in_patrol_area():
-	right_bound = start + RIGHTBOUND
-	left_bound = start - LEFTBOUND
+	var right_bound = start + RIGHTBOUND
+	var left_bound = start - LEFTBOUND
 	globalX = position.x
 	if position.x >= left_bound and position.x <= right_bound:
 		return true

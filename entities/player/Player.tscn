@@ -37,6 +37,7 @@ wait_time = 0.06
 one_shot = true
 
 [node name="MouseHelper" parent="." instance=ExtResource( 6 )]
+visible = true
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 
 [editable path="Hurtbox"]

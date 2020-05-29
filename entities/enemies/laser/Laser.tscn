@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 25 )
+
+[node name="Laser" type="RayCast2D"]
+collision_mask = 25
+
+[node name="LaserHitbox" parent="." instance=ExtResource( 2 )]
+collision_mask = 8
+DAMAGE = 1
+
+[node name="Collider" parent="LaserHitbox" index="0"]
+position = Vector2( 0, 25 )
+shape = SubResource( 1 )
+[connection signal="area_entered" from="LaserHitbox" to="." method="_on_LaserHitbox_area_entered"]
+[connection signal="body_entered" from="LaserHitbox" to="." method="_on_LaserHitbox_body_entered"]
+
+[editable path="LaserHitbox"]
