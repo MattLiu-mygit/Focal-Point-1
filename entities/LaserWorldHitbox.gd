@@ -2,14 +2,16 @@ extends "res://entities/Hitbox.gd"
 
 onready var collider = $Collider
 var colliding = false
+onready var originalSize = get_parent().get_parent().get_parent().scale.y
+onready var laserScale = get_parent().get_parent().get_parent()
 
 # When colliding, laser scale sheaths. When not colliding, laser increases length.
 func _process(delta):
-	if colliding == false and get_parent().get_parent().get_parent().scale.y < 150:
-		get_parent().get_parent().get_parent().scale.y += 0.1
+	if colliding == false and laserScale.scale.y < originalSize:
+		laserScale.scale.y += 0.1
 		
-	if colliding == true and get_parent().get_parent().get_parent().scale.y > 10:
-		get_parent().get_parent().get_parent().scale.y -= 1
+	if colliding == true and laserScale.scale.y > 10:
+		laserScale.scale.y -= 1
 
 func _on_WorldHitbox_area_entered(area):
 	colliding = true
