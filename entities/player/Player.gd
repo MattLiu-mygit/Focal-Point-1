@@ -29,6 +29,8 @@ func _ready():
 	gun.MASK_BIT = gun.HurtboxMaskBit.PLAYER
 
 func _process(_delta: float) -> void:
+	if stats.health == 0:
+		queue_free()
 	if Input.is_action_just_pressed("rotate"):
 		gun.rotate_gun()
 		mouse_helper.rotate_mouse()
@@ -103,3 +105,5 @@ func move() -> void:
 
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
+
+
