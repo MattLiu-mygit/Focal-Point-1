@@ -166,9 +166,9 @@ scope={
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="PlayerHurtbox"
 2d_physics/layer_5="EnemyHurtbox"
+2d_physics/layer_6="Shield"
 
 [rendering]
 
 quality/2d/use_pixel_snap=true
-environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
