@@ -22,4 +22,7 @@ offset = Vector2( 0, -32 )
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
+[node name="EnemyStats" parent="." index="2"]
+max_health = 3
+
 [editable path="Hurtbox"]
