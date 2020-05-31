@@ -20,6 +20,9 @@ position = Vector2( 51, 260 )
 [node name="CameraFollow" parent="Player" index="3"]
 remote_path = NodePath("../../Camera")
 
+[node name="RingGun" parent="Player" index="4"]
+MASK_BIT = 3
+
 [node name="BasicEnemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 170.43, 262.831 )
 

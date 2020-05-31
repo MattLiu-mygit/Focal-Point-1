@@ -1,12 +1,13 @@
 extends Node
 
+signal enemy_died
+
 export (int) var max_health = 1
 
 onready var health : int = max_health setget set_health
 
-signal enemy_died
 
-func set_health(value: int):
+func set_health(value: int) -> void:
 	# warning-ignore:narrowing_conversion
 	health = clamp(value, 0, max_health)
 	if health == 0:

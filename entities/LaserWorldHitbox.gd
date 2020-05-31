@@ -1,30 +1,34 @@
 extends "res://entities/Hitbox.gd"
 
-onready var collider = $Collider
+
 var colliding = false
-onready var originalSize = get_parent().get_parent().get_parent().scale.y
-onready var laserScale = get_parent().get_parent().get_parent()
+
+onready var collider : CollisionShape2D = $Collider
+# Gets the scale of the laser sprite.
+onready var laser_scale := get_parent().get_parent().get_parent()
+onready var original_size : int = laser_scale.scale.y
+
 
 # When colliding, laser scale sheaths. When not colliding, laser increases length.
-func _process(delta):
-	if colliding == false and laserScale.scale.y < originalSize*0.8:
-		laserScale.scale.y += 0.4
+func _process(_delta) -> void:
+	if not colliding and laser_scale.scale.y < original_size*0.8:
+		laser_scale.scale.y += 0.4
 		
-	if colliding == true and laserScale.scale.y > 10:
-		laserScale.scale.y -= 1
+	if not colliding and laser_scale.scale.y > 10:
+		laser_scale.scale.y -= 1
 
-func _on_WorldHitbox_area_entered(area):
+
+func _on_WorldHitbox_area_entered(_area) -> void:
 	colliding = true
 
 
-func _on_WorldHitbox_body_entered(body):
+func _on_WorldHitbox_body_entered(_body) -> void:
 	colliding = true
 
 
-func _on_WorldHitbox_area_exited(area):
+func _on_WorldHitbox_area_exited(_area) -> void:
 	colliding = false
 
 
-func _on_WorldHitbox_body_exited(body):
+func _on_WorldHitbox_body_exited(_body) -> void:
 	colliding = false
-

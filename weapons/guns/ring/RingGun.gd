@@ -20,7 +20,6 @@ func set_gun_rotation(_mouse_angle: float) -> void:
 			rotation += deg2rad(-15)
 		else:
 			rotation += deg2rad(15)
-	
 
 
 func instance_bullet(Bullet_: PackedScene) -> Bullet:

@@ -8,8 +8,8 @@ class_name Gun
 
 enum HurtboxMaskBit {
 	NONE = -1,
-	PLAYER = 4,
-	ENEMY = 3
+	PLAYER = 3,
+	ENEMY = 4
 }
 
 export (float) var FIRE_RATE
@@ -18,7 +18,7 @@ export (HurtboxMaskBit) var MASK_BIT = HurtboxMaskBit.NONE
 
 var gun_rotation := 0
 
-onready var fire_rate_timer: Timer = $FireRateTimer
+onready var fire_rate_timer : Timer = $FireRateTimer
 
 
 func _ready() -> void:
@@ -43,10 +43,9 @@ func set_gun_rotation(mouse_angle: float) -> void:
 # Subscenes are responsible for further initializing the bullet.
 func instance_bullet(Bullet_: PackedScene) -> Bullet:
 	# Bullets don't know which entity to hit, so the gun is responsible for that.
-	var bullet: Bullet = Utils.instance_scene_on_main(
-						 Bullet_, global_position)
+	var bullet: Bullet = Utils.instance_scene_on_main(Bullet_, global_position)
 	bullet.hitbox.set_collision_mask_bit(MASK_BIT, true)
-	if MASK_BIT == HurtboxMaskBit.ENEMY:
+	if MASK_BIT == HurtboxMaskBit.PLAYER:
 		bullet.modulate = Color.red
 	return bullet
 

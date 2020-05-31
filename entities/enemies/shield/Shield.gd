@@ -1,10 +1,12 @@
 extends Sprite
 
-onready var EnemyStats = $EnemyStats
+onready var EnemyStats : Node = $EnemyStats
 
-func _on_EnemyStats_enemy_died():
+
+func _on_EnemyStats_enemy_died() -> void:
 	queue_free()
 
-func _on_Hurtbox_hit(damage):
+
+func _on_Hurtbox_hit(damage) -> void:
 	EnemyStats.health -= damage
 

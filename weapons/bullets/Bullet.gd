@@ -20,7 +20,6 @@ func collision_test() -> void:
 		handle_kinematic_collision(collision)
 
 
-
 func update_motion(_delta: float) -> void:
 	pass
 
@@ -39,11 +38,9 @@ func _on_VisibilityNotifier_viewport_exited(_viewport: Viewport) -> void:
 	queue_free()
 
 
-# warning-ignore:unused_argument
-func _on_Hitbox_area_entered(area):
+func _on_Hitbox_area_entered(_area) -> void:
 	queue_free()
 
 
-# warning-ignore:unused_argument
-func _on_Hitbox_body_entered(body):
+func _on_Hitbox_body_entered(_body) -> void:
 	queue_free()
