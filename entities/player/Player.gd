@@ -22,14 +22,8 @@ var motion := Vector2.ZERO
 var jumped := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
-onready var gun: Gun = $BasicGun
+onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
-
-
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("rotate"):
-		gun.rotate_gun()
-		mouse_helper.rotate_mouse()
 
 
 func _physics_process(delta: float) -> void:
@@ -101,3 +95,11 @@ func move() -> void:
 
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
+
+
+func _on_PlayerGuns_gun_rotated() -> void:
+	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
+
+
+func _on_PlayerGuns_gun_swapped() -> void:
+	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
