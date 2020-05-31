@@ -10,13 +10,13 @@ export(int) var pause_time = 3
 var start_x
 var motion_x
 
-onready var sprite : Sprite = $Sprite
+onready var sprite: Sprite = $Sprite
 onready var floor_left: RayCast2D = $FloorLeft
 onready var floor_right: RayCast2D = $FloorRight
-onready var wall : RayCast2D = $Wall
-onready var timer : Timer = $PatrolTimer
-onready var hurtbox : Area2D = $Hurtbox
-onready var collider : Area2D = $Collider
+onready var wall: RayCast2D = $Wall
+onready var timer: Timer = $PatrolTimer
+onready var hurtbox: Area2D = $Hurtbox
+onready var collider: Area2D = $Collider
 
 
 func _ready():

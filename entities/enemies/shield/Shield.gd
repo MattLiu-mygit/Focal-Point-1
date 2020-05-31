@@ -1,6 +1,6 @@
 extends Sprite
 
-onready var EnemyStats : Node = $EnemyStats
+onready var EnemyStats:= $EnemyStats
 
 
 func _on_EnemyStats_enemy_died() -> void:

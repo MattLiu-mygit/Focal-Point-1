@@ -16,9 +16,9 @@ export (float) var FIRE_RATE
 export (int) var BULLET_SPEED
 export (HurtboxMaskBit) var MASK_BIT = HurtboxMaskBit.NONE
 
-var gun_rotation := 0
+var gun_rotation:= 0
 
-onready var fire_rate_timer : Timer = $FireRateTimer
+onready var fire_rate_timer: Timer = $FireRateTimer
 
 
 func _ready() -> void:

@@ -21,9 +21,9 @@ var stats : PlayerStats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
 
-onready var jump_delay_timer : Timer = $JumpDelayTimer
-onready var gun : Gun = $RingGun
-onready var mouse_helper : Sprite = $MouseHelper
+onready var jump_delay_timer: Timer = $JumpDelayTimer
+onready var gun: Gun = $RingGun
+onready var mouse_helper: Sprite = $MouseHelper
 
 
 func _process(_delta: float) -> void:

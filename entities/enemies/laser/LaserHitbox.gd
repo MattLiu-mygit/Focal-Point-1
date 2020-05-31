@@ -3,10 +3,10 @@ extends "res://entities/Hitbox.gd"
 
 var colliding = false
 
-onready var collider : CollisionShape2D = $Collider
+onready var collider: CollisionShape2D = $Collider
 # Gets the scale of the laser sprite.
-onready var laser_sprite : Sprite = get_parent().get_parent().get_parent()
-onready var original_size : float = laser_sprite.scale.y
+onready var laser_sprite: Sprite = get_parent().get_parent().get_parent()
+onready var original_size: float = laser_sprite.scale.y
 
 
 # When colliding, laser scale sheaths. When not colliding, laser increases length.

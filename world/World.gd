@@ -1,7 +1,7 @@
 extends Node2D
 # The World is the level loader and the scene where everything takes place.
 
-onready var player : Player = $Player
+onready var player: Player = $Player
 
 var mouse_cursor = load("res://MouseCursor.png")
 

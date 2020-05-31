@@ -4,9 +4,9 @@ class_name Bullet
 # Once initialized from a gun, they should move in their defined pattern without
 # any other modifications.
 
-var motion := Vector2.ZERO
+var motion:= Vector2.ZERO
 
-onready var hitbox : Area2D = $Hitbox
+onready var hitbox: Area2D = $Hitbox
 
 
 func _physics_process(delta: float) -> void:

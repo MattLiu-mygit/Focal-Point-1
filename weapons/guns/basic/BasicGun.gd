@@ -1,7 +1,7 @@
 extends Gun
 # The basic gun fires a basic bullet four times per second.
 
-const BasicBullet := preload("res://weapons/bullets/basic/BasicBullet.tscn")
+const BasicBullet:= preload("res://weapons/bullets/basic/BasicBullet.tscn")
 
 
 func instance_bullet(Bullet_: PackedScene) -> Bullet:

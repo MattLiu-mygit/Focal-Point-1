@@ -4,7 +4,7 @@ signal enemy_died
 
 export (int) var max_health = 1
 
-onready var health : int = max_health setget set_health
+onready var health: int = max_health setget set_health
 
 
 func set_health(value: int) -> void:
