@@ -14,8 +14,6 @@ extents = Vector2( 8, 8 )
 modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 0, -8 )
 script = ExtResource( 3 )
-LEFTBOUND = 10
-RIGHTBOUND = 10
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 4, -4 )
@@ -44,7 +42,7 @@ max_health = 3
 
 [node name="Wall" parent="." index="4"]
 position = Vector2( 8, -3 )
-scale = Vector2( 2, 2 )
+scale = Vector2( 2, 1 )
 
 [node name="WallRight" parent="." index="5"]
 position = Vector2( 12, 3 )
@@ -54,5 +52,10 @@ position = Vector2( 1, 8 )
 
 [node name="FloorRight" parent="." index="7"]
 position = Vector2( 14, 8 )
+
+[node name="PatrolTimer" type="Timer" parent="." index="8"]
+wait_time = 3.0
+one_shot = true
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

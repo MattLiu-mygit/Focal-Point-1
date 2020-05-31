@@ -21,15 +21,20 @@ position = Vector2( 51, 260 )
 remote_path = NodePath("../../Camera")
 
 [node name="RingGun" parent="Player" index="4"]
-MASK_BIT = 3
+MASK_BIT = 4
 
 [node name="BasicEnemy" parent="." instance=ExtResource( 4 )]
 position = Vector2( 170.43, 262.831 )
 
 [node name="ShieldEnemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 107, 265 )
-scale = Vector2( -1, 1 )
-SPEED = 0
+position = Vector2( 222.415, 263.501 )
+SPEED = 30
+LEFT_BOUND = 1000000
+RIGHT_BOUND = 10000000
+
+[node name="Wall" parent="ShieldEnemy" index="4"]
+position = Vector2( 8, -3.14989 )
+cast_to = Vector2( -6, 0 )
 
 [node name="LaserEnemy" parent="." instance=ExtResource( 6 )]
 position = Vector2( 130, 180 )
