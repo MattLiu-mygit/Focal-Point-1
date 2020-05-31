@@ -27,14 +27,13 @@ MASK_BIT = 4
 position = Vector2( 170.43, 262.831 )
 
 [node name="ShieldEnemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( 222.415, 263.501 )
+position = Vector2( 211.323, 262.302 )
 SPEED = 30
-LEFT_BOUND = 1000000
-RIGHT_BOUND = 10000000
+LEFT_BOUND = 100000000000
+RIGHT_BOUND = 100000000000000
 
 [node name="Wall" parent="ShieldEnemy" index="4"]
 position = Vector2( 8, -3.14989 )
-cast_to = Vector2( -6, 0 )
 
 [node name="LaserEnemy" parent="." instance=ExtResource( 6 )]
 position = Vector2( 130, 180 )

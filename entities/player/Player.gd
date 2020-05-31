@@ -32,6 +32,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("rotate"):
 		gun.rotate_gun()
 		mouse_helper.rotate_mouse()
+	check_death();
 
 
 func _physics_process(delta: float) -> void:
@@ -99,6 +100,11 @@ func move() -> void:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
+
+
+func check_death():
+	if stats.health == 0:
+		queue_free()
 
 
 func _on_Hurtbox_hit(damage: int) -> void:

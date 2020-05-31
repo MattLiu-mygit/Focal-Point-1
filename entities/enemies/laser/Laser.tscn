@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/LaserWorldHitbox.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/laser/LaserHitbox.gd" type="Script" id=1]
 [ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
