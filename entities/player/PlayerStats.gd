@@ -4,6 +4,7 @@ class_name PlayerStats
 
 export (int) var max_health := 3
 var health := max_health setget set_health
+var selected_level: PackedScene = null
 var ring_gun_unlocked := false
 var reflect_gun_unlocked := false
 var rotate_gun_unlocked := false
