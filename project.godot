@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://entities/player/PlayerStats.gd"
+}, {
+"base": "Node2D",
+"class": "Room",
+"language": "GDScript",
+"path": "res://world/levels/Room.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
@@ -45,13 +50,14 @@ _global_script_class_icons={
 "GitAPI": "",
 "Gun": "",
 "Player": "",
-"PlayerStats": ""
+"PlayerStats": "",
+"Room": ""
 }
 
 [application]
 
 config/name="Focal Point"
-run/main_scene="res://world/World.tscn"
+run/main_scene="res://gui/screens/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -147,6 +153,11 @@ swap_right={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":46,"unicode":0,"echo":false,"script":null)
  ]
 }
+temp_next_level={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":78,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -158,4 +169,5 @@ swap_right={
 
 [rendering]
 
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

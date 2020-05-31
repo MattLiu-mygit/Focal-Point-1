@@ -1,16 +1,25 @@
 extends Node2D
 # The World is the level loader and the scene where everything takes place.
 
-onready var camera : Camera2D = $Camera
-onready var player : Player = $Player
+var mouse_cursor := load("res://MouseCursor.png")
+# Assigned when level is selected and when transitioning levels
+var player_stats = ResourceLoader.player_stats
 
-var mouse_cursor = load("res://MouseCursor.png")
+onready var camera: Camera2D = $Camera
+onready var player: Player = $Player
+onready var room: Room = $TestingRoom
+
 
 func _ready() -> void:
-	VisualServer.set_default_clear_color(Color.black)
+	if player_stats.selected_level != null:
+		set_room(player_stats.selected_level)
 	Input.set_custom_mouse_cursor(mouse_cursor)
 
 
-func _process(_delta: float) -> void:
-	# TODO: Cases where player moves out of camera's y-frame
-	camera.global_position.x = player.global_position.x
+func set_room(room_: PackedScene):
+	if room:
+		remove_child(room)
+		room.queue_free()
+	room = room_.instance()
+	add_child(room)
+	player.position = room.player_start_position
