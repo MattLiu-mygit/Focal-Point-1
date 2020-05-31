@@ -46,7 +46,7 @@ func instance_bullet(Bullet_: PackedScene) -> Bullet:
 	var bullet: Bullet = Utils.instance_scene_on_main(
 						 Bullet_, global_position)
 	bullet.hitbox.set_collision_mask_bit(MASK_BIT, true)
-	if MASK_BIT == HurtboxMaskBit.ENEMY:
+	if MASK_BIT == HurtboxMaskBit.PLAYER:
 		bullet.modulate = Color.red
 	return bullet
 
