@@ -17,12 +17,12 @@ export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
 
-var stats : PlayerStats = ResourceLoader.player_stats
+var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
-onready var gun: Gun = $RingGun
+onready var gun: Gun = $BasicGun
 onready var mouse_helper: Sprite = $MouseHelper
 
 
