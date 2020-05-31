@@ -95,6 +95,7 @@ func move() -> void:
 
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
+	check_death();
 
 
 func _on_PlayerGuns_gun_rotated() -> void:

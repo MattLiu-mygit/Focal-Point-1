@@ -63,10 +63,6 @@ func swap_previous_gun() -> void:
 	_enable(current_gun)
 
 
-func rotate_gun() -> void:
-	current_gun.rotate_gun()
-
-
 func get_gun_rotation() -> int:
 	return current_gun.gun_rotation
 
