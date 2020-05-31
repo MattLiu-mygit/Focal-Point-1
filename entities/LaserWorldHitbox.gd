@@ -7,8 +7,8 @@ onready var laserScale = get_parent().get_parent().get_parent()
 
 # When colliding, laser scale sheaths. When not colliding, laser increases length.
 func _process(delta):
-	if colliding == false and laserScale.scale.y < originalSize:
-		laserScale.scale.y += 0.1
+	if colliding == false and laserScale.scale.y < originalSize*0.8:
+		laserScale.scale.y += 0.4
 		
 	if colliding == true and laserScale.scale.y > 10:
 		laserScale.scale.y -= 1
