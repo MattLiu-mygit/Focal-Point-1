@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
@@ -59,3 +60,31 @@ one_shot = true
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]
+=======
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/shield/ShieldEnemy.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5.77083, 10.0578 )
+
+[node name="ShieldEnemy" instance=ExtResource( 1 )]
+modulate = Color( 1, 1, 1, 1 )
+scale = Vector2( 2, 2 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( -4, -4 )
+texture = ExtResource( 2 )
+
+[node name="Collider" parent="." index="1"]
+scale = Vector2( 1.38628, 0.795405 )
+shape = SubResource( 1 )
+
+[node name="Shield" type="StaticBody2D" parent="." index="2"]
+collision_mask = 0
+
+[node name="Collider" type="CollisionPolygon2D" parent="Shield" index="0"]
+scale = Vector2( 1.75277, 1.37328 )
+polygon = PoolVector2Array( -5, -6, 5, -6, 2, -9, -5, -9, -7, -6, -7, 3, -5, 6 )
+>>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d

@@ -17,15 +17,16 @@ export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
 
-var stats : PlayerStats = ResourceLoader.player_stats
+var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
-onready var gun: Gun = $RingGun
+onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
 
 
+<<<<<<< HEAD
 func _process(_delta: float) -> void:
 	if stats.health == 0:
 		queue_free()
@@ -35,6 +36,8 @@ func _process(_delta: float) -> void:
 	check_death();
 
 
+=======
+>>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
 func _physics_process(delta: float) -> void:
 	jumped = false
 	var run_strength := get_run_strength()
@@ -111,3 +114,12 @@ func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
 
 
+<<<<<<< HEAD
+=======
+func _on_PlayerGuns_gun_rotated() -> void:
+	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
+
+
+func _on_PlayerGuns_gun_swapped() -> void:
+	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
+>>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d

@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://gui/DefaultTheme.tres" type="Theme" id=2]
+[ext_resource path="res://gui/ThaleahFat_TTF.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://gui/screens/LevelSelectMenu.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+extra_spacing_char = 4
+font_data = ExtResource( 3 )
+
+[node name="LevelSelectMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelNumberLabel" type="Label" parent="VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 32 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Level 0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ArrowsAndImage" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 512.0
+margin_bottom = 263.0
+size_flags_vertical = 3
+
+[node name="LeftButton" type="Button" parent="VBoxContainer/ArrowsAndImage"]
+margin_right = 28.0
+margin_bottom = 227.0
+rect_min_size = Vector2( 28, 0 )
+
+[node name="LevelPreview" type="TextureRect" parent="VBoxContainer/ArrowsAndImage"]
+margin_left = 32.0
+margin_right = 480.0
+margin_bottom = 227.0
+size_flags_horizontal = 3
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightButton" type="Button" parent="VBoxContainer/ArrowsAndImage"]
+margin_left = 484.0
+margin_right = 512.0
+margin_bottom = 227.0
+rect_min_size = Vector2( 28, 0 )
+
+[node name="Select" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 267.0
+margin_right = 512.0
+margin_bottom = 288.0
+
+[node name="Space" type="Control" parent="VBoxContainer/Select"]
+margin_right = 28.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 28, 0 )
+
+[node name="SelectButton" type="Button" parent="VBoxContainer/Select"]
+margin_left = 32.0
+margin_right = 480.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 448, 0 )
+text = "Select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Space2" type="Control" parent="VBoxContainer/Select"]
+margin_left = 484.0
+margin_right = 512.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 28, 0 )
+[connection signal="pressed" from="VBoxContainer/ArrowsAndImage/LeftButton" to="." method="_on_LeftButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/ArrowsAndImage/RightButton" to="." method="_on_RightButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Select/SelectButton" to="." method="_on_SelectButton_pressed"]
