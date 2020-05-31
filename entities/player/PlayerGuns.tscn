@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/player/PlayerGuns.gd" type="Script" id=1]
+[ext_resource path="res://weapons/guns/reflect/ReflectGun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://weapons/guns/ring/RingGun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapons/guns/basic/BasicGun.tscn" type="PackedScene" id=4]
+
+[node name="PlayerGuns" type="Node2D"]
+script = ExtResource( 1 )
+debug = true
+
+[node name="BasicGun" parent="." instance=ExtResource( 4 )]
+visible = false
+MASK_BIT = 4
+
+[node name="RingGun" parent="." instance=ExtResource( 3 )]
+visible = false
+MASK_BIT = 4
+
+[node name="ReflectGun" parent="." instance=ExtResource( 2 )]
+visible = false
+MASK_BIT = 4

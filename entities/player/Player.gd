@@ -40,7 +40,7 @@ func get_run_strength() -> float:
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
-func apply_horizontal_force(run_strength: float, delta: float):
+func apply_horizontal_force(run_strength: float, delta: float) -> void:
 	motion.x += run_strength * ACCELERATION * delta
 	if Input.is_action_pressed("run"):
 		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
@@ -91,6 +91,11 @@ func move() -> void:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
+
+
+func check_death():
+	if stats.health == 0:
+		queue_free()
 
 
 func _on_Hurtbox_hit(damage: int) -> void:
