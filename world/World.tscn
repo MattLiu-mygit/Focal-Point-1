@@ -17,7 +17,7 @@ tile_data = PoolIntArray( 0, 0, 0, 65536, 0, 65536, 131072, 0, 65536, 196608, 0,
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 51, 260 )
 
-[node name="CameraFollow" parent="Player" index="6"]
+[node name="CameraFollow" parent="Player" index="3"]
 remote_path = NodePath("../../Camera")
 
 [node name="BasicEnemy" parent="." instance=ExtResource( 4 )]
@@ -25,9 +25,11 @@ position = Vector2( 170.43, 262.831 )
 
 [node name="ShieldEnemy" parent="." instance=ExtResource( 5 )]
 position = Vector2( 107, 265 )
+scale = Vector2( -1, 1 )
+SPEED = 0
 
 [node name="LaserEnemy" parent="." instance=ExtResource( 6 )]
-position = Vector2( 226, 268 )
+position = Vector2( 130, 180 )
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 51, 260 )
