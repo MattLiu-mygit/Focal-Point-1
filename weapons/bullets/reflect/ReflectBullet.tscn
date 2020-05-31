@@ -9,6 +9,7 @@ extents = Vector2( 3, 3 )
 
 [node name="ReflectBullet" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
+BOUNCES = 1
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
