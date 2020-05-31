@@ -3,11 +3,7 @@ extends Gun
 # It hits where the mouse is pointed at, but continues curving. Its rotation
 # always points to the path that the ellipse will travel in.
 
-<<<<<<< HEAD
-const RingBullet:= preload("res://weapons/bullets/ring/RingBullet.tscn")
-=======
 const RingBullet := preload("res://weapons/bullets/ring/RingBullet.tscn")
->>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
 
 
 func set_gun_rotation(_mouse_angle: float) -> void:
@@ -24,6 +20,7 @@ func set_gun_rotation(_mouse_angle: float) -> void:
 			rotation += deg2rad(-15)
 		else:
 			rotation += deg2rad(15)
+	
 
 
 func instance_bullet(Bullet_: PackedScene) -> Bullet:

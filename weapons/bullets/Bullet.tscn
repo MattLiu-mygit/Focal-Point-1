@@ -14,11 +14,8 @@ script = ExtResource( 1 )
 [node name="Collider" type="CollisionShape2D" parent="."]
 
 [node name="Hitbox" parent="." instance=ExtResource( 2 )]
-DAMAGE = 1
 
 [node name="VisibilityNotifier" type="VisibilityNotifier2D" parent="."]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="viewport_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_viewport_exited"]
 
 [editable path="Hitbox"]

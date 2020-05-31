@@ -29,24 +29,14 @@ collision_layer = 8
 position = Vector2( 0, -12 )
 shape = SubResource( 1 )
 
-<<<<<<< HEAD
-[node name="CameraFollow" type="RemoteTransform2D" parent="."]
-update_rotation = false
-update_scale = false
-
-[node name="RingGun" parent="." instance=ExtResource( 4 )]
-rotation = -1.57079
-=======
 [node name="PlayerGuns" parent="." instance=ExtResource( 4 )]
 show_behind_parent = true
->>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
 
 [node name="JumpDelayTimer" type="Timer" parent="."]
 wait_time = 0.06
 one_shot = true
 
 [node name="MouseHelper" parent="." instance=ExtResource( 6 )]
-visible = true
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="gun_rotated" from="PlayerGuns" to="." method="_on_PlayerGuns_gun_rotated"]
 [connection signal="gun_swapped" from="PlayerGuns" to="." method="_on_PlayerGuns_gun_swapped"]

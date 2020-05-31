@@ -3,11 +3,7 @@ extends Sprite
 # mouse with respect to the current rotation. Bullets will target this 
 # cursor instead of the mouse because everything is relative to the mouse.
 
-<<<<<<< HEAD
-var mouse_rotation:= 0
-=======
 var mouse_rotation := 0 setget set_mouse_rotation
->>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
 
 
 func _process(_delta: float) -> void:

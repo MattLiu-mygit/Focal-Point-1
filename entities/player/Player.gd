@@ -26,18 +26,6 @@ onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
 
 
-<<<<<<< HEAD
-func _process(_delta: float) -> void:
-	if stats.health == 0:
-		queue_free()
-	if Input.is_action_just_pressed("rotate"):
-		gun.rotate_gun()
-		mouse_helper.rotate_mouse()
-	check_death();
-
-
-=======
->>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
 func _physics_process(delta: float) -> void:
 	jumped = false
 	var run_strength := get_run_strength()
@@ -52,7 +40,7 @@ func get_run_strength() -> float:
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
-func apply_horizontal_force(run_strength: float, delta: float) -> void:
+func apply_horizontal_force(run_strength: float, delta: float):
 	motion.x += run_strength * ACCELERATION * delta
 	if Input.is_action_pressed("run"):
 		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
@@ -105,21 +93,13 @@ func move() -> void:
 		jump_delay_timer.start()
 
 
-func check_death():
-	if stats.health == 0:
-		queue_free()
-
-
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
 
 
-<<<<<<< HEAD
-=======
 func _on_PlayerGuns_gun_rotated() -> void:
 	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
 
 
 func _on_PlayerGuns_gun_swapped() -> void:
 	mouse_helper.set_mouse_rotation(guns.get_gun_rotation())
->>>>>>> be8cb45f034842d0b5d1630d8d463c6edacf910d
