@@ -17,7 +17,7 @@ onready var hurtbox: Area2D = $Hurtbox
 onready var collider: Area2D = $Collider
 
 
-func _ready():
+func _ready() -> void:
 	start_x = position.x
 	motion.x = SPEED * WALKING_DIRECTION
 	patrol_timer.wait_time = pause_time
