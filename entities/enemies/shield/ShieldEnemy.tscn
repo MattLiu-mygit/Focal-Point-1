@@ -41,7 +41,7 @@ position = Vector2( 8, 0 )
 shape = SubResource( 2 )
 
 [node name="Wall" parent="." index="4"]
-position = Vector2( 8, -3 )
+position = Vector2( 8, 0 )
 scale = Vector2( 2, 1 )
 
 [node name="WallRight" parent="." index="5"]

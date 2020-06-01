@@ -9,6 +9,7 @@ export(int) var pause_time = 3
 
 var start_x
 var motion_x
+var position_mod
 
 onready var sprite: Sprite = $Sprite
 onready var floor_left: RayCast2D = $FloorLeft
@@ -23,13 +24,13 @@ func _ready():
 	start_x = position.x
 	motion.x = SPEED * WALKING_DIRECTION
 	patrol_timer.wait_time = pause_time
+	position_mod = collider.position.x
 
 
 # Basically rotates the beam so that it's pointed at the mouse. It also doesn't rotate
 # 360 degrees, so it doesn't flip upside down and is like a little turtle tank.
 func _process(_delta: float) -> void:
 	var rotation_angle = get_local_mouse_position().angle() + deg2rad(90)
-	var position_mod = hurtbox.position.x
 	
 	if rotation_angle < 0 or rotation_angle > deg2rad(180):
 		rotation_angle = 0
@@ -42,14 +43,14 @@ func _process(_delta: float) -> void:
 	collider.rotation = rotation_angle 
 	
 
-# Checks for two cases in which special action needs to occur: 
-# NTS: USE DELTA
-func _physics_process(_delta: float) -> void:
+# Checks for two cases in which special action needs to occur:
+func _physics_process(delta: float) -> void:
 	if not floor_right.is_colliding() or not floor_left.is_colliding() or wall.is_colliding():
 		patrol_flip()
 	if not in_patrol_area():
 		return_to_patrol_area()
 	motion = move_and_slide_with_snap(motion, Vector2.DOWN * 8, Vector2.UP, true, 4, deg2rad(46))
+	motion.x *= delta
 
 
 # A check to see if it's in the right direction
