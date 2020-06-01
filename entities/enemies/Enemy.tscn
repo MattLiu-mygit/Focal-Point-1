@@ -11,12 +11,12 @@ script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="EnemyStats" parent="." instance=ExtResource( 3 )]
 
 [node name="Hurtbox" parent="." instance=ExtResource( 2 )]
 collision_layer = 16
 
-[node name="EnemyStats" parent="." instance=ExtResource( 3 )]
+[node name="Collider" type="CollisionShape2D" parent="."]
 
 [node name="Wall" type="RayCast2D" parent="."]
 enabled = true
@@ -34,5 +34,5 @@ enabled = true
 cast_to = Vector2( 0, 6 )
 
 [node name="AutoShoot" type="Timer" parent="."]
-[connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="enemy_died" from="EnemyStats" to="." method="_on_EnemyStats_enemy_died"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]

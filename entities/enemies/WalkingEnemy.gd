@@ -15,7 +15,7 @@ onready var floor_left: RayCast2D = $FloorLeft
 onready var floor_right: RayCast2D = $FloorRight
 onready var wall: RayCast2D = $Wall
 onready var patrol_timer: Timer = $PatrolTimer
-onready var hurtbox: Area2D = $Hurtbox
+onready var hurtbox: Area2D = $Hurtbox/Collider
 onready var collider: Area2D = $Collider
 
 
@@ -29,14 +29,18 @@ func _ready():
 # 360 degrees, so it doesn't flip upside down and is like a little turtle tank.
 func _process(_delta: float) -> void:
 	var rotation_angle = get_local_mouse_position().angle() + deg2rad(90)
+	var position_mod = hurtbox.position.x
+	
 	if rotation_angle < 0 or rotation_angle > deg2rad(180):
 		rotation_angle = 0
 	elif rotation_angle > deg2rad(90):
 		rotation_angle  = deg2rad(90)
 	sprite.rotation = rotation_angle
+	hurtbox.position.x = -position_mod * rad2deg(rotation_angle)/90 + position_mod
 	hurtbox.rotation = rotation_angle
-	collider.rotation = rotation_angle
-
+	collider.position.x = -position_mod * rad2deg(rotation_angle)/90 + position_mod
+	collider.rotation = rotation_angle 
+	
 
 # Checks for two cases in which special action needs to occur: 
 # NTS: USE DELTA

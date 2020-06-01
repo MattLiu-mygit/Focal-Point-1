@@ -29,16 +29,16 @@ position = Vector2( 9.53674e-07, 0 )
 scale = Vector2( 1.753, 1.373 )
 polygon = PoolVector2Array( -4.56361, -5.82666, 4.56361, -5.82666, 2, -9, -5, -9, -6.84541, -6.55499, -6.84541, 2.91333, -4.56361, 5.82666 )
 
-[node name="Collider" parent="." index="1"]
-position = Vector2( 8, 0 )
-shape = SubResource( 1 )
+[node name="EnemyStats" parent="." index="1"]
+max_health = 3
 
 [node name="Collider" parent="Hurtbox" index="0"]
 position = Vector2( 8, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
-[node name="EnemyStats" parent="." index="3"]
-max_health = 3
+[node name="Collider" parent="." index="3"]
+position = Vector2( 8, 0 )
+shape = SubResource( 2 )
 
 [node name="Wall" parent="." index="4"]
 position = Vector2( 8, -3 )
@@ -50,12 +50,12 @@ position = Vector2( 12, 3 )
 [node name="FloorLeft" parent="." index="6"]
 position = Vector2( 1, 8 )
 
-[node name="FloorRight" parent="." index="7"]
-position = Vector2( 14, 8 )
-
-[node name="PatrolTimer" type="Timer" parent="." index="8"]
+[node name="PatrolTimer" type="Timer" parent="." index="7"]
 wait_time = 3.0
 one_shot = true
+
+[node name="FloorRight" parent="." index="8"]
+position = Vector2( 14, 8 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

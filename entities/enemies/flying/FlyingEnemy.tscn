@@ -27,8 +27,6 @@ tracks/0/keys = {
 [node name="FlyingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
 SPEED = 50
-LEFT_BOUND = 100
-RIGHT_BOUND = 100
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -39,14 +37,14 @@ position = Vector2( -0.138817, 7.84028 )
 MASK_BIT = 3
 auto_fire = true
 
-[node name="Collider" parent="." index="1"]
-position = Vector2( 0, 3 )
-shape = ExtResource( 2 )
-
 [node name="Hurtbox" parent="." index="2"]
 gravity = 0.0
 
 [node name="Collider" parent="Hurtbox" index="0"]
+position = Vector2( 0, 3 )
+shape = ExtResource( 2 )
+
+[node name="Collider" parent="." index="3"]
 position = Vector2( 0, 3 )
 shape = ExtResource( 2 )
 
