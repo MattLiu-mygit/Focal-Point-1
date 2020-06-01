@@ -1,4 +1,6 @@
 extends Camera2D
+# The Camera plays an important role in aiming because it can add more
+# space when the Player is limited by the screen's size.
 
 export (Vector2) var WINDOW_SIZE
 export (int) var HORIZONTAL_SCROLL
@@ -6,7 +8,8 @@ export (int) var VERTICAL_SCROLL
 
 
 func _process(_delta: float) -> void:
-	var center : Vector2 = WINDOW_SIZE / 2	
+	var center : Vector2 = WINDOW_SIZE / 2
+	# Scope similar to Terraria's Sniper Scope accessory
 	if Input.is_action_pressed("scope"):
 		smoothing_enabled = false
 		var mouse_position := get_local_mouse_position()

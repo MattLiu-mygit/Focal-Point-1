@@ -1,5 +1,5 @@
 extends Node2D
-# The World is the level loader and the scene where everything takes place.
+# The World is the Room loader and the scene where gameplay takes place.
 
 var mouse_cursor := load("res://MouseCursor.png")
 # Assigned when level is selected and when transitioning levels
