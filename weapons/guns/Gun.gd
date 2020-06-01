@@ -25,14 +25,15 @@ onready var fire_rate_timer: Timer = $FireRateTimer
 func _ready() -> void:
 	fire_rate_timer.wait_time = FIRE_RATE
 
-
+# If autofire is on(for enemies), bullets will automatically fire. 
+# Thus, there's a double bullet penalty for enemy fire(basically a double shot
+# at you by the enemy if you fire)
 func _process(_delta: float) -> void:
 	var shooter = get_parent()
 	set_gun_rotation(shooter.get_local_mouse_position().angle())
 	if Input.is_action_pressed("fire") and fire_rate_timer.time_left == 0:
 		fire()
 	if auto_fire and fire_rate_timer.time_left == 0:
-		#fire_rate_timer.one_shot = false
 		fire()
 
 
