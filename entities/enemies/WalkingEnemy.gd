@@ -39,6 +39,7 @@ func _process(_delta: float) -> void:
 
 
 # Checks for two cases in which special action needs to occur: 
+# NTS: USE DELTA
 func _physics_process(_delta: float) -> void:
 	if not floor_right.is_colliding() or not floor_left.is_colliding() or wall.is_colliding():
 		patrol_flip()

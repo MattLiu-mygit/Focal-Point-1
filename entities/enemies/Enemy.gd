@@ -14,4 +14,3 @@ func _on_Hurtbox_hit(damage: int) -> void:
 
 func _on_EnemyStats_enemy_died() -> void:
 	queue_free()
-

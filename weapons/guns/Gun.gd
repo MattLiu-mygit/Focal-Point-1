@@ -15,6 +15,7 @@ enum HurtboxMaskBit {
 export (float) var FIRE_RATE
 export (int) var BULLET_SPEED
 export (HurtboxMaskBit) var MASK_BIT = HurtboxMaskBit.NONE
+export (bool) var auto_fire = false
 
 var gun_rotation := 0
 
@@ -29,6 +30,9 @@ func _process(_delta: float) -> void:
 	var shooter = get_parent()
 	set_gun_rotation(shooter.get_local_mouse_position().angle())
 	if Input.is_action_pressed("fire") and fire_rate_timer.time_left == 0:
+		fire()
+	if auto_fire and fire_rate_timer.time_left == 0:
+		#fire_rate_timer.one_shot = false
 		fire()
 
 

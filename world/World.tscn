@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://world/levels/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/World.gd" type="Script" id=3]
 [ext_resource path="res://world/Camera.gd" type="Script" id=4]
 [ext_resource path="res://entities/enemies/shield/ShieldEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/enemies/basic/BasicEnemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/enemies/laser/LaserEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/enemies/flying/FlyingEnemy.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 3 )
@@ -31,14 +34,23 @@ tile_data = PoolIntArray( 0, 0, 1, 1, 0, 196610, 2, 0, 196610, 3, 0, 196610, 4, 
 
 [node name="ShieldEnemy" parent="." instance=ExtResource( 5 )]
 position = Vector2( 142.813, 263.055 )
+SPEED = 0
+LEFT_BOUND = 10
+RIGHT_BOUND = 10
+
+[node name="LaserEnemy" parent="ShieldEnemy" instance=ExtResource( 7 )]
+position = Vector2( -2.13556, -126.114 )
+
+[node name="BasicEnemy" parent="ShieldEnemy" instance=ExtResource( 6 )]
+position = Vector2( 58.0898, 0.789856 )
+
+[node name="ShieldEnemy2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 239.143, 262.947 )
 SPEED = 50
 LEFT_BOUND = 10
 RIGHT_BOUND = 10
 
-[node name="ShieldEnemy2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 239.143, 262.947 )
-SPEED = 0
-LEFT_BOUND = 10
-RIGHT_BOUND = 10
+[node name="FlyingEnemy" parent="." instance=ExtResource( 8 )]
+position = Vector2( 358.994, 159.167 )
 
 [editable path="TestingRoom"]

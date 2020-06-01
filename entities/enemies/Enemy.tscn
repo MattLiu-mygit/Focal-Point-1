@@ -32,5 +32,7 @@ cast_to = Vector2( 0, 6 )
 [node name="FloorRight" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 6 )
+
+[node name="AutoShoot" type="Timer" parent="."]
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="enemy_died" from="EnemyStats" to="." method="_on_EnemyStats_enemy_died"]
