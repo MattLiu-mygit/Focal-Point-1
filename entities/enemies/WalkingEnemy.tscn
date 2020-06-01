@@ -13,11 +13,11 @@ max_health = 3
 
 [node name="WallLeft" type="RayCast2D" parent="." index="4"]
 enabled = true
-cast_to = Vector2( -6, 0 )
+cast_to = Vector2( -4, 0 )
 
 [node name="WallRight" type="RayCast2D" parent="." index="5"]
 enabled = true
-cast_to = Vector2( 6, 0 )
+cast_to = Vector2( 4, 0 )
 
 [node name="FloorLeft" type="RayCast2D" parent="." index="6"]
 position = Vector2( -4, 0 )

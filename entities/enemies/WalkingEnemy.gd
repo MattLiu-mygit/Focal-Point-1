@@ -1,14 +1,14 @@
 extends Enemy
+# Known bug: Cannot interact with walls, but patrols correctly
 
-enum DIRECTION {LEFT = -1, RIGHT = 1}
+enum Direction {LEFT = -1, RIGHT = 1}
 
-export(DIRECTION) var WALKING_DIRECTION = DIRECTION.LEFT
+export(Direction) var WALKING_DIRECTION = Direction.LEFT
 export(int) var LEFT_BOUND
 export(int) var RIGHT_BOUND
 export(float) var PAUSE_TIME = 1.0
 
 var start_x
-var motion_x
 
 onready var sprite: Sprite = $Sprite
 onready var floor_left: RayCast2D = $FloorLeft
@@ -29,13 +29,13 @@ func _ready():
 func _process(_delta: float) -> void:
 	var facing_direction := sign(get_local_mouse_position().x)
 	if facing_direction != 0:
-		sprite.scale.x = facing_direction
-
+		scale.x = facing_direction
 
 func _physics_process(_delta: float) -> void:
-	motion = move_and_slide(motion, Vector2.UP)
+	# warning-ignore:return_value_discarded
+	move_and_slide(motion, Vector2.UP)	# Probably will be replaced with collide
 	if (not floor_right.is_colliding() or not floor_left.is_colliding() or 
-			wall_left.is_colliding() or wall_right.is_colliding()) or not in_patrol_area():
+			wall_left.is_colliding() or wall_right.is_colliding() or not in_patrol_area()):
 		if motion.x != 0:
 			WALKING_DIRECTION *= -1
 			motion.x = 0
@@ -43,6 +43,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func in_patrol_area() -> bool:
+	if LEFT_BOUND == 0 and RIGHT_BOUND == 0:
+		return true
 	var right_bound = start_x + RIGHT_BOUND
 	var left_bound = start_x - LEFT_BOUND
 	
