@@ -12,6 +12,7 @@ var guns := []
 var gun_index := 0
 var current_gun : Gun
 
+onready var laser_sights: RayCast2D = $LaserSights
 onready var basic_gun: Gun = $BasicGun
 onready var ring_gun: Gun = $RingGun
 onready var reflect_gun: Gun = $ReflectGun
@@ -19,9 +20,10 @@ onready var reflect_gun: Gun = $ReflectGun
 
 # Assume player_stats should already be updated
 func _ready() -> void:
-	basic_gun.set_process(false)
-	ring_gun.set_process(false)
-	reflect_gun.set_process(false)
+	_disable(laser_sights)
+	_disable(basic_gun)
+	_disable(ring_gun)
+	_disable(reflect_gun)
 	unlock_guns()
 
 
@@ -39,6 +41,8 @@ func _process(_delta: float) -> void:
 
 
 func unlock_guns() -> void:
+	if player_stats.laser_sights_unlocked or debug:
+		_enable(laser_sights)
 	if player_stats.basic_gun_unlocked or debug:
 		guns.append(basic_gun)
 	if player_stats.ring_gun_unlocked or debug:
@@ -67,12 +71,12 @@ func get_gun_rotation() -> int:
 	return current_gun.gun_rotation
 
 
-func _enable(gun: Gun) -> void:
-	gun.set_process(true)
-	gun.visible = true
+func _enable(node: Node) -> void:
+	node.set_process(true)
+	node.visible = true
 
 
-func _disable(gun: Gun) -> void:
-	gun.set_process(false)
-	gun.visible = false
+func _disable(node: Node) -> void:
+	node.set_process(false)
+	node.visible = false
 
