@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/enemies/WalkingEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/shield/ShieldEnemy.png" type="Texture" id=2]
 [ext_resource path="res://entities/enemies/shield/ShieldEnemyCollider.tres" type="Shape2D" id=3]
+[ext_resource path="res://weapons/guns/spread/SpreadGun.tscn" type="PackedScene" id=4]
 
 [node name="ShieldEnemy" instance=ExtResource( 1 )]
 modulate = Color( 1, 1, 1, 1 )
@@ -34,10 +35,15 @@ shape = ExtResource( 3 )
 [node name="Collider" parent="Hurtbox" index="0"]
 shape = ExtResource( 3 )
 
-[node name="WallCast" parent="." index="4"]
+[node name="SpreadGun" parent="." index="3" instance=ExtResource( 4 )]
+modulate = Color( 1, 0, 0, 1 )
+AUTO_FIRE = true
+AUTO_FIRE_RATE = 0.5
+
+[node name="WallCast" parent="." index="5"]
 cast_to = Vector2( 12, 0 )
 
-[node name="FloorCast" parent="." index="5"]
+[node name="FloorCast" parent="." index="6"]
 position = Vector2( 8, 0 )
 cast_to = Vector2( 0, 12 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
