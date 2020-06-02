@@ -99,7 +99,6 @@ func move() -> void:
 
 
 func die() -> void:
-	print("Player died, oof")
 	if stats.total_health > 0:
 		stats.total_health -= 3
 		stats.health = stats.total_health
