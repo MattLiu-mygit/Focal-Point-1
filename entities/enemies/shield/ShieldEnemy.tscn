@@ -1,61 +1,50 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/enemies/WalkingEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/shield/ShieldEnemy.png" type="Texture" id=2]
-[ext_resource path="res://entities/enemies/WalkingEnemy.gd" type="Script" id=3]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 8 )
+[ext_resource path="res://entities/enemies/shield/ShieldEnemyCollider.tres" type="Shape2D" id=3]
+[ext_resource path="res://weapons/guns/spread/SpreadGun.tscn" type="PackedScene" id=4]
 
 [node name="ShieldEnemy" instance=ExtResource( 1 )]
 modulate = Color( 1, 1, 1, 1 )
-position = Vector2( 0, -8 )
-script = ExtResource( 3 )
+SPEED = 50
+WALKING_DIRECTION = 1
+LEFT_BOUND = 0
+RIGHT_BOUND = 0
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2( 4, -4 )
 texture = ExtResource( 2 )
+centered = false
+offset = Vector2( -16, -16 )
 
 [node name="Shield" type="StaticBody2D" parent="Sprite" index="0"]
 position = Vector2( 4, 4 )
-collision_layer = 16
+collision_layer = 32
 collision_mask = 0
 
 [node name="Collider" type="CollisionPolygon2D" parent="Sprite/Shield" index="0"]
-position = Vector2( 9.53674e-07, 0 )
+position = Vector2( -4, -4 )
 scale = Vector2( 1.753, 1.373 )
 polygon = PoolVector2Array( -4.56361, -5.82666, 4.56361, -5.82666, 2, -9, -5, -9, -6.84541, -6.55499, -6.84541, 2.91333, -4.56361, 5.82666 )
 
-[node name="EnemyStats" parent="." index="1"]
-max_health = 3
+[node name="Collider" parent="." index="1"]
+position = Vector2( -1, 0 )
+shape = ExtResource( 3 )
 
 [node name="Collider" parent="Hurtbox" index="0"]
+shape = ExtResource( 3 )
+
+[node name="SpreadGun" parent="." index="3" instance=ExtResource( 4 )]
+modulate = Color( 1, 0, 0, 1 )
+AUTO_FIRE = true
+AUTO_FIRE_RATE = 0.5
+
+[node name="WallCast" parent="." index="5"]
+cast_to = Vector2( 12, 0 )
+
+[node name="FloorCast" parent="." index="6"]
 position = Vector2( 8, 0 )
-shape = SubResource( 1 )
-
-[node name="Collider" parent="." index="3"]
-position = Vector2( 8, 0 )
-shape = SubResource( 2 )
-
-[node name="Wall" parent="." index="4"]
-position = Vector2( 8, 0 )
-scale = Vector2( 2, 1 )
-
-[node name="WallRight" parent="." index="5"]
-position = Vector2( 12, 3 )
-
-[node name="FloorLeft" parent="." index="6"]
-position = Vector2( 1, 8 )
-
-[node name="PatrolTimer" type="Timer" parent="." index="7"]
-wait_time = 3.0
-one_shot = true
-
-[node name="FloorRight" parent="." index="8"]
-position = Vector2( 14, 8 )
+cast_to = Vector2( 0, 12 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

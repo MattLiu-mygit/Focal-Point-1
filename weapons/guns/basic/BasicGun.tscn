@@ -9,4 +9,7 @@ texture = ExtResource( 2 )
 script = ExtResource( 1 )
 FIRE_RATE = 0.25
 BULLET_SPEED = 512
+AUTO_FIRE = false
+AUTO_FIRE_RATE = 0.0
+ROTATION_OFFSET = 0
 MASK_BIT = 0

@@ -35,7 +35,10 @@ hframes = 3
 [node name="BasicGun" parent="Sprite" index="0" instance=ExtResource( 5 )]
 position = Vector2( -0.138817, 7.84028 )
 MASK_BIT = 3
-auto_fire = true
+
+[node name="Collider" parent="." index="1"]
+position = Vector2( 0, 3 )
+shape = ExtResource( 2 )
 
 [node name="Hurtbox" parent="." index="2"]
 gravity = 0.0
@@ -44,26 +47,18 @@ gravity = 0.0
 position = Vector2( 0, 3 )
 shape = ExtResource( 2 )
 
-[node name="Collider" parent="." index="3"]
-position = Vector2( 0, 3 )
-shape = ExtResource( 2 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "Fly"
 anims/Fly = SubResource( 1 )
 
-[node name="Wall" parent="." index="5"]
-cast_to = Vector2( -10, 0 )
-
-[node name="FloorLeft" parent="." index="7"]
-enabled = false
-
-[node name="FloorRight" parent="." index="8"]
-enabled = false
-
-[node name="PatrolTimer" type="Timer" parent="." index="10"]
+[node name="PatrolTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
 one_shot = true
+
+[node name="Wall" type="RayCast2D" parent="." index="6"]
+position = Vector2( 0, 3 )
+enabled = true
+cast_to = Vector2( 8, 0 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

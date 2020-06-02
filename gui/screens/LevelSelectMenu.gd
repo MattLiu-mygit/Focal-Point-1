@@ -1,4 +1,6 @@
 extends Control
+# The LevelSelctMenu not only provides an interface for the Player to select
+# a level, but also sets Player stats based on which level they chose.
 
 const World: PackedScene = preload("res://world/World.tscn")
 const Level0: PackedScene = preload("res://world/levels/level0/Room1.tscn")

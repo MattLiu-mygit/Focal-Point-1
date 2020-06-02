@@ -1,6 +1,12 @@
 extends Node
 # This script contains useful methods that don't belong to a particular node.
 
+var mouse_cursor := load("res://MouseCursor.png")
+
+func _ready() -> void:
+	Input.set_custom_mouse_cursor(mouse_cursor)
+	VisualServer.set_default_clear_color(Color.black)
+
 
 func instance_scene_on_main(scene: PackedScene, position: Vector2) -> Node:
 	var main := get_tree().current_scene

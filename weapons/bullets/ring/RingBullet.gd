@@ -1,10 +1,8 @@
 extends Bullet
 # The RingBullet is a bullet that travels in an elliptical path with respect
 # to the position of the mouse at fire time. The ellipse is made by taking the
-# x-position of the mouse as the radius of the x-axis of the ellipse, and the
-# y-axis is the relative y-position from the Player to the mouse.
-# The RingBullet travels in an elliptical path by accelerating to the opposite
-# point of the current location on the ellipse.
+# x and y position of the mouse relative to the Player and using those as the
+# radii for the major and minor axes.
 
 var center := Vector2.ZERO
 

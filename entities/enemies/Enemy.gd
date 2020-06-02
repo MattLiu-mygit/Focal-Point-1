@@ -8,9 +8,13 @@ var motion = Vector2.ZERO
 onready var stats = $EnemyStats
 
 
+func die() -> void:
+	queue_free()
+
+
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
 
 
 func _on_EnemyStats_enemy_died() -> void:
-	queue_free()
+	die()

@@ -5,16 +5,15 @@
 [ext_resource path="res://entities/enemies/beacon/Beacon.png" type="Texture" id=4]
 [ext_resource path="res://entities/enemies/beacon/BeaconEnemy.gd" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 3 )
-
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 2 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 3 )
 
 [node name="BeaconEnemy" instance=ExtResource( 1 )]
 position = Vector2( 0, -4 )
 script = ExtResource( 5 )
-BEACON_SIZE = 1.0
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -25,25 +24,22 @@ texture = ExtResource( 4 )
 offset = Vector2( 0, -32 )
 
 [node name="BeaconShield" type="StaticBody2D" parent="Sprite/Beacon" index="0"]
-collision_layer = 16
+collision_layer = 32
 collision_mask = 0
 
 [node name="BeaconCollider" type="CollisionPolygon2D" parent="Sprite/Beacon/BeaconShield" index="0"]
 polygon = PoolVector2Array( -62, 1, -61, -8, -60, -14, -59, -18, -58, -22, -57, -25, -55, -28, -53, -32, -51, -35, -48, -39, -44, -44, -39, -48, -35, -51, -32, -53, -28, -55, -24, -57, -21, -58, -14, -60, -8, -61, 8, -61, 14, -60, 21, -58, 28, -55, 34, -52, 39, -48, 46, -42, 51, -35, 55, -28, 59, -18, 61, -8, 62, 1, 65, 1, 65, -8, 64, -14, 62, -21, 59, -29, 54, -37, 41, -51, 34, -56, 24, -61, 14, -64, 8, -65, -8, -65, -14, -64, -24, -61, -30, -58, -34, -56, -41, -51, -46, -46, -50, -42, -53, -38, -56, -34, -59, -28, -61, -24, -63, -18, -65, -8, -65, 1 )
 
+[node name="Collider" parent="." index="1"]
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
 [node name="Hurtbox" parent="." index="2"]
-collision_layer = 32
+collision_layer = 64
 
 [node name="Collider" parent="Hurtbox" index="0"]
 position = Vector2( 0, 1 )
 shape = SubResource( 2 )
-
-[node name="Collider" parent="." index="3"]
-position = Vector2( 0, 1 )
-shape = SubResource( 1 )
-
-[node name="Wall" parent="." index="4"]
-enabled = false
 [connection signal="beacon_pushed" from="Hurtbox" to="." method="_on_Hurtbox_beacon_pushed"]
 
 [editable path="Hurtbox"]
