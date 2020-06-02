@@ -12,6 +12,8 @@ enum HurtboxMaskBit {
 	ENEMY = 4
 }
 
+const SHIELD_MASK_BIT := 5
+
 export (float) var FIRE_RATE
 export (int) var BULLET_SPEED
 export (bool) var AUTO_FIRE
@@ -56,6 +58,8 @@ func instance_bullet(Bullet_: PackedScene) -> Bullet:
 	bullet.hitbox.set_collision_mask_bit(MASK_BIT, true)
 	if MASK_BIT == HurtboxMaskBit.PLAYER:
 		bullet.modulate = Color.red
+		# Enemies cheat a little bit :)
+		bullet.set_collision_mask_bit(SHIELD_MASK_BIT, false)
 	return bullet
 
 
