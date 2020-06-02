@@ -42,7 +42,8 @@ func _process(_delta: float) -> void:
 
 func unlock_guns() -> void:
 	if player_stats.laser_sights_unlocked or debug:
-		_enable(laser_sights)
+		#_enable(laser_sights)
+		pass
 	if player_stats.basic_gun_unlocked or debug:
 		guns.append(basic_gun)
 	if player_stats.ring_gun_unlocked or debug:
