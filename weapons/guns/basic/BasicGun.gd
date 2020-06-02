@@ -19,4 +19,5 @@ func fire() -> void:
 
 
 func _on_AutoFireTimer_timeout() -> void:
+	# warning-ignore:return_value_discarded
 	instance_bullet(BasicBullet)
