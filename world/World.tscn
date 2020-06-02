@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://world/levels/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/World.gd" type="Script" id=3]
 [ext_resource path="res://world/Camera.gd" type="Script" id=4]
 [ext_resource path="res://entities/enemies/jumping/JumpingEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/enemies/shield/ShieldEnemy.tscn" type="PackedScene" id=7]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node"]
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -34,7 +35,9 @@ tile_data = PoolIntArray( 0, 0, 1, 1, 0, 196610, 2, 0, 196610, 3, 0, 196610, 4, 
 [node name="JumpingEnemy" parent="TestingRoom" instance=ExtResource( 5 )]
 position = Vector2( 356, 268 )
 
-[node name="ShieldEnemy" parent="." instance=ExtResource( 7 )]
+[node name="ShieldEnemy" parent="TestingRoom" instance=ExtResource( 7 )]
 position = Vector2( 304, 264 )
+
+[node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [editable path="TestingRoom"]
