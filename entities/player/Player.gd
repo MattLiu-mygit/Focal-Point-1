@@ -26,6 +26,11 @@ onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
 
 
+func _ready() -> void:
+	stats.connect("player_died", self, "_on_died")
+	stats.connect("player_game_over", self, "_on_game_over")
+
+
 func _physics_process(delta: float) -> void:
 	jumped = false
 	var run_strength := get_run_strength()
@@ -93,14 +98,23 @@ func move() -> void:
 		jump_delay_timer.start()
 
 
-func check_death():
-	if stats.health == 0:
-		queue_free()
+func die() -> void:
+	print("Player died, oof")
+	if stats.total_health > 0:
+		stats.total_health -= 3
+		stats.health = stats.total_health
 
 
 func _on_Hurtbox_hit(damage: int) -> void:
 	stats.health -= damage
-	check_death();
+
+
+func _on_died() -> void:
+	die()
+
+
+func _on_game_over() -> void:
+	queue_free()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:
