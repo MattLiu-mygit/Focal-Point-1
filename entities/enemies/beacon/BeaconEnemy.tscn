@@ -29,7 +29,7 @@ offset = Vector2( 0, -32 )
 collision_layer = 16
 collision_mask = 0
 
-[node name="BeaconShieldCollider" type="CollisionPolygon2D" parent="Sprite/Beacon/BeaconShield" index="0"]
+[node name="BeaconCollider" type="CollisionPolygon2D" parent="Sprite/Beacon/BeaconShield" index="0"]
 polygon = PoolVector2Array( -62, 1, -61, -8, -60, -14, -59, -18, -58, -22, -57, -25, -55, -28, -53, -32, -51, -35, -48, -39, -44, -44, -39, -48, -35, -51, -32, -53, -28, -55, -24, -57, -21, -58, -14, -60, -8, -61, 8, -61, 14, -60, 21, -58, 28, -55, 34, -52, 39, -48, 46, -42, 51, -35, 55, -28, 59, -18, 61, -8, 62, 1, 65, 1, 65, -8, 64, -14, 62, -21, 59, -29, 54, -37, 41, -51, 34, -56, 24, -61, 14, -64, 8, -65, -8, -65, -14, -64, -24, -61, -30, -58, -34, -56, -41, -51, -46, -46, -50, -42, -53, -38, -56, -34, -59, -28, -61, -24, -63, -18, -65, -8, -65, 1 )
 
 [node name="Collider" parent="Hurtbox" index="0"]
