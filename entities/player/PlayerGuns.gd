@@ -12,7 +12,6 @@ var guns := []
 var gun_index := 0
 var current_gun : Gun
 
-onready var laser_sights: RayCast2D = $LaserSights
 onready var basic_gun: Gun = $BasicGun
 onready var ring_gun: Gun = $RingGun
 onready var reflect_gun: Gun = $ReflectGun
@@ -20,7 +19,6 @@ onready var reflect_gun: Gun = $ReflectGun
 
 # Assume player_stats should already be updated
 func _ready() -> void:
-	_disable(laser_sights)
 	_disable(basic_gun)
 	_disable(ring_gun)
 	_disable(reflect_gun)
@@ -41,9 +39,6 @@ func _process(_delta: float) -> void:
 
 
 func unlock_guns() -> void:
-	if player_stats.laser_sights_unlocked or debug:
-		#_enable(laser_sights)
-		pass
 	if player_stats.basic_gun_unlocked or debug:
 		guns.append(basic_gun)
 	if player_stats.ring_gun_unlocked or debug:
