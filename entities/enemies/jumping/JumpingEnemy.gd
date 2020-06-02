@@ -1,6 +1,5 @@
 extends Enemy
 
-export (int) var ACCELERATION = 640
 export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
@@ -24,20 +23,20 @@ func _physics_process(delta: float) -> void:
 
 # Compares whether going left or right will bring it closer to the mouse position.
 func get_jump_direction() -> float:
-	var mouse_x = get_local_mouse_position().x
-	var distance_from_mouse = mouse_x - position.x
+	var mouse_x = get_global_mouse_position().x
+	var distance_from_mouse = position.x - mouse_x
 	var left_difference = abs(distance_from_mouse - 1)
 	var right_difference = abs(distance_from_mouse + 1)
-	
+		
 	if left_difference < right_difference:
-		return 1.0
-	else:
 		return -1.0
+	else:
+		return 1.0
 
 
 func apply_horizontal_force(jump_direction: float, delta: float) -> void:
 	if not floor_left.is_colliding() or not floor_right.is_colliding():
-		motion.x += jump_direction * ACCELERATION * delta
+		motion.x += jump_direction * SPEED * delta
 
 
 # We chose to also have the same up and down terminal speed, but this may change.

@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/jumping/JumpingEnemyCollider.tres" type="Shape2D" id=2]
 [ext_resource path="res://entities/enemies/jumping/JumpingEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/jumping/JumpingEnemy.gd" type="Script" id=4]
+[ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 4 )
 
 [node name="JumpingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+SPEED = 500
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -25,6 +30,13 @@ enabled = false
 [node name="JumpDelayTimer" type="Timer" parent="." index="9"]
 wait_time = 5.0
 autostart = true
+
+[node name="Hitbox" parent="." index="10" instance=ExtResource( 5 )]
+
+[node name="Collider" parent="Hitbox" index="0"]
+shape = SubResource( 1 )
 [connection signal="timeout" from="JumpDelayTimer" to="." method="_on_JumpDelayTimer_timeout"]
 
 [editable path="Hurtbox"]
+
+[editable path="Hitbox"]

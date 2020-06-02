@@ -25,9 +25,6 @@ WINDOW_SIZE = Vector2( 512, 288 )
 HORIZONTAL_SCROLL = 256
 VERTICAL_SCROLL = 144
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 32, 260 )
-
 [node name="TestingRoom" parent="." instance=ExtResource( 1 )]
 
 [node name="TileMap" parent="TestingRoom" index="0"]
@@ -35,7 +32,7 @@ tile_data = PoolIntArray( 0, 0, 1, 1, 0, 196610, 2, 0, 196610, 3, 0, 196610, 4, 
 
 [node name="JumpingEnemy" parent="TestingRoom" instance=ExtResource( 9 )]
 position = Vector2( 105, 268 )
-ACCELERATION = 1000
+SPEED = 1000
 
 [node name="ShieldEnemy" parent="TestingRoom" instance=ExtResource( 5 )]
 position = Vector2( 143, 264 )
@@ -60,4 +57,13 @@ position = Vector2( 200.903, 263.845 )
 [node name="LaserEnemy" parent="TestingRoom" instance=ExtResource( 7 )]
 position = Vector2( 140.677, 136.941 )
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 38, 260 )
+
 [editable path="TestingRoom"]
+
+[editable path="Player"]
+
+[editable path="Player/PlayerGuns"]
+
+[editable path="Player/PlayerGuns/BasicGun"]
