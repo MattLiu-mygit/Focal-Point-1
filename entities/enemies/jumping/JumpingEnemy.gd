@@ -6,10 +6,9 @@ export (int) var TERMINAL_SPEED = 1024
 export (Array) var JUMP_FORCES = [144, 208, 336]
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
-onready var fire_jump_timer: Timer = $FireJumpTimer
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_pressed("fire"):
 		jump_check()
 
