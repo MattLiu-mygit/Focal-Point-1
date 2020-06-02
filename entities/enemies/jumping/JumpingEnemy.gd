@@ -3,20 +3,29 @@ extends Enemy
 export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
+export (bool) var jumped := false
 
-export(bool) var jumped := false
 var motion_x
+var jump_direction
 
 onready var floor_left: RayCast2D = $FloorLeft
 onready var floor_right: RayCast2D = $FloorRight
 onready var jump_delay_timer: Timer = $JumpDelayTimer
 
 
+func _ready() -> void:
+	jump_direction = get_jump_direction()
+
+
+# When jumping, directtion is only changed if enemy is on the ground. Impossible
+# to change direction in the air.
 func _physics_process(delta: float) -> void:
 	jumped = false
 	motion.x = 0
-	var jump_direction := get_jump_direction()
-	apply_horizontal_force(jump_direction, delta)
+	if floor_left.is_colliding() or floor_right.is_colliding():
+		jump_direction = get_jump_direction()
+	else:
+		apply_horizontal_force(jump_direction, delta)
 	apply_gravity(delta)
 	motion = move_and_slide(motion, Vector2.UP)
 
@@ -35,8 +44,7 @@ func get_jump_direction() -> float:
 
 
 func apply_horizontal_force(jump_direction: float, delta: float) -> void:
-	if not floor_left.is_colliding() or not floor_right.is_colliding():
-		motion.x += jump_direction * SPEED * delta
+	motion.x += jump_direction * SPEED * delta
 
 
 # We chose to also have the same up and down terminal speed, but this may change.
