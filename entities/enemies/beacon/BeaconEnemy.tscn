@@ -1,11 +1,18 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/beacon/BeaconEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/beacon/Beacon.png" type="Texture" id=4]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 3 )
+
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 2 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 3 )
 
 [node name="BeaconEnemy" instance=ExtResource( 1 )]
 position = Vector2( 0, -4 )
@@ -18,11 +25,32 @@ position = Vector2( 0, 3 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -32 )
 
-[node name="Collider" parent="." index="1"]
+[node name="BeaconShield" type="StaticBody2D" parent="Sprite/Beacon" index="0"]
+collision_layer = 16
+collision_mask = 0
+
+[node name="BeaconShieldCollider" type="CollisionPolygon2D" parent="Sprite/Beacon/BeaconShield" index="0"]
+polygon = PoolVector2Array( -62, 1, -61, -8, -60, -14, -59, -18, -58, -22, -57, -25, -55, -28, -53, -32, -51, -35, -48, -39, -44, -44, -39, -48, -35, -51, -32, -53, -28, -55, -24, -57, -21, -58, -14, -60, -8, -61, 8, -61, 14, -60, 21, -58, 28, -55, 34, -52, 39, -48, 46, -42, 51, -35, 55, -28, 59, -18, 61, -8, 62, 1, 65, 1, 65, -8, 64, -14, 62, -21, 59, -29, 54, -37, 41, -51, 34, -56, 24, -61, 14, -64, 8, -65, -8, -65, -14, -64, -24, -61, -30, -58, -34, -56, -41, -51, -46, -46, -50, -42, -53, -38, -56, -34, -59, -28, -61, -24, -63, -18, -65, -8, -65, 1 )
+
+[node name="Collider" parent="Hurtbox" index="0"]
+position = Vector2( 0, 1 )
+shape = SubResource( 2 )
+
+[node name="Collider" parent="." index="3"]
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
-[node name="EnemyStats" parent="." index="2"]
-max_health = 3
+[node name="Wall" parent="." index="4"]
+enabled = false
+
+[node name="Hitbox" parent="." index="9" instance=ExtResource( 2 )]
+collision_mask = 8
+DAMAGE = 1
+
+[node name="Collider" parent="Hitbox" index="0"]
+position = Vector2( 0, 1 )
+shape = SubResource( 3 )
 
 [editable path="Hurtbox"]
+
+[editable path="Hitbox"]

@@ -32,6 +32,8 @@ wait_time = 5.0
 autostart = true
 
 [node name="Hitbox" parent="." index="10" instance=ExtResource( 5 )]
+collision_mask = 8
+DAMAGE = 1
 
 [node name="Collider" parent="Hitbox" index="0"]
 shape = SubResource( 1 )

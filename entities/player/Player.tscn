@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://entities/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://entities/player/Player.png" type="Texture" id=2]
@@ -6,8 +6,12 @@
 [ext_resource path="res://entities/player/PlayerGuns.tscn" type="PackedScene" id=4]
 [ext_resource path="res://entities/Hurtbox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/player/MouseHelper.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 11 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7, 11 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -37,8 +41,17 @@ wait_time = 0.06
 one_shot = true
 
 [node name="MouseHelper" parent="." instance=ExtResource( 6 )]
+
+[node name="Hitbox" parent="." instance=ExtResource( 7 )]
+collision_mask = 16
+DAMAGE = 1
+
+[node name="Collider" parent="Hitbox" index="0"]
+shape = SubResource( 2 )
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="gun_rotated" from="PlayerGuns" to="." method="_on_PlayerGuns_gun_rotated"]
 [connection signal="gun_swapped" from="PlayerGuns" to="." method="_on_PlayerGuns_gun_swapped"]
 
 [editable path="Hurtbox"]
+
+[editable path="Hitbox"]
