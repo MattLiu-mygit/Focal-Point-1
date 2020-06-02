@@ -25,8 +25,8 @@ func set_health(value: int):
 	emit_signal("player_health_changed", health)
 	if health == 0:
 		emit_signal("player_died")
-		if total_health == 0:
-			emit_signal("player_game_over")
+	if health == 0 and total_health == 0:
+		emit_signal("player_game_over")
 
 
 func set_total_health(value: int):

@@ -100,8 +100,8 @@ func move() -> void:
 
 func die() -> void:
 	if stats.total_health > 0:
-		stats.total_health -= 3
 		stats.health = stats.total_health
+		stats.total_health -= 3
 
 
 func _on_Hurtbox_hit(damage: int) -> void:
