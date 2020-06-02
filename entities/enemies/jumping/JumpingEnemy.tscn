@@ -10,28 +10,25 @@
 extents = Vector2( 8, 4 )
 
 [node name="JumpingEnemy" instance=ExtResource( 1 )]
+position = Vector2( 0, -4 )
 script = ExtResource( 4 )
-SPEED = 10000
+SPEED = 144
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
+
+[node name="Collider" parent="." index="1"]
+rotation = 1.57079
+shape = ExtResource( 2 )
 
 [node name="Collider" parent="Hurtbox" index="0"]
 rotation = 1.57079
 shape = ExtResource( 2 )
 
-[node name="Collider" parent="." index="3"]
-rotation = 1.57079
-shape = ExtResource( 2 )
-
-[node name="Wall" parent="." index="4"]
-enabled = false
-
-[node name="JumpDelayTimer" type="Timer" parent="." index="9"]
-wait_time = 5.0
+[node name="JumpDelayTimer" type="Timer" parent="." index="4"]
 autostart = true
 
-[node name="Hitbox" parent="." index="10" instance=ExtResource( 5 )]
+[node name="Hitbox" parent="." index="5" instance=ExtResource( 5 )]
 collision_mask = 8
 DAMAGE = 1
 
