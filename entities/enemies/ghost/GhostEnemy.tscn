@@ -8,6 +8,7 @@
 [node name="GhostEnemy" instance=ExtResource( 1 )]
 collision_mask = 0
 script = ExtResource( 4 )
+SPOOPYNESS = 10
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
@@ -22,6 +23,11 @@ shape = ExtResource( 2 )
 [node name="PatrolTimer" type="Timer" parent="." index="4"]
 wait_time = 3.0
 one_shot = true
+autostart = true
+
+[node name="SpoopyTimer" type="Timer" parent="." index="5"]
+autostart = true
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
+[connection signal="timeout" from="SpoopyTimer" to="." method="_on_SpoopyTimer_timeout"]
 
 [editable path="Hurtbox"]

@@ -6,20 +6,24 @@ export(DIRECTION) var WALKING_DIRECTION = DIRECTION.LEFT
 export(int) var LEFT_BOUND
 export(int) var RIGHT_BOUND
 export(int) var pause_time = 3
+export(int) var SPOOPYNESS = 1
 
 var start_x
 var motion_x
+var motion_up = false
 
 onready var sprite: Sprite = $Sprite
-onready var patrol_timer: Timer = $PatrolTimer
 onready var hurtbox: Area2D = $Hurtbox
 onready var collider: Area2D = $Collider
+onready var patrol_timer: Timer = $PatrolTimer
+onready var spoopy_timer: Timer = $SpoopyTimer
 
 
 func _ready() -> void:
 	start_x = position.x
 	motion.x = SPEED * WALKING_DIRECTION
 	patrol_timer.wait_time = pause_time
+	motion.y = -randi() % SPOOPYNESS
 
 
 # Checks for two cases in which special action needs to occur: 
@@ -27,7 +31,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not in_patrol_area():
 		return_to_patrol_area()
-	motion = move_and_slide_with_snap(motion, Vector2.DOWN * 8, Vector2.UP, true, 4, deg2rad(46))
+	motion = move_and_slide(motion, Vector2.UP)
 
 
 # A check to see if it's in the right direction
@@ -70,3 +74,13 @@ func in_patrol_area() -> bool:
 
 func _on_PatrolTimer_timeout() -> void:
 	motion.x = SPEED * WALKING_DIRECTION
+
+
+func _on_SpoopyTimer_timeout() -> void:
+	if motion_up:
+		motion_up = false
+		spoopy_timer.wait_time = randf() * 1.5
+		motion.y = -randi() % SPOOPYNESS
+	else:
+		motion.y *= -1
+		motion_up = true
