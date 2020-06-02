@@ -11,11 +11,11 @@ export (float) var PAUSE_TIME = 1.0
 var start_x
 
 onready var sprite: Sprite = $Sprite
+onready var hurtbox: Area2D = $Hurtbox
+onready var collider: Area2D = $Collider
 onready var floor_cast: RayCast2D = $FloorCast
 onready var wall_cast: RayCast2D = $WallCast
 onready var patrol_timer: Timer = $PatrolTimer
-onready var hurtbox: Area2D = $Hurtbox
-onready var collider: Area2D = $Collider
 
 
 func _ready():
