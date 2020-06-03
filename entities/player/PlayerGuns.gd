@@ -1,5 +1,5 @@
 extends Node
-# This is a node that contains all of the Player's guns and controls swapping
+# This is a Node2D that contains all of the Player's guns and controls swapping
 # of weapons.
 
 signal gun_rotated
@@ -11,6 +11,7 @@ var player_stats : Resource = ResourceLoader.player_stats
 var guns := []
 var gun_index := 0
 var current_gun : Gun
+var enabled := true setget set_guns_enabled
 
 onready var basic_gun: Gun = $BasicGun
 onready var ring_gun: Gun = $RingGun
@@ -19,13 +20,16 @@ onready var reflect_gun: Gun = $ReflectGun
 
 # Assume player_stats should already be updated
 func _ready() -> void:
-	basic_gun.set_process(false)
-	ring_gun.set_process(false)
-	reflect_gun.set_process(false)
+	_disable(basic_gun)
+	_disable(ring_gun)
+	_disable(reflect_gun)
 	unlock_guns()
 
 
 func _process(_delta: float) -> void:
+	if not enabled:
+		return
+
 	if Input.is_action_just_pressed("rotate"):
 		current_gun.rotate_gun()
 		emit_signal("gun_rotated")
@@ -50,6 +54,13 @@ func unlock_guns() -> void:
 	_enable(current_gun)
 
 
+func set_guns_enabled(value: bool):
+	enabled = value
+	if enabled:
+		_enable(current_gun)
+	else:
+		_disable(current_gun)
+
 func swap_next_gun() -> void:
 	gun_index = (gun_index + 1) % len(guns)
 	_disable(current_gun)
@@ -67,12 +78,12 @@ func get_gun_rotation() -> int:
 	return current_gun.gun_rotation
 
 
-func _enable(gun: Gun) -> void:
-	gun.set_process(true)
-	gun.visible = true
+func _enable(node: Node) -> void:
+	node.set_process(true)
+	node.visible = true
 
 
-func _disable(gun: Gun) -> void:
-	gun.set_process(false)
-	gun.visible = false
+func _disable(node: Node) -> void:
+	node.set_process(false)
+	node.visible = false
 

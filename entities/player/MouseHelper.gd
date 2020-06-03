@@ -18,5 +18,6 @@ func rotate_mouse() -> void:
 
 
 func set_mouse_rotation(multiple: int):
+	assert(multiple >= 0 and multiple < 4)
 	while mouse_rotation != multiple:
 		rotate_mouse()

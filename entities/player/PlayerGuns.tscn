@@ -10,13 +10,10 @@ script = ExtResource( 1 )
 debug = true
 
 [node name="BasicGun" parent="." instance=ExtResource( 4 )]
-visible = false
 MASK_BIT = 4
 
 [node name="RingGun" parent="." instance=ExtResource( 3 )]
-visible = false
 MASK_BIT = 4
 
 [node name="ReflectGun" parent="." instance=ExtResource( 2 )]
-visible = false
 MASK_BIT = 4

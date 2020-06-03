@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/flying/FlyingEnemyCollider.tres" type="Shape2D" id=2]
 [ext_resource path="res://entities/enemies/flying/FlyingEnemy.png" type="Texture" id=3]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemy.gd" type="Script" id=4]
-[ext_resource path="res://weapons/guns/basic/BasicGun.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fly"
@@ -25,23 +23,14 @@ tracks/0/keys = {
 }
 
 [node name="FlyingEnemy" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
-SPEED = 50
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
 hframes = 3
 
-[node name="BasicGun" parent="Sprite" index="0" instance=ExtResource( 5 )]
-position = Vector2( -0.138817, 7.84028 )
-MASK_BIT = 3
-
 [node name="Collider" parent="." index="1"]
 position = Vector2( 0, 3 )
 shape = ExtResource( 2 )
-
-[node name="Hurtbox" parent="." index="2"]
-gravity = 0.0
 
 [node name="Collider" parent="Hurtbox" index="0"]
 position = Vector2( 0, 3 )
@@ -50,15 +39,5 @@ shape = ExtResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "Fly"
 anims/Fly = SubResource( 1 )
-
-[node name="PatrolTimer" type="Timer" parent="." index="5"]
-wait_time = 3.0
-one_shot = true
-
-[node name="Wall" type="RayCast2D" parent="." index="6"]
-position = Vector2( 0, 3 )
-enabled = true
-cast_to = Vector2( 8, 0 )
-[connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

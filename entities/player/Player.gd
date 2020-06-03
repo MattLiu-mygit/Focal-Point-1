@@ -13,6 +13,7 @@ export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
 export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
+export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
@@ -20,17 +21,24 @@ export (int) var JUMP_FORCE = 336
 var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
+var knocked_back := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
 onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
 
 
+func _ready() -> void:
+	stats.connect("player_died", self, "_on_died")
+	stats.connect("player_game_over", self, "_on_game_over")
+
+
 func _physics_process(delta: float) -> void:
 	jumped = false
-	var run_strength := get_run_strength()
-	apply_horizontal_force(run_strength, delta)
-	apply_friction(run_strength)
+	if not knocked_back:
+		var run_strength := get_run_strength()
+		apply_horizontal_force(run_strength, delta)
+		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
 	move()
@@ -85,22 +93,47 @@ func move() -> void:
 	
 	motion = move_and_slide(motion, Vector2.UP)
 	
-	# If Player is in the air but hasn't jumped (fell off a platform),
-	# allow a small window where the player hovers and can still jump.
-	if was_on_floor and not is_on_floor() and not jumped:
+	# If Player is in the air but hasn't jumped (fell off a platform) or 
+	# wasn't knocked back, allow a small window where the player can still jump.
+	if was_on_floor and not is_on_floor() and not jumped and not knocked_back:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
+	
+	if is_on_floor():
+		if knocked_back:
+			knocked_back = false
+			guns.enabled = true
 
 
-func check_death():
-	if stats.health == 0:
-		queue_free()
+func knockback(spot: Vector2) -> void:
+	knocked_back = true
+	var x := global_position.x
+	if spot.x - x > 0:
+		motion.x = -KNOCKBACK_FORCE
+	elif spot.x - x < 0:
+		motion.x = KNOCKBACK_FORCE
+	if is_on_floor():
+		motion.y = -KNOCKBACK_FORCE / 2
 
 
-func _on_Hurtbox_hit(damage: int) -> void:
+func die() -> void:
+	if stats.total_health > 0:
+		stats.health = stats.total_health
+		stats.total_health -= 3
+
+
+func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
-	check_death();
+	knockback(spot)
+	guns.enabled = false
+
+func _on_died() -> void:
+	die()
+
+
+func _on_game_over() -> void:
+	queue_free()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:
