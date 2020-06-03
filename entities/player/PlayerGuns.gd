@@ -11,6 +11,7 @@ var player_stats : Resource = ResourceLoader.player_stats
 var guns := []
 var gun_index := 0
 var current_gun : Gun
+var enabled := true setget set_guns_enabled
 
 onready var basic_gun: Gun = $BasicGun
 onready var ring_gun: Gun = $RingGun
@@ -26,6 +27,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if not enabled:
+		return
+
 	if Input.is_action_just_pressed("rotate"):
 		current_gun.rotate_gun()
 		emit_signal("gun_rotated")
@@ -48,6 +52,14 @@ func unlock_guns() -> void:
 	gun_index = 0
 	current_gun = guns[0]
 	_enable(current_gun)
+
+
+func set_guns_enabled(value: bool):
+	enabled = value
+	if enabled:
+		current_gun.set_process(true)
+	else:
+		current_gun.set_process(false)
 
 
 func swap_next_gun() -> void:

@@ -101,7 +101,9 @@ func move() -> void:
 		jump_delay_timer.start()
 	
 	if is_on_floor():
-		knocked_back = false
+		if knocked_back:
+			knocked_back = false
+			guns.enabled = true
 	
 
 func knockback(spot: Vector2) -> void:
@@ -111,6 +113,7 @@ func knockback(spot: Vector2) -> void:
 		motion.x = -KNOCKBACK_FORCE
 	elif spot.x - x < 0:
 		motion.x = KNOCKBACK_FORCE
+	
 
 
 func die() -> void:
@@ -122,6 +125,7 @@ func die() -> void:
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
 	knockback(spot)
+	guns.enabled = false
 
 func _on_died() -> void:
 	die()
