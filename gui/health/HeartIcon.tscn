@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://gui/health/Heart.png" type="Texture" id=1]
+
+[node name="HeartIcon" type="TextureRect"]
+margin_right = 8.0
+margin_bottom = 11.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
