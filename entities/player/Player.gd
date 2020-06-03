@@ -39,9 +39,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("temp_invincible"):
-		set_invincible(true)
-		yield(get_tree().create_timer(5), "timeout")
-		set_invincible(false)
+		turn_invincible(5)
 
 
 func _physics_process(delta: float) -> void:
@@ -126,6 +124,13 @@ func knockback(spot: Vector2) -> void:
 		motion.x = KNOCKBACK_FORCE
 	if is_on_floor():
 		motion.y = -KNOCKBACK_FORCE / 2
+
+
+func turn_invincible(duration: float):
+	if not invincible:
+		set_invincible(true)
+		yield(get_tree().create_timer(duration), "timeout")
+		set_invincible(false)
 
 
 func set_invincible(value: bool) -> void:
