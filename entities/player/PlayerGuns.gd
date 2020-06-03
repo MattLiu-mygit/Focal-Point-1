@@ -57,10 +57,9 @@ func unlock_guns() -> void:
 func set_guns_enabled(value: bool):
 	enabled = value
 	if enabled:
-		current_gun.set_process(true)
+		_enable(current_gun)
 	else:
-		current_gun.set_process(false)
-
+		_disable(current_gun)
 
 func swap_next_gun() -> void:
 	gun_index = (gun_index + 1) % len(guns)
