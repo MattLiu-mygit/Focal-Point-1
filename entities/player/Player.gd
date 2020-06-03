@@ -93,9 +93,9 @@ func move() -> void:
 	
 	motion = move_and_slide(motion, Vector2.UP)
 	
-	# If Player is in the air but hasn't jumped (fell off a platform),
-	# allow a small window where the player hovers and can still jump.
-	if was_on_floor and not is_on_floor() and not jumped:
+	# If Player is in the air but hasn't jumped (fell off a platform) or 
+	# wasn't knocked back, allow a small window where the player can still jump.
+	if was_on_floor and not is_on_floor() and not jumped and not knocked_back:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
@@ -113,6 +113,8 @@ func knockback(spot: Vector2) -> void:
 		motion.x = -KNOCKBACK_FORCE
 	elif spot.x - x < 0:
 		motion.x = KNOCKBACK_FORCE
+	if is_on_floor():
+		motion.y = -KNOCKBACK_FORCE / 2
 
 
 func die() -> void:
