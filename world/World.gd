@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 # The World is the Room loader and the scene where gameplay takes place.
 
 # Assigned when level is selected and when transitioning levels

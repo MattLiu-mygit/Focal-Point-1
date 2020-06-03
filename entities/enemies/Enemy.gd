@@ -12,7 +12,7 @@ func die() -> void:
 	queue_free()
 
 
-func _on_Hurtbox_hit(damage: int) -> void:
+func _on_Hurtbox_hit(damage: int, _spot: Vector2) -> void:
 	stats.health -= damage
 
 
