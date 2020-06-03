@@ -13,6 +13,7 @@ export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
 export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
+export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
 export (int) var TERMINAL_SPEED = 1024
 export (int) var JUMP_FORCE = 336
@@ -20,6 +21,7 @@ export (int) var JUMP_FORCE = 336
 var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
+var knocked_back := false
 
 onready var jump_delay_timer: Timer = $JumpDelayTimer
 onready var guns = $PlayerGuns
@@ -33,9 +35,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	jumped = false
-	var run_strength := get_run_strength()
-	apply_horizontal_force(run_strength, delta)
-	apply_friction(run_strength)
+	if not knocked_back:
+		var run_strength := get_run_strength()
+		apply_horizontal_force(run_strength, delta)
+		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
 	move()
@@ -96,6 +99,18 @@ func move() -> void:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
+	
+	if is_on_floor():
+		knocked_back = false
+	
+
+func knockback(spot: Vector2) -> void:
+	knocked_back = true
+	var x := global_position.x
+	if spot.x - x > 0:
+		motion.x = -KNOCKBACK_FORCE
+	elif spot.x - x < 0:
+		motion.x = KNOCKBACK_FORCE
 
 
 func die() -> void:
@@ -104,9 +119,9 @@ func die() -> void:
 		stats.total_health -= 3
 
 
-func _on_Hurtbox_hit(damage: int) -> void:
+func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
-
+	knockback(spot)
 
 func _on_died() -> void:
 	die()
