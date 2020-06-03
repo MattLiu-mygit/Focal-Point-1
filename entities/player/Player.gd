@@ -9,6 +9,8 @@ class_name Player
 # Player can jump onto vertical heights:
 #	1 to 4-block = depends on how long jump is held
 
+const PLAYER_HURTBOX_LAYER_BIT := 3
+
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
 export (int) var MAX_RUN_SPEED = 192
@@ -128,13 +130,13 @@ func knockback(spot: Vector2) -> void:
 
 func set_invincible(value: bool) -> void:
 	invincible = value
-	hurtbox.set_process(not value)
+	hurtbox.set_collision_layer_bit(PLAYER_HURTBOX_LAYER_BIT, not value)
 
 
 func die() -> void:
 	if stats.total_health > 0:
 		stats.health = stats.total_health
-		stats.total_health -= 3
+		stats.total_health -= stats.max_health
 
 
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
