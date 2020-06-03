@@ -14,3 +14,10 @@ func instance_scene_on_main(scene: PackedScene, position: Vector2) -> Node:
 	main.add_child(instance)
 	instance.global_position = position
 	return instance
+
+
+# Z-indexes:
+# -3 - Door
+# -2 - Laser
+# -1 - Bullets
+# 0 - Everything else
