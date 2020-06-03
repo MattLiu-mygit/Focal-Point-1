@@ -13,7 +13,7 @@ const PLAYER_HURTBOX_LAYER_BIT := 3
 
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
-export (int) var MAX_RUN_SPEED = 192
+#export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
 export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
@@ -59,10 +59,10 @@ func get_run_strength() -> float:
 
 func apply_horizontal_force(run_strength: float, delta: float) -> void:
 	motion.x += run_strength * ACCELERATION * delta
-	if Input.is_action_pressed("run"):
-		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
-	else:
-		motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
+	#if Input.is_action_pressed("run"):
+		#motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
+	#else:
+	motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
 
 
 # We chose to apply the same friction in the air because it was annoying to
