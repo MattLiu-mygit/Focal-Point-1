@@ -104,7 +104,7 @@ func move() -> void:
 		if knocked_back:
 			knocked_back = false
 			guns.enabled = true
-	
+
 
 func knockback(spot: Vector2) -> void:
 	knocked_back = true
@@ -113,7 +113,6 @@ func knockback(spot: Vector2) -> void:
 		motion.x = -KNOCKBACK_FORCE
 	elif spot.x - x < 0:
 		motion.x = KNOCKBACK_FORCE
-	
 
 
 func die() -> void:
