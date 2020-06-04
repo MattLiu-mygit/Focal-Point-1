@@ -1,9 +1,53 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/ghost/GhostEnemyCollider.tres" type="Shape2D" id=2]
 [ext_resource path="res://entities/enemies/ghost/GhostEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/ghost/GhostEnemy.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade"
+length = 3.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 3 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 3 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 3 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Sprite:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 3 )
+}
 
 [node name="GhostEnemy" instance=ExtResource( 1 )]
 collision_mask = 0
@@ -11,6 +55,7 @@ script = ExtResource( 4 )
 SPOOPYNESS = 10
 
 [node name="Sprite" parent="." index="0"]
+modulate = Color( 1, 0, 0, 0 )
 texture = ExtResource( 3 )
 hframes = 2
 
@@ -27,7 +72,25 @@ autostart = true
 
 [node name="SpoopyTimer" type="Timer" parent="." index="5"]
 autostart = true
+
+[node name="SpawnPoint1" type="Position2D" parent="." index="6"]
+
+[node name="SpawnPoint2" type="Position2D" parent="." index="7"]
+
+[node name="SpawnPoint3" type="Position2D" parent="." index="8"]
+
+[node name="FadeAnimator" type="AnimationPlayer" parent="." index="9"]
+anims/fade = SubResource( 2 )
+
+[node name="Wall" type="RayCast2D" parent="." index="10"]
+enabled = true
+cast_to = Vector2( 6, 0 )
+
+[node name="FadeTimer" type="Timer" parent="." index="11"]
+wait_time = 3.0
+autostart = true
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 [connection signal="timeout" from="SpoopyTimer" to="." method="_on_SpoopyTimer_timeout"]
+[connection signal="timeout" from="FadeTimer" to="." method="_on_FadeTimer_timeout"]
 
 [editable path="Hurtbox"]

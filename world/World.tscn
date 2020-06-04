@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://world/levels/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://entities/enemies/ghost/GhostEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/enemies/flying/FlyingEnemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/enemies/beacon/BeaconEnemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/enemies/laser/LaserEnemy.tscn" type="PackedScene" id=12]
 
 [node name="World" type="Node"]
 script = ExtResource( 3 )
@@ -27,6 +28,9 @@ WINDOW_SIZE = Vector2( 512, 288 )
 HORIZONTAL_SCROLL = 256
 VERTICAL_SCROLL = 144
 
+[node name="LaserEnemy" parent="Camera" instance=ExtResource( 12 )]
+position = Vector2( 316, 126 )
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 32, 260 )
 collision_mask = 1
@@ -42,7 +46,7 @@ LEFT_BOUND = 30
 RIGHT_BOUND = 30
 
 [node name="GhostEnemy" parent="TestingRoom" instance=ExtResource( 9 )]
-position = Vector2( 398, 240 )
+position = Vector2( 360, 98 )
 LEFT_BOUND = 15
 RIGHT_BOUND = 15
 SPOOPYNESS = 15
