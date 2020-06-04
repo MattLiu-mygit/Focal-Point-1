@@ -128,6 +128,7 @@ func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	knockback(spot)
 	guns.enabled = false
 
+
 func _on_died() -> void:
 	die()
 
