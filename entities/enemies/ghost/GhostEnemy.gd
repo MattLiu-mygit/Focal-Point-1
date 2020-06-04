@@ -29,7 +29,7 @@ onready var fade_animator: AnimationPlayer = $FadeAnimator
 
 func _ready() -> void:
 	motion_up = false
-	state = STATE.TRANSPARENT
+	state = STATE.SEMISOLID
 	start_x = position.x
 	motion.x = SPEED * WALKING_DIRECTION
 	patrol_timer.wait_time = pause_time
@@ -86,6 +86,7 @@ func fade() -> void:
 	hurtbox.set_collision_layer_bit(4, false)
 	state = STATE.TRANSPARENT
 
+
 func materialize() -> void:
 	fade_animator.play_backwards("fade")
 	hurtbox.set_collision_layer_bit(4, true)
@@ -106,6 +107,8 @@ func _on_SpoopyTimer_timeout() -> void:
 		motion_up = true
 
 
+# Transitions between a solid and transparent state. SEMISOLID is the transition
+# where SEMISOLID can either be when materializing or when fading.
 func _on_FadeTimer_timeout() -> void:
 	if state == STATE.TRANSPARENT:
 		state = STATE.SEMISOLID

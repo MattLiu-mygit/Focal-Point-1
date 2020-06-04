@@ -55,7 +55,7 @@ script = ExtResource( 4 )
 SPOOPYNESS = 10
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1, 0, 0, 0 )
+modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 3 )
 hframes = 2
 
