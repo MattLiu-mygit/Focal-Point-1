@@ -1,7 +1,6 @@
 extends Node2D
 class_name Room
-# A Room is a single screen of the Player, Enemies, and other platforms. It is a
-# sort of mini-level.
+# A Room is a single screen of the Player, Enemies, and other platforms.
 
 export (Vector2) var player_start_position
 export (PackedScene) var next_room

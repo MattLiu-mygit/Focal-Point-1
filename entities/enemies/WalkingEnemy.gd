@@ -1,5 +1,6 @@
 extends Enemy
-# Known bug: Cannot interact with walls, but patrols correctly
+# Patrols back and forth until it hits a wall or its patrolling bounds
+# Setting both bounds to 0 means it will patrol until it hits a wall.
 
 enum Direction {LEFT = -1, RIGHT = 1}
 
@@ -8,7 +9,7 @@ export (int) var LEFT_BOUND = 0
 export (int) var RIGHT_BOUND = 0
 export (float) var PAUSE_TIME = 1.0
 
-var start_x
+var start_x: float
 
 onready var sprite: Sprite = $Sprite
 onready var hurtbox: Area2D = $Hurtbox
@@ -37,8 +38,7 @@ func _physics_process(_delta: float) -> void:
 		patrol_flip()
 	if not in_patrol_area():
 		return_to_patrol_area()
-	motion = move_and_slide(motion, Vector2.UP)
-
+	motion = move_and_slide_with_snap(motion, Vector2.DOWN * 12, Vector2.UP)
 
 
 func patrol_flip() -> void:
@@ -58,10 +58,7 @@ func check_direction() -> bool:
 	var compare_val = position.x + WALKING_DIRECTION
 	var compare_to_start = abs(compare_val - start_x)
 	var dist_to_start = abs(position.x - start_x)
-	if compare_to_start < dist_to_start:
-		return true
-	else: 
-		return false
+	return compare_to_start < dist_to_start
 
 
 func in_patrol_area() -> bool:
@@ -69,11 +66,7 @@ func in_patrol_area() -> bool:
 		return true
 	var right_bound = start_x + RIGHT_BOUND
 	var left_bound = start_x - LEFT_BOUND
-	
-	if position.x >= left_bound and position.x <= right_bound:
-		return true
-	else:
-		return false
+	return position.x >= left_bound and position.x <= right_bound
 
 
 func _on_PatrolTimer_timeout() -> void:

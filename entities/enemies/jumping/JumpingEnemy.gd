@@ -13,10 +13,9 @@ func _process(_delta: float) -> void:
 		jump_check()
 
 
-# When jumping, direction is only changed if enemy is on the ground. Impossible
-# to change direction in the air.
 func _physics_process(delta: float) -> void:
 	motion = move_and_slide(motion, Vector2.UP)
+	# Prevent sliding
 	if is_on_floor():
 		motion.x = 0
 	apply_gravity(delta)
@@ -34,6 +33,7 @@ func apply_gravity(delta: float) -> void:
 func jump_check() -> void:
 	if is_on_floor():
 		motion.x = get_jump_direction() * SPEED
+		# Randomize jump height
 		motion.y = -JUMP_FORCES[randi() % JUMP_FORCES.size()]
 
 

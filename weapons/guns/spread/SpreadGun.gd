@@ -1,4 +1,5 @@
 extends Gun
+# A gun that shoots five bullets in a spread
 
 onready var gun1: Gun = $BasicGun1
 onready var gun2: Gun = $BasicGun2
