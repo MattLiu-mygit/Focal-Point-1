@@ -15,7 +15,7 @@ func _ready() -> void:
 
 # If the beacon button is pushed, the laser is switched off. If it's off, 
 # there's no need to free a beacon that doesn't exist.
-func _on_Hurtbox_beacon_pushed() -> void:
+func _on_Button_button_pressed() -> void:
 	if switched_on:
 		switched_on = false
 		beacon.queue_free()
