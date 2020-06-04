@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entities/enemies/WalkingEnemy.gd" type="Script" id=3]
+[ext_resource path="res://entities/enemies/walking/WalkingEnemy.gd" type="Script" id=2]
 
 [node name="WalkingEnemy" instance=ExtResource( 1 )]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 LEFT_BOUND = 3
 RIGHT_BOUND = 5
 
