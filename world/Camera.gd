@@ -7,6 +7,10 @@ export (int) var HORIZONTAL_SCROLL
 export (int) var VERTICAL_SCROLL
 
 
+func _ready() -> void:
+	ResourceLoader.main_instances.camera = self
+
+
 func _process(_delta: float) -> void:
 	var center : Vector2 = WINDOW_SIZE / 2
 	# Scope similar to Terraria's Sniper Scope accessory
@@ -20,3 +24,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_released("scope"):
 		position = Vector2.ZERO
 		smoothing_enabled = true
+
+
+func queue_free() -> void:
+	ResourceLoader.main_instances.camera = null
+	.queue_free()

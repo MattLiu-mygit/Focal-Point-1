@@ -13,6 +13,12 @@ onready var room: Room = $TestingRoom
 func _ready() -> void:
 	if player_stats.selected_level != null:
 		set_room(player_stats.selected_level)
+	ResourceLoader.main_instances.world = self
+
+
+func queue_free() -> void:
+	ResourceLoader.main_instances.world = null
+	.queue_free()
 
 
 func set_room(room_: PackedScene):

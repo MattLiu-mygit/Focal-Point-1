@@ -35,6 +35,7 @@ onready var mouse_helper: Sprite = $MouseHelper
 func _ready() -> void:
 	stats.connect("player_died", self, "_on_died")
 	stats.connect("player_game_over", self, "_on_game_over")
+	ResourceLoader.main_instances.player = self
 
 
 func _process(_delta: float) -> void:
@@ -51,6 +52,11 @@ func _physics_process(delta: float) -> void:
 	apply_gravity(delta)
 	jump_check()
 	move()
+
+
+func queue_free() -> void:
+	ResourceLoader.main_instances.player = null
+	.queue_free()
 
 
 func get_run_strength() -> float:
