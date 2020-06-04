@@ -9,9 +9,11 @@ class_name Player
 # Player can jump onto vertical heights:
 #	1 to 4-block = depends on how long jump is held
 
+const PLAYER_HURTBOX_LAYER_BIT := 3
+
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
-export (int) var MAX_RUN_SPEED = 192
+#export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
 export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
@@ -22,15 +24,23 @@ var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
 var knocked_back := false
+var invincible := false setget set_invincible
 
+onready var hurtbox: Area2D = $Hurtbox
+onready var guns: Node = $PlayerGuns
 onready var jump_delay_timer: Timer = $JumpDelayTimer
-onready var guns = $PlayerGuns
 onready var mouse_helper: Sprite = $MouseHelper
 
 
 func _ready() -> void:
 	stats.connect("player_died", self, "_on_died")
 	stats.connect("player_game_over", self, "_on_game_over")
+	ResourceLoader.main_instances.player = self
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("temp_invincible"):
+		turn_invincible(5)
 
 
 func _physics_process(delta: float) -> void:
@@ -44,16 +54,21 @@ func _physics_process(delta: float) -> void:
 	move()
 
 
+func queue_free() -> void:
+	ResourceLoader.main_instances.player = null
+	.queue_free()
+
+
 func get_run_strength() -> float:
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
 func apply_horizontal_force(run_strength: float, delta: float) -> void:
 	motion.x += run_strength * ACCELERATION * delta
-	if Input.is_action_pressed("run"):
-		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
-	else:
-		motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
+	#if Input.is_action_pressed("run"):
+		#motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
+	#else:
+	motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
 
 
 # We chose to apply the same friction in the air because it was annoying to
@@ -117,10 +132,22 @@ func knockback(spot: Vector2) -> void:
 		motion.y = -KNOCKBACK_FORCE / 2
 
 
+func turn_invincible(duration: float):
+	if not invincible:
+		set_invincible(true)
+		yield(get_tree().create_timer(duration), "timeout")
+		set_invincible(false)
+
+
+func set_invincible(value: bool) -> void:
+	invincible = value
+	hurtbox.set_collision_layer_bit(PLAYER_HURTBOX_LAYER_BIT, not value)
+
+
 func die() -> void:
 	if stats.total_health > 0:
 		stats.health = stats.total_health
-		stats.total_health -= 3
+		stats.total_health -= stats.max_health
 
 
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:

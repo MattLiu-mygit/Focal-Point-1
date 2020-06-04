@@ -1,4 +1,5 @@
 extends RayCast2D
+# Another helper to show the path of the bullet, may or may not keep.
 
 onready var sprite: Sprite = $Sprite
 

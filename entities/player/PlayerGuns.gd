@@ -1,6 +1,5 @@
 extends Node
-# This is a Node2D that contains all of the Player's guns and controls swapping
-# of weapons.
+# This contains all of the Player's guns and controls over weapons.
 
 signal gun_rotated
 signal gun_swapped

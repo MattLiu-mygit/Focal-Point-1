@@ -7,7 +7,6 @@
 
 [node name="ShieldEnemy" instance=ExtResource( 1 )]
 modulate = Color( 1, 1, 1, 1 )
-collision_mask = 1
 SPEED = 50
 WALKING_DIRECTION = 1
 LEFT_BOUND = 0

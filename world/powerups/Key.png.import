@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/basicTemporary.png-a234bfa382f78003565324dcfaec5cdf.stex"
+path="res://.import/Key.png-6994fe7d869e481352a957ea64a23c3e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/basic/basicTemporary.png"
-dest_files=[ "res://.import/basicTemporary.png-a234bfa382f78003565324dcfaec5cdf.stex" ]
+source_file="res://world/powerups/Key.png"
+dest_files=[ "res://.import/Key.png-6994fe7d869e481352a957ea64a23c3e.stex" ]
 
 [params]
 

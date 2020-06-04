@@ -4,3 +4,4 @@ extends Node
 # We don't want data to desync.
 
 var player_stats : PlayerStats = preload("res://entities/player/PlayerStats.tres")
+var main_instances: MainInstances = preload("res://utils/MainInstances.tres")

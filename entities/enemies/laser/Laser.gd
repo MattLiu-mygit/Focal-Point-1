@@ -1,6 +1,5 @@
 extends RayCast2D
-
-var last_angle: float
+# A ray that instantly kills the Player if it touches them.
 
 onready var sprite: Sprite = $Sprite
 onready var hitbox_collider: CollisionShape2D = $Hitbox/Collider
@@ -19,5 +18,7 @@ func update_laser() -> void:
 	hitbox_collider.shape.length = length
 
 
+# May implement a more slowly rotating laser to prevent Player from moving mouse
+# quickly and dodging the laser because the game doesn't update fast enough.
 func rotate_slowly() -> void:
 	pass
