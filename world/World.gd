@@ -3,16 +3,30 @@ extends Node
 
 # Assigned when level is selected and when transitioning levels
 var player_stats = ResourceLoader.player_stats
-var current_room : PackedScene
+
+var _room : PackedScene
 
 onready var camera: Camera2D = $Camera
 onready var player: Player = $Player
 onready var room: Room = $TestingRoom
 
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("temp_reset_room"):
+		reset_room()
+
+
 func _ready() -> void:
+	# temp
 	if player_stats.selected_level != null:
 		set_room(player_stats.selected_level)
+	else:
+		var packed_scene: PackedScene = PackedScene.new()
+		for node in room.get_children():
+			node.set_owner(room)
+		# warning-ignore:return_value_discarded
+		packed_scene.pack(room)
+		_room = packed_scene
 	ResourceLoader.main_instances.world = self
 
 
@@ -21,11 +35,17 @@ func queue_free() -> void:
 	.queue_free()
 
 
-func set_room(room_: PackedScene):
+func set_room(room_: PackedScene) -> void:
 	if room:
 		call_deferred("remove_child", room)
 		room.queue_free()
-	current_room = room_
+	_room = room_
 	room = room_.instance()
 	call_deferred("add_child", room)
 	player.position = room.player_start_position
+
+
+# Resets the room back to its original state and also sets the Player's position.
+# This is NOT responsible for resetting player stats, let Player do that.
+func reset_room() -> void:
+	set_room(_room)
