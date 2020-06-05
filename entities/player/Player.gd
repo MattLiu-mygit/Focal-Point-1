@@ -150,6 +150,10 @@ func die() -> void:
 		stats.total_health -= stats.max_health
 
 
+func game_over() -> void:
+	queue_free()
+
+
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
 	knockback(spot)
@@ -161,7 +165,7 @@ func _on_died() -> void:
 
 
 func _on_game_over() -> void:
-	queue_free()
+	game_over()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:
