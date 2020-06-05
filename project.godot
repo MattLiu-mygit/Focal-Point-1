@@ -183,6 +183,7 @@ temp_reset_room={
 2d_physics/layer_4="PlayerHurtbox"
 2d_physics/layer_5="EnemyHurtbox"
 2d_physics/layer_6="Shield"
+2d_physics/layer_7="Platform"
 
 [rendering]
 
