@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LaserEnemy.png-9c5918da51ce91ff198913ff9990f686.stex"
+path="res://.import/MagicEnemy.png-a01611c05bf155f13c2abe1e06b9382d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/laser/LaserEnemy.png"
-dest_files=[ "res://.import/LaserEnemy.png-9c5918da51ce91ff198913ff9990f686.stex" ]
+source_file="res://entities/enemies/stationary/magic/MagicEnemy.png"
+dest_files=[ "res://.import/MagicEnemy.png-a01611c05bf155f13c2abe1e06b9382d.stex" ]
 
 [params]
 

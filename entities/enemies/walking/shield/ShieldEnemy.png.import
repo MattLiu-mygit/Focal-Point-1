@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GhostEnemy.png-b4eee8658abb73b60a7cfad90bac3308.stex"
+path="res://.import/ShieldEnemy.png-cc60360add559067c0ea2fadb8a53cd2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/ghost/GhostEnemy.png"
-dest_files=[ "res://.import/GhostEnemy.png-b4eee8658abb73b60a7cfad90bac3308.stex" ]
+source_file="res://entities/enemies/walking/shield/ShieldEnemy.png"
+dest_files=[ "res://.import/ShieldEnemy.png-cc60360add559067c0ea2fadb8a53cd2.stex" ]
 
 [params]
 

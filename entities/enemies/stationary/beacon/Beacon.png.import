@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Laser.png-763ac0d00c919eea81f1fbd1da1f7581.stex"
+path="res://.import/Beacon.png-7764a7376dd44fd1166b9c135d8567cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/laser/Laser.png"
-dest_files=[ "res://.import/Laser.png-763ac0d00c919eea81f1fbd1da1f7581.stex" ]
+source_file="res://entities/enemies/stationary/beacon/Beacon.png"
+dest_files=[ "res://.import/Beacon.png-7764a7376dd44fd1166b9c135d8567cc.stex" ]
 
 [params]
 
