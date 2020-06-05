@@ -5,8 +5,7 @@
 [ext_resource path="res://entities/enemies/flying/ghost/GhostEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/flying/ghost/GhostEnemy.gd" type="Script" id=4]
 
-
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "fade"
 length = 3.0
 tracks/0/type = "bezier"
@@ -53,7 +52,8 @@ tracks/3/keys = {
 [node name="GhostEnemy" instance=ExtResource( 1 )]
 collision_mask = 0
 script = ExtResource( 4 )
-SPOOPYNESS = 10
+SPEED = 25
+SPOOPYNESS = 5
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1, 0, 0, 1 )
@@ -66,31 +66,25 @@ shape = ExtResource( 2 )
 [node name="Collider" parent="Hurtbox" index="0"]
 shape = ExtResource( 2 )
 
-[node name="PatrolTimer" type="Timer" parent="." index="4"]
+[node name="SpoopyTimer" type="Timer" parent="." index="4"]
+wait_time = 1.5
+
+[node name="FadeAnimator" type="AnimationPlayer" parent="." index="5"]
+anims/fade = SubResource( 1 )
+
+[node name="FadeTimer" type="Timer" parent="." index="6"]
 wait_time = 3.0
-one_shot = true
-autostart = true
 
-[node name="SpoopyTimer" type="Timer" parent="." index="5"]
-autostart = true
+[node name="FloorCast" parent="." index="8"]
+visible = false
+enabled = false
 
-[node name="SpawnPoint1" type="Position2D" parent="." index="6"]
+[node name="WallCast" parent="." index="9"]
+visible = false
 
-[node name="SpawnPoint2" type="Position2D" parent="." index="7"]
-
-[node name="SpawnPoint3" type="Position2D" parent="." index="8"]
-
-[node name="FadeAnimator" type="AnimationPlayer" parent="." index="9"]
-anims/fade = SubResource( 2 )
-
-[node name="Wall" type="RayCast2D" parent="." index="10"]
-enabled = true
-cast_to = Vector2( 6, 0 )
-
-[node name="FadeTimer" type="Timer" parent="." index="11"]
-wait_time = 3.0
-autostart = true
-[connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
+[node name="VisibilityNotifier2D" parent="." index="10"]
+position = Vector2( 0, 4.17233e-07 )
+scale = Vector2( 0.8, 0.8 )
 [connection signal="timeout" from="SpoopyTimer" to="." method="_on_SpoopyTimer_timeout"]
 [connection signal="timeout" from="FadeTimer" to="." method="_on_FadeTimer_timeout"]
 

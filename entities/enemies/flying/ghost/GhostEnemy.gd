@@ -6,79 +6,49 @@ extends Enemy
 enum DIRECTION {LEFT = -1, RIGHT = 1}
 enum STATE {SEMISOLID = 1, SOLID = 0, TRANSPARENT = -1}
 
+export(int) var ACCELERATION = 100
 export(DIRECTION) var WALKING_DIRECTION = DIRECTION.RIGHT
-export(int) var LEFT_BOUND
-export(int) var RIGHT_BOUND
-export(int) var pause_time = 3
 export(int) var SPOOPYNESS = 1
 
-var start_x
-var motion_x
 var motion_up
 var state
+var spoopy_y_mod
+var main_instances = ResourceLoader.main_instances
 
 onready var sprite: Sprite = $Sprite
 onready var hurtbox: Area2D = $Hurtbox
 onready var collider: Area2D = $Collider
-onready var patrol_timer: Timer = $PatrolTimer
 onready var spoopy_timer: Timer = $SpoopyTimer
 onready var fade_timer: Timer = $FadeTimer
-onready var wall: RayCast2D = $Wall
+onready var wall_cast: RayCast2D = $WallCast
 onready var fade_animator: AnimationPlayer = $FadeAnimator
 
 
 func _ready() -> void:
 	motion_up = false
 	state = STATE.SEMISOLID
-	start_x = position.x
 	motion.x = SPEED * WALKING_DIRECTION
-	patrol_timer.wait_time = pause_time
-	motion.y = -randi() % SPOOPYNESS
+	spoopy_y_mod = -randi() % SPOOPYNESS
 
 
 # Checks for two cases in which special action needs to occur: 
-func _physics_process(_delta: float) -> void:
-	if not in_patrol_area():
-		return_to_patrol_area()
-	motion = move_and_slide(motion, Vector2.UP)
+func _physics_process(delta: float) -> void:
+	var player = main_instances.player
+	if spoopy_timer.time_left == 0:
+		spoopy_timer.start()
+	if fade_timer.time_left == 0:
+		fade_timer.start()
+	if player != null:
+		chase_player(player, delta)
 
 
-# A check to see if it's in the right direction
-func return_to_patrol_area() -> void:
-	# Needs to check for this as this function will be called on constantly if 
-	# the enemy ever gets knocked out of its patrol area. If it's int he right
-	# direction, no need to perform a patrol flip. if not in right direction, 
-	# it hasn't performed a patrol flip and will perform one.
-	if not check_direction():
-		patrol_flip()
-
-
-# Like a patrol man, it stops, and flips itself around.
-func patrol_flip() -> void:
-	WALKING_DIRECTION *= -1
-	motion.x = 0
-	patrol_timer.start()
-	scale.x *= -1
-
-# Checks if taking one step would take the enemy away or towards the patrol area.
-func check_direction() -> bool:
-	var compare_val = position.x + WALKING_DIRECTION
-	var compare_to_start = abs(compare_val - start_x)
-	var dist_to_start = abs(position.x - start_x)
-	if compare_to_start < dist_to_start:
-		return true
-	else: 
-		return false
-
-# A check to see if the enemy is in the patrol area.
-func in_patrol_area() -> bool:
-	var right_bound = start_x + RIGHT_BOUND
-	var left_bound = start_x - LEFT_BOUND
-	
-	if position.x >= left_bound and position.x <= right_bound:
-		return true
-	else:
-		return false
+func chase_player(player, delta):
+	var direction = (player.global_position - global_position).normalized()
+	motion.y += spoopy_y_mod * spoopy_timer.time_left
+	motion += direction * ACCELERATION * delta
+	motion = motion.clamped(SPEED)
+	sprite.flip_h = global_position > player.global_position
+	motion = move_and_slide(motion)
 
 
 func fade() -> void:
@@ -93,24 +63,27 @@ func materialize() -> void:
 	state = STATE.SOLID
 
 
-func _on_PatrolTimer_timeout() -> void:
-	motion.x = SPEED * WALKING_DIRECTION
-
-
 func _on_SpoopyTimer_timeout() -> void:
 	if motion_up:
 		motion_up = false
 		spoopy_timer.wait_time = randf() * 1.5
-		motion.y = -randi() % SPOOPYNESS
+		spoopy_y_mod = -randi() % SPOOPYNESS
 	else:
-		motion.y *= -1
+		spoopy_y_mod *= -1
 		motion_up = true
 
 
 # Transitions between a solid and transparent state. SEMISOLID is the transition
 # where SEMISOLID can either be when materializing or when fading.
 func _on_FadeTimer_timeout() -> void:
+	var player = main_instances.player
+	var variance = SPOOPYNESS * 100
 	if state == STATE.TRANSPARENT:
+		# Spawns somewhere around and above the player and starts making its way 
+		# towards player. 
+		if player != null:
+			position.x = player.position.x + (randf() * variance - variance/2 )
+			position.y = player.position.y - randf() * variance/4
 		state = STATE.SEMISOLID
 	elif state == STATE.SOLID:
 		state = STATE.SEMISOLID

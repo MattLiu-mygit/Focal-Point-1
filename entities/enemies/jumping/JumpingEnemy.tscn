@@ -25,15 +25,28 @@ shape = ExtResource( 2 )
 rotation = 1.57079
 shape = ExtResource( 2 )
 
-[node name="JumpDelayTimer" type="Timer" parent="." index="4"]
+[node name="FloorCast" parent="." index="5"]
+visible = false
+position = Vector2( 0, 4 )
+enabled = false
+
+[node name="JumpDelayTimer" type="Timer" parent="." index="6"]
 autostart = true
 
-[node name="Hitbox" parent="." index="5" instance=ExtResource( 5 )]
+[node name="Hitbox" parent="." index="7" instance=ExtResource( 5 )]
 collision_mask = 8
 DAMAGE = 1
 
 [node name="Collider" parent="Hitbox" index="0"]
 shape = SubResource( 1 )
+
+[node name="WallCast" parent="." index="8"]
+visible = false
+enabled = false
+
+[node name="VisibilityNotifier2D" parent="." index="9"]
+position = Vector2( -1.19209e-07, 0 )
+scale = Vector2( 0.8, 0.4 )
 [connection signal="timeout" from="JumpDelayTimer" to="." method="_on_JumpDelayTimer_timeout"]
 
 [editable path="Hurtbox"]

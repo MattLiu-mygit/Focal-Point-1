@@ -13,7 +13,7 @@ func _physics_process(_delta: float) -> void:
 	var facing_direction = int(sign(get_local_mouse_position().x))
 	if not floor_cast.is_colliding():
 		motion.x = 0
-	else:
+	elif facing_direction != 0:
 		floor_cast.position.x = facing_direction * original_floor_cast_position
 		motion.x = SPEED * facing_direction
 	motion = move_and_slide(motion, Vector2.UP)
