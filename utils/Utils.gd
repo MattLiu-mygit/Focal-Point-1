@@ -16,6 +16,14 @@ func instance_scene_on_main(scene: PackedScene, position: Vector2) -> Node:
 	return instance
 
 
+func instance_scene_in_room(scene: PackedScene, position: Vector2) -> Node:
+	var world : Node = ResourceLoader.main_instances.world
+	var instance := scene.instance()
+	instance.global_position = position
+	world.room.call_deferred("add_child", instance)
+	return instance
+
+
 # Z-indexes:
 # -3 - Door
 # -2 - Laser
