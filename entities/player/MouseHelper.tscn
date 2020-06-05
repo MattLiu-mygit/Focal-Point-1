@@ -5,6 +5,5 @@
 
 [node name="MouseHelper" type="Sprite"]
 visible = false
-position = Vector2( 0.11018, 0.330551 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
