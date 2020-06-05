@@ -110,11 +110,13 @@ func cut_jump():
 # If only on a platform, drop a pixel to bypass the one-way-collision
 func drop_check() -> void:
 	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
-	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position - Vector2(-PLAYER_XRADIUS, 0)))
+	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(-PLAYER_XRADIUS, 0)))
 	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
 	var right_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(PLAYER_XRADIUS, 0)))
 	if Input.is_action_pressed("down") and is_on_floor() and only_platforms(left_tile, center_tile, right_tile):
 		position.y += 1
+		jumped = true
+	# ATTENTION: We set jumped to true here because it's pretty much the same
 
 
 # Check all tiles under the player are platforms or blank space
