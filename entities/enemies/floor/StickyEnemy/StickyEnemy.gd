@@ -7,7 +7,7 @@ var attached_to_player = false
 func _physics_process(delta) -> void:
 	var player = main_instances.player
 	
-	if attached_to_player:
+	if attached_to_player and player != null:
 		motion.x = 0
 		player.motion.x *= SLOW_PERCENT
 		position.x = player.global_position.x

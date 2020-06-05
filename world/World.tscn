@@ -50,7 +50,9 @@ position = Vector2( 439, 268 )
 position = Vector2( 333, 152 )
 
 [node name="ShieldEnemy" parent="TestingRoom" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 304, 264 )
+collision_layer = 4
 
 [node name="MovingPlatform" parent="TestingRoom" instance=ExtResource( 8 )]
 position = Vector2( 96, 232 )
@@ -67,7 +69,6 @@ RIGHT_BOUND = 100
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 41, 259 )
-[connection signal="screen_entered" from="TestingRoom/GhostEnemy/VisibilityNotifier2D" to="TestingRoom/GhostEnemy" method="_on_VisibilityNotifier2D_screen_entered"]
 
 [editable path="TestingRoom"]
 

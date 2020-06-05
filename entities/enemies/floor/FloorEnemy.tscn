@@ -49,10 +49,6 @@ visible = false
 position = Vector2( 0.102093, -1.99082 )
 enabled = false
 
-[node name="VisibilityNotifier2D" parent="." index="8"]
-position = Vector2( 0, -2.5 )
-scale = Vector2( 1.6, 0.25 )
-
 [editable path="Hurtbox"]
 
 [editable path="Hitbox"]
