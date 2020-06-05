@@ -1,7 +1,10 @@
 extends KinematicBody2D
 class_name Enemy
 
-export(int) var SPEED = 15
+signal enemy_died
+
+export (int) var SPEED = 50
+export (bool) var DEFEATABLE
 
 var motion = Vector2.ZERO
 
@@ -18,3 +21,4 @@ func _on_Hurtbox_hit(damage: int, _spot: Vector2) -> void:
 
 func _on_EnemyStats_enemy_died() -> void:
 	die()
+	emit_signal("enemy_died")
