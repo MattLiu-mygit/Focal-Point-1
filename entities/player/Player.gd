@@ -10,6 +10,7 @@ class_name Player
 #	1 to 4-block = depends on how long jump is held
 
 const PLAYER_HURTBOX_LAYER_BIT := 3
+const TILE_PLATFORM := 1
 
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
@@ -23,6 +24,7 @@ export (int) var JUMP_FORCE = 336
 var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
+var dropped := false
 var knocked_back := false
 var invincible := false setget set_invincible
 
@@ -45,12 +47,15 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	jumped = false
+	dropped = false
 	if not knocked_back:
 		var run_strength := get_run_strength()
 		apply_horizontal_force(run_strength, delta)
 		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
+	if not jumped:
+		drop_check()
 	move()
 
 
@@ -100,6 +105,23 @@ func jump_check() -> void:
 				motion.y = -JUMP_FORCE / 2
 
 
+func drop_check() -> void:
+	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
+	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position - Vector2(-8, 0)))
+	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
+	var right_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(8, 0)))
+	if Input.is_action_pressed("down") and is_on_floor() and only_platforms(left_tile, center_tile, right_tile):
+		dropped = true
+		position.y += 1
+
+
+func only_platforms(left_tile: int, center_tile: int, right_tile: int):
+	# -1 means blank space, no tile
+	return ((left_tile == -1 or left_tile == TILE_PLATFORM) and
+	(center_tile == -1 or center_tile == TILE_PLATFORM) and
+	(right_tile == -1 or right_tile == TILE_PLATFORM))
+
+
 func move() -> void:
 	var was_on_floor := is_on_floor()
 	#var was_in_air := not is_on_floor()
@@ -110,7 +132,7 @@ func move() -> void:
 	
 	# If Player is in the air but hasn't jumped (fell off a platform) or 
 	# wasn't knocked back, allow a small window where the player can still jump.
-	if was_on_floor and not is_on_floor() and not jumped and not knocked_back:
+	if was_on_floor and not is_on_floor() and not jumped and not dropped and not knocked_back:
 		motion.y = 0
 		position.y = last_position.y
 		jump_delay_timer.start()
