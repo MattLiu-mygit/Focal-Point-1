@@ -9,6 +9,7 @@ func _ready() -> void:
 		if enemy is Enemy:
 			enemy.connect("enemy_died", self, "check_cleared")
 
+
 func check_cleared() -> void:
 	for enemy in get_children():
 		if enemy is Enemy and enemy.DEFEATABLE:
