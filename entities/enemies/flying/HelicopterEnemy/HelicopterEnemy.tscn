@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemyCollider.tres" type="Shape2D" id=2]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemy.png" type="Texture" id=3]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemy.gd" type="Script" id=4]
+[ext_resource path="res://entities/enemies/flying/HelicopterEnemy/HelicopterEnemy.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/enemies/flying/HelicopterEnemy/HelicopterEnemy.png" type="Texture" id=3]
+[ext_resource path="res://entities/enemies/flying/FlyingEnemyCollider.tres" type="Shape2D" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fly"
@@ -23,8 +23,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1 ]
 }
 
-[node name="FlyingEnemy" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[node name="HelicopterEnemy" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
 LEFT_BOUND = 10
 RIGHT_BOUND = 10
 
@@ -34,11 +34,11 @@ hframes = 3
 
 [node name="Collider" parent="." index="1"]
 position = Vector2( 0, 3 )
-shape = ExtResource( 2 )
+shape = ExtResource( 4 )
 
 [node name="Collider" parent="Hurtbox" index="0"]
 position = Vector2( 0, 3 )
-shape = ExtResource( 2 )
+shape = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "Fly"

@@ -7,7 +7,6 @@
 [ext_resource path="res://entities/enemies/walking/WalkingEnemy.gd" type="Script" id=5]
 
 [node name="ShieldEnemy" instance=ExtResource( 1 )]
-modulate = Color( 1, 1, 1, 1 )
 script = ExtResource( 5 )
 LEFT_BOUND = 0
 RIGHT_BOUND = 0
@@ -48,5 +47,6 @@ cast_to = Vector2( -13, 0 )
 position = Vector2( -2.5, -2.5 )
 scale = Vector2( 1.05, 1.05 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 
 [editable path="Hurtbox"]

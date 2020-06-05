@@ -2,7 +2,7 @@ extends Enemy
 
 enum DIRECTION {LEFT = -1, RIGHT = 1}
 
-export(DIRECTION) var WALKING_DIRECTION = DIRECTION.RIGHT
+export(DIRECTION) var FLYING_DIRECTION = DIRECTION.RIGHT
 export(int) var LEFT_BOUND
 export(int) var RIGHT_BOUND
 export(int) var pause_time = 3
@@ -21,10 +21,10 @@ onready var collider: CollisionShape2D = $Collider
 
 func _ready() -> void:
 	start_x = position.x
-	motion.x = SPEED * WALKING_DIRECTION
+	motion.x = SPEED * FLYING_DIRECTION
 	patrol_timer.wait_time = pause_time
-	rotation_degrees = WALKING_DIRECTION * 30
-	wall_cast.scale.x = WALKING_DIRECTION
+	rotation_degrees = FLYING_DIRECTION * 30
+	wall_cast.scale.x = FLYING_DIRECTION
 
 
 # Checks for two cases in which special action needs to occur:
@@ -61,13 +61,13 @@ func return_to_patrol_area() -> void:
 # Like a patrol man, it stops, and flips itself around.
 func patrol_flip() -> void:
 	wall_cast.scale.x *= -1
-	WALKING_DIRECTION *= -1
+	FLYING_DIRECTION *= -1
 	rotation_degrees = 0
 	patrol_timer.start()
 
 # Checks if taking one step would take the enemy away or towards the patrol area.
 func check_direction() -> bool:
-	var compare_val = position.x + WALKING_DIRECTION
+	var compare_val = position.x + FLYING_DIRECTION
 	var compare_to_start = abs(compare_val - start_x)
 	var dist_to_start = abs(position.x - start_x)
 	if compare_to_start < dist_to_start:
@@ -84,10 +84,10 @@ func in_patrol_area() -> bool:
 	
 	# Starts decelerating halfway to the patrol flip. Checks for moving right and
 	# moving left.
-	if (to_right_bound < 0.5 * RIGHT_BOUND and WALKING_DIRECTION == DIRECTION.RIGHT):
+	if (to_right_bound < 0.5 * RIGHT_BOUND and FLYING_DIRECTION == DIRECTION.RIGHT):
 		decelerate(to_right_bound, to_left_bound)
 	
-	if (to_left_bound < 0.5 * LEFT_BOUND and WALKING_DIRECTION == DIRECTION.LEFT):
+	if (to_left_bound < 0.5 * LEFT_BOUND and FLYING_DIRECTION == DIRECTION.LEFT):
 		decelerate(to_right_bound, to_left_bound)
 		
 	# Gave some room so enemy doesn't decelerated too much before the flip.
@@ -104,7 +104,7 @@ func decelerate_calc(to_right_bound, to_left_bound) -> float:
 	# multiplied by acceleration mod to adapt the function with the current
 	# speed.
 	var acceleration_mod
-	if WALKING_DIRECTION == 1:
+	if FLYING_DIRECTION == 1:
 		acceleration_mod = motion.x/to_right_bound
 	else:
 		acceleration_mod = motion.x/to_left_bound
@@ -122,6 +122,6 @@ func decelerate_rotation(deceleration: float) -> void:
 
 
 func _on_PatrolTimer_timeout() -> void:
-	motion.x = SPEED * WALKING_DIRECTION
-	rotation_degrees = WALKING_DIRECTION * 30
+	motion.x = SPEED * FLYING_DIRECTION
+	rotation_degrees = FLYING_DIRECTION * 30
 	decelerating = false
