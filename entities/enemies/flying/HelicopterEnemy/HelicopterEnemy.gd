@@ -42,7 +42,7 @@ func _physics_process(_delta: float) -> void:
 
 
 # Performs deceleration
-func decelerate(param1, param2):
+func decelerate(param1, param2) -> void:
 	var deceleration = decelerate_calc(param1, param2)
 	motion.x *= deceleration
 	decelerate_rotation(deceleration)

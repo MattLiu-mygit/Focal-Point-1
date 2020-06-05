@@ -42,7 +42,8 @@ func _physics_process(delta: float) -> void:
 		chase_player(player, delta)
 
 
-func chase_player(player, delta):
+# Chases player
+func chase_player(player, delta) -> void:
 	var direction = (player.global_position - global_position).normalized()
 	motion.y += spoopy_y_mod * spoopy_timer.time_left
 	motion += direction * ACCELERATION * delta
