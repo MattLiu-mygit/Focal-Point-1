@@ -11,6 +11,7 @@ class_name Player
 
 const PLAYER_HURTBOX_LAYER_BIT := 3
 const TILE_PLATFORM := 1
+const PLAYER_XRADIUS := 8
 
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
@@ -92,25 +93,31 @@ func jump_check() -> void:
 			motion.y = -JUMP_FORCE
 			jumped = true
 	else:
-		# Depending on how long the player held "up", jump 1-4 blocks
 		if Input.is_action_just_released("up"):
-			if motion.y < -JUMP_FORCE / 4:
-				motion.y = -JUMP_FORCE / 4
-			elif motion.y < -JUMP_FORCE / 3:
-				motion.y = -JUMP_FORCE / 3
-			elif motion.y < -JUMP_FORCE / 2:
-				motion.y = -JUMP_FORCE / 2
+			cut_jump()
 
 
+# If Player releases jump, cut the jump short.
+func cut_jump():
+	if motion.y < -JUMP_FORCE / 4:
+		motion.y = -JUMP_FORCE / 4
+	elif motion.y < -JUMP_FORCE / 3:
+		motion.y = -JUMP_FORCE / 3
+	elif motion.y < -JUMP_FORCE / 2:
+		motion.y = -JUMP_FORCE / 2
+
+
+# If only on a platform, drop a pixel to bypass the one-way-collision
 func drop_check() -> void:
 	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
-	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position - Vector2(-8, 0)))
+	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position - Vector2(-PLAYER_XRADIUS, 0)))
 	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
-	var right_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(8, 0)))
+	var right_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(PLAYER_XRADIUS, 0)))
 	if Input.is_action_pressed("down") and is_on_floor() and only_platforms(left_tile, center_tile, right_tile):
 		position.y += 1
 
 
+# Check all tiles under the player are platforms or blank space
 func only_platforms(left_tile: int, center_tile: int, right_tile: int):
 	# -1 means blank space, no tile
 	return ((left_tile == -1 or left_tile == TILE_PLATFORM) and
@@ -126,18 +133,20 @@ func move() -> void:
 	
 	motion = move_and_slide(motion, Vector2.UP)
 	
-	# If Player is in the air but hasn't jumped (fell off a platform) or 
-	# wasn't knocked back, allow a small window where the player can still jump.
+	# If Player is in the air but hasn't jumped (fell off a platform),
+	# allow a small window where the player can still jump.
 	if was_on_floor and not is_on_floor() and not jumped:
 		position.y = last_position.y
 		jump_delay_timer.start()
 	
+	# Remove knockback effect if landed.
 	if is_on_floor():
 		if knocked_back:
 			knocked_back = false
 			guns.enabled = true
 
 
+# Launch the Player depending on where the Player was hit.
 func knockback(spot: Vector2) -> void:
 	knocked_back = true
 	var x := global_position.x
