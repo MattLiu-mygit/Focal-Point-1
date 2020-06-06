@@ -21,5 +21,13 @@ collision_layer = 16
 [node name="EnemyStats" parent="." instance=ExtResource( 3 )]
 
 [node name="Drops" parent="." instance=ExtResource( 4 )]
+
+[node name="FloorCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 6 )
+
+[node name="WallCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 6, 0 )
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="enemy_died" from="EnemyStats" to="." method="_on_EnemyStats_enemy_died"]

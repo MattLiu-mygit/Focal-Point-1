@@ -4,7 +4,6 @@
 [ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/stationary/laser/Laser.png" type="Texture" id=3]
 
-
 [sub_resource type="RayShape2D" id=1]
 length = 1.0
 
