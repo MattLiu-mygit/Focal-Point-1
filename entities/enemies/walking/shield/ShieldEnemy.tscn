@@ -36,11 +36,11 @@ AUTO_FIRE = true
 AUTO_FIRE_RATE = 0.5
 
 [node name="FloorCast" parent="." index="7"]
-position = Vector2( -7, 8 )
-cast_to = Vector2( 0, 6 )
+position = Vector2( 7, 8 )
+collision_mask = 65
 
 [node name="WallCast" parent="." index="8"]
-cast_to = Vector2( -13, 0 )
+cast_to = Vector2( 13, 0 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]
