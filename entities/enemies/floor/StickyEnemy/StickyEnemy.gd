@@ -15,7 +15,7 @@ func _physics_process(delta) -> void:
 		position.x = player.global_position.x
 		position.y = player.global_position.y + 12
 	
-	motion = move_and_slide(motion, Vector2.UP) * delta
+	motion = move_and_slide(motion, Vector2.UP)
 
 
 func _on_Hitbox_area_entered(_area: Area2D) -> void:

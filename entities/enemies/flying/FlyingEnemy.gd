@@ -11,7 +11,6 @@ export(float) var ACCELERATION = 0.75
 var start_x
 var motion_x
 var decelerating
-var e = 2.71828
 
 onready var sprite: Sprite = $Sprite
 onready var wall_cast: RayCast2D = $WallCast
@@ -97,10 +96,12 @@ func in_patrol_area() -> bool:
 
 # Calculates a smooth deceleration.
 func decelerate_calc(to_right_bound, to_left_bound) -> float:
+	var acceleration_mod
+	var e = 2.71828
+	
 	# Basically modeling acceleration after the derivative of an s curve.
 	# multiplied by acceleration mod to adapt the function with the current
 	# speed.
-	var acceleration_mod
 	if FLYING_DIRECTION == 1:
 		acceleration_mod = motion.x/to_right_bound
 	else:
