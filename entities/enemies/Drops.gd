@@ -12,22 +12,19 @@ export (Array, Drop) var drops
 
 
 func _exit_tree() -> void:
+	var origin = get_parent().global_position
 	for drop_id in drops:
+		var spawn_position = origin + Vector2(rand_range(-4, 4), rand_range(-4, 4))
+		var scene: PackedScene = null
 		match drop_id:
 			Drop.HEALTH:
-				instance_drop(Health)
+				scene = Health
 			Drop.KEY:
-				instance_drop(Key)
+				scene = Key
+		# warning-ignore:return_value_discarded
+		Utils.instance_scene_in_room(scene, spawn_position)
 
 
 func add_drop(drop_id: int):
 	assert(0 <= drop_id < Drop.size())
 	drops.append(drop_id)
-
-
-func instance_drop(drop_: PackedScene):
-	var room: Room = ResourceLoader.main_instances.world.room
-	var spawn_position = get_parent().global_position
-	var drop = drop_.instance()
-	drop.global_position = spawn_position + Vector2(rand_range(-4, 4), rand_range(-4, 4))
-	room.call_deferred("add_child", drop)
