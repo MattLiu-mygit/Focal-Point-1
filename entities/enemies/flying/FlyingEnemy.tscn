@@ -1,59 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://entities/enemies/flying/FlyingEnemy.gd" type="Script" id=1]
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemy.png" type="Texture" id=3]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemyCollider.tres" type="Shape2D" id=4]
-
-[sub_resource type="Animation" id=1]
-resource_name = "Fly"
-length = 0.6
-loop = true
-step = 0.15
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 1 ]
-}
 
 [node name="FlyingEnemy" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-LEFT_BOUND = 10
-RIGHT_BOUND = 10
+DEFEATABLE = true
+LEFT_BOUND = 50
+RIGHT_BOUND = 50
+pause_time = 1
 
-[node name="Sprite" parent="." index="0"]
-texture = ExtResource( 3 )
-hframes = 3
-
-[node name="Collider" parent="." index="1"]
-position = Vector2( 0, 3 )
-shape = ExtResource( 4 )
-
-[node name="Collider" parent="Hurtbox" index="0"]
-position = Vector2( 0, 3 )
-shape = ExtResource( 4 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
-autoplay = "Fly"
-anims/Fly = SubResource( 1 )
-
-[node name="PatrolTimer" type="Timer" parent="." index="6"]
+[node name="PatrolTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
 one_shot = true
 
-[node name="FloorCast" parent="." index="7"]
-visible = false
-enabled = false
-
-[node name="WallCast" parent="." index="8"]
-position = Vector2( 0, 3 )
+[node name="WallCast" type="RayCast2D" parent="." index="6"]
+enabled = true
 cast_to = Vector2( 40, 0 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FlyingEnemy.png-7098ea7468321c798a8a22380545b6d0.stex"
+path="res://.import/HelicopterEnemy.png-605f9394c03f7be856394764da6406c9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/flying/FlyingEnemy.png"
-dest_files=[ "res://.import/FlyingEnemy.png-7098ea7468321c798a8a22380545b6d0.stex" ]
+source_file="res://entities/enemies/flying/helicopter/HelicopterEnemy.png"
+dest_files=[ "res://.import/HelicopterEnemy.png-605f9394c03f7be856394764da6406c9.stex" ]
 
 [params]
 
