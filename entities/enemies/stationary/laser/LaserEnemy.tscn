@@ -1,17 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/stationary/laser/LaserEnemy.png" type="Texture" id=2]
 [ext_resource path="res://entities/enemies/stationary/laser/Laser.tscn" type="PackedScene" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 4 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 4 )
-
 [node name="LaserEnemy" instance=ExtResource( 1 )]
-script = null
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
@@ -21,12 +14,6 @@ position = Vector2( 0, -2 )
 
 [node name="Hitbox" parent="Laser" index="1"]
 collision_mask = 8
-
-[node name="Collider" parent="." index="2"]
-shape = SubResource( 1 )
-
-[node name="Collider" parent="Hurtbox" index="0"]
-shape = SubResource( 2 )
 
 [node name="EnemyStats" parent="." index="4"]
 max_health = 3
