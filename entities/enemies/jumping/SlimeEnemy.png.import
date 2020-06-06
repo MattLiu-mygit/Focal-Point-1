@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/JumpingEnemy.png-a558a32219985d7e44f553b9b116499c.stex"
+path="res://.import/SlimeEnemy.png-70a62618f4ba28aa0f997653457556f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/jumping/JumpingEnemy.png"
-dest_files=[ "res://.import/JumpingEnemy.png-a558a32219985d7e44f553b9b116499c.stex" ]
+source_file="res://entities/enemies/jumping/SlimeEnemy.png"
+dest_files=[ "res://.import/SlimeEnemy.png-70a62618f4ba28aa0f997653457556f9.stex" ]
 
 [params]
 
