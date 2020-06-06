@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1 ]
 }
 
-[node name="HelicopterEnemy" instance=ExtResource( 2 )]
+[node name="FlyingEnemy" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 LEFT_BOUND = 10
 RIGHT_BOUND = 10
