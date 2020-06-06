@@ -6,6 +6,10 @@ onready var back_floor_cast: RayCast2D = $BackFloorCast
 
 
 func _physics_process(_delta: float) -> void:
+	follow_mouse()
+
+
+func follow_mouse() -> void:
 	var facing_direction = int(sign(get_local_mouse_position().x))
 	
 	# Prevents jumping off cliffs
