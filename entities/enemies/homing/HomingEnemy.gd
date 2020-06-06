@@ -20,13 +20,14 @@ func _physics_process(delta: float) -> void:
 	var player = main_instances.player
 	
 	if player != null:
-		chase_player(player, delta)
+		chase_player(player)
+	
+	motion = move_and_slide(motion)
 
 
 # Chases player
-func chase_player(player: KinematicBody2D, delta: float) -> void:
+func chase_player(player) -> void:
 	var direction = (player.global_position - global_position).normalized()
-	motion += direction * ACCELERATION * delta
+	motion += direction * ACCELERATION
 	motion = motion.clamped(SPEED)
 	sprite.flip_h = global_position > player.global_position
-	motion = move_and_slide(motion)
