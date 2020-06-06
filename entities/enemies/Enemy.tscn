@@ -23,3 +23,5 @@ collision_layer = 16
 [node name="Drops" parent="." instance=ExtResource( 4 )]
 [connection signal="hit" from="Hurtbox" to="." method="_on_Hurtbox_hit"]
 [connection signal="enemy_died" from="EnemyStats" to="." method="_on_EnemyStats_enemy_died"]
+
+[editable path="Hurtbox"]
