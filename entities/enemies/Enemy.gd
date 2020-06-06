@@ -8,10 +8,6 @@ var motion = Vector2.ZERO
 onready var stats = $EnemyStats
 
 
-func ready() -> void:
-	set_physics_process(false)
-
-
 func die() -> void:
 	queue_free()
 

@@ -1,5 +1,7 @@
 extends "res://entities/enemies/floor/FloorEnemy.gd"
 
+export(int) var SLOW_PERCENT = 0.25
+
 var main_instances = ResourceLoader.main_instances
 var attached_to_player = false
 

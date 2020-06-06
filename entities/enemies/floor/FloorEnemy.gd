@@ -1,7 +1,5 @@
 extends Enemy
 
-export(int) var SLOW_PERCENT = 0.25
-
 onready var sprite: Sprite = $Sprite
 onready var floor_cast: RayCast2D = $FloorCast
 onready var back_floor_cast: RayCast2D = $BackFloorCast
