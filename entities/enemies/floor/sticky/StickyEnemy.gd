@@ -23,5 +23,5 @@ func _on_Hitbox_area_entered(_area: Area2D) -> void:
 	attached_to_player = true
 
 
-func _on_Hitbox_body_entered(body: Node) -> void:
+func _on_Hitbox_body_entered(_body: Node) -> void:
 	attached_to_player = true
