@@ -6,7 +6,6 @@
 [ext_resource path="res://entities/enemies/stationary/beacon/Beacon.png" type="Texture" id=4]
 [ext_resource path="res://entities/enemies/stationary/beacon/BeaconEnemy.gd" type="Script" id=5]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 2 )
 
@@ -16,6 +15,7 @@ extents = Vector2( 8, 2 )
 [node name="BeaconEnemy" instance=ExtResource( 1 )]
 position = Vector2( 0, -4 )
 script = ExtResource( 5 )
+DEFEATABLE = true
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
