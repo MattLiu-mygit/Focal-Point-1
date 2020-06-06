@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://entities/enemies/flying/HelicopterEnemy/HelicopterEnemy.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/flying/FlyingEnemy.gd" type="Script" id=1]
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/enemies/flying/HelicopterEnemy/HelicopterEnemy.png" type="Texture" id=3]
+[ext_resource path="res://entities/enemies/flying/FlyingEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/flying/FlyingEnemyCollider.tres" type="Shape2D" id=4]
 
 [sub_resource type="Animation" id=1]
@@ -55,10 +55,6 @@ enabled = false
 [node name="WallCast" parent="." index="8"]
 position = Vector2( 0, 3 )
 cast_to = Vector2( 40, 0 )
-
-[node name="VisibilityNotifier2D" parent="." index="9"]
-position = Vector2( -1.19209e-07, 0 )
-scale = Vector2( 0.8, 0.8 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

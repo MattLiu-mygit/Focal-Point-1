@@ -1,54 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entities/enemies/floor/FloorEnemyTemporary.png" type="Texture" id=2]
+[ext_resource path="res://entities/enemies/floor/FloorEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/floor/StickyEnemy/StickyEnemy.gd" type="Script" id=3]
-[ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=4]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 15, 2 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 2 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 2 )
 
 [node name="StickyEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-SPEED = 100
-
-[node name="Sprite" parent="." index="0"]
-position = Vector2( 0, -4 )
-scale = Vector2( 2, 1 )
-texture = ExtResource( 2 )
-
-[node name="Collider" parent="." index="1"]
-position = Vector2( 1, -2 )
-shape = SubResource( 1 )
-
-[node name="Collider" parent="Hurtbox" index="0"]
-position = Vector2( 0, -2 )
-shape = SubResource( 2 )
-
-[node name="EnemyStats" parent="." index="3"]
-max_health = 3
-
-[node name="Hitbox" parent="." index="5" instance=ExtResource( 4 )]
-collision_mask = 8
-
-[node name="Collider" parent="Hitbox" index="0"]
-position = Vector2( 0, -2 )
-shape = SubResource( 3 )
-
-[node name="FloorCast" parent="." index="6"]
-position = Vector2( 15, 0 )
-
-[node name="WallCast" parent="." index="7"]
-visible = false
-position = Vector2( 0.102093, -1.99082 )
-enabled = false
+SPEED = 50
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 
 [editable path="Hurtbox"]
 

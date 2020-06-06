@@ -1,55 +1,72 @@
-extends Enemy
+extends "res://entities/enemies/homing/HomingEnemy.gd"
 
-# Maybe make the enemy keyframe be just the eyes when in walls
-# fade in and out. When faded, hurtbox 0
-
-enum DIRECTION {LEFT = -1, RIGHT = 1}
 enum STATE {SEMISOLID = 1, SOLID = 0, TRANSPARENT = -1}
 
-export(int) var ACCELERATION = 100
-export(DIRECTION) var WALKING_DIRECTION = DIRECTION.RIGHT
 export(int) var SPOOPYNESS = 1
+export(int) var FREEZE_ANGLE_RANGE = 15
 
 var motion_up
 var state
 var spoopy_y_mod
-var main_instances = ResourceLoader.main_instances
 
-onready var sprite: Sprite = $Sprite
-onready var hurtbox: Area2D = $Hurtbox
-onready var collider: Area2D = $Collider
 onready var spoopy_timer: Timer = $SpoopyTimer
 onready var fade_timer: Timer = $FadeTimer
-onready var wall_cast: RayCast2D = $WallCast
 onready var fade_animator: AnimationPlayer = $FadeAnimator
 
 
 func _ready() -> void:
 	motion_up = false
 	state = STATE.SEMISOLID
-	motion.x = SPEED * WALKING_DIRECTION
 	spoopy_y_mod = -randi() % SPOOPYNESS
 
 
 # Checks for two cases in which special action needs to occur: 
 func _physics_process(delta: float) -> void:
 	var player = main_instances.player
+	
 	if spoopy_timer.time_left == 0:
 		spoopy_timer.start()
+	
 	if fade_timer.time_left == 0:
 		fade_timer.start()
+	
 	if player != null:
-		chase_player(player, delta)
+		freeze_check(player)
 
 
-# Chases player
-func chase_player(player, delta) -> void:
-	var direction = (player.global_position - global_position).normalized()
+func freeze_check(player: KinematicBody2D) -> void:
+	var player_angle = get_player_angle(player)
+	var ghost_angle = get_ghost_angle(player)
+	var top_angle = player_angle + deg2rad(FREEZE_ANGLE_RANGE)
+	var bottom_angle = player_angle - deg2rad(FREEZE_ANGLE_RANGE)
+		
+	# Freezes movement if ghost enemy within an angle range of where the 
+	# player looks
+	if ghost_angle < top_angle and ghost_angle > bottom_angle:
+		motion.x = 0
+		motion.y = 0
+
+
+func chase_player(player: KinematicBody2D, delta: float) -> void:
 	motion.y += spoopy_y_mod * spoopy_timer.time_left
-	motion += direction * ACCELERATION * delta
-	motion = motion.clamped(SPEED)
-	sprite.flip_h = global_position > player.global_position
-	motion = move_and_slide(motion)
+
+
+func get_player_angle(player: KinematicBody2D) -> float:
+	var player_angle = -player.get_local_mouse_position().angle()
+	if player_angle > PI/2:
+		player_angle = -PI + player_angle
+	elif player_angle < -PI/2:
+		player_angle = PI - player_angle
+	return player_angle
+
+
+func get_ghost_angle(player: KinematicBody2D) -> float:
+	var y_diff = -position.y + player.position.y 
+	var x_diff = position.x - player.position.x
+	if y_diff == 0:
+		y_diff = 0.0001
+	var ghost_angle = atan(y_diff/x_diff)
+	return ghost_angle
 
 
 func fade() -> void:

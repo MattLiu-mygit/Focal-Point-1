@@ -11,6 +11,7 @@ export(float) var ACCELERATION = 0.75
 var start_x
 var motion_x
 var decelerating
+var e = 2.71828
 
 onready var sprite: Sprite = $Sprite
 onready var wall_cast: RayCast2D = $WallCast
@@ -108,7 +109,7 @@ func decelerate_calc(to_right_bound, to_left_bound) -> float:
 		acceleration_mod = motion.x/to_right_bound
 	else:
 		acceleration_mod = motion.x/to_left_bound
-	var deceleration = (4 * pow(2.71828, acceleration_mod/2))/pow((1 + pow(2.71828, acceleration_mod/2)), 2.0)
+	var deceleration = (4 * pow(e, acceleration_mod/2))/pow((1 + pow(e, acceleration_mod/2)), 2.0)
 	#var deceleration = pow(2.71828, -acceleration_mod/4)
 	return deceleration
 
