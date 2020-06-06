@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/enemies/homing/HomingEnemy.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=2]
+
+[node name="HomingEnemy" instance=ExtResource( 2 )]
+collision_mask = 0
+script = ExtResource( 1 )
+DEFEATABLE = true
+
+[node name="Sprite" parent="." index="0"]
+modulate = Color( 1, 0, 0, 1 )
+
+[editable path="Hurtbox"]

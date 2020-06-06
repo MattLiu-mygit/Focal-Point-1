@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://entities/enemies/homing/ghost/GhostEnemy.gd" type="Script" id=1]
-[ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/enemies/homing/HomingEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/enemies/homing/ghost/GhostEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/homing/ghost/GhostEnemyCollider.tres" type="Shape2D" id=4]
 
@@ -50,11 +50,9 @@ tracks/3/keys = {
 }
 
 [node name="GhostEnemy" instance=ExtResource( 2 )]
-collision_mask = 0
 script = ExtResource( 1 )
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1, 0, 0, 1 )
 texture = ExtResource( 3 )
 hframes = 2
 
@@ -64,21 +62,14 @@ shape = ExtResource( 4 )
 [node name="Collider" parent="Hurtbox" index="0"]
 shape = ExtResource( 4 )
 
-[node name="SpoopyTimer" type="Timer" parent="." index="4"]
+[node name="SpoopyTimer" type="Timer" parent="." index="5"]
 wait_time = 1.5
 
-[node name="FadeAnimator" type="AnimationPlayer" parent="." index="5"]
+[node name="FadeAnimator" type="AnimationPlayer" parent="." index="6"]
 anims/fade = SubResource( 1 )
 
-[node name="FadeTimer" type="Timer" parent="." index="6"]
+[node name="FadeTimer" type="Timer" parent="." index="7"]
 wait_time = 3.0
-
-[node name="FloorCast" parent="." index="8"]
-visible = false
-enabled = false
-
-[node name="WallCast" parent="." index="9"]
-visible = false
 [connection signal="timeout" from="SpoopyTimer" to="." method="_on_SpoopyTimer_timeout"]
 [connection signal="timeout" from="FadeTimer" to="." method="_on_FadeTimer_timeout"]
 

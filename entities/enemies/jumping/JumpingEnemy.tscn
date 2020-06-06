@@ -1,54 +1,28 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://entities/enemies/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://entities/enemies/jumping/JumpingEnemyCollider.tres" type="Shape2D" id=2]
-[ext_resource path="res://entities/enemies/jumping/JumpingEnemy.png" type="Texture" id=3]
 [ext_resource path="res://entities/enemies/jumping/JumpingEnemy.gd" type="Script" id=4]
 [ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 4 )
-
 [node name="JumpingEnemy" instance=ExtResource( 1 )]
-position = Vector2( 0, -4 )
 script = ExtResource( 4 )
 SPEED = 144
-
-[node name="Sprite" parent="." index="0"]
-texture = ExtResource( 3 )
+DEFEATABLE = true
 
 [node name="Collider" parent="." index="1"]
 rotation = 1.57079
-shape = ExtResource( 2 )
 
-[node name="Collider" parent="Hurtbox" index="0"]
-rotation = 1.57079
-shape = ExtResource( 2 )
-
-[node name="FloorCast" parent="." index="5"]
-visible = false
-position = Vector2( 0, 4 )
-enabled = false
-
-[node name="JumpDelayTimer" type="Timer" parent="." index="6"]
-autostart = true
-
-[node name="Hitbox" parent="." index="7" instance=ExtResource( 5 )]
+[node name="Hitbox" parent="." index="2" instance=ExtResource( 5 )]
 collision_mask = 8
 DAMAGE = 1
 
-[node name="Collider" parent="Hitbox" index="0"]
-shape = SubResource( 1 )
+[node name="Collider" parent="Hurtbox" index="0"]
+rotation = 1.57079
 
-[node name="WallCast" parent="." index="8"]
-visible = false
-enabled = false
-
-[node name="VisibilityNotifier2D" parent="." index="9"]
-position = Vector2( -1.19209e-07, 0 )
-scale = Vector2( 0.8, 0.4 )
+[node name="JumpDelayTimer" type="Timer" parent="." index="6"]
+autostart = true
 [connection signal="timeout" from="JumpDelayTimer" to="." method="_on_JumpDelayTimer_timeout"]
 
-[editable path="Hurtbox"]
-
 [editable path="Hitbox"]
+
+[editable path="Hurtbox"]
