@@ -3,7 +3,7 @@
 [ext_resource path="res://entities/enemies/walking/WalkingEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/enemies/walking/shield/ShieldEnemy.png" type="Texture" id=2]
 [ext_resource path="res://entities/enemies/walking/shield/ShieldEnemyCollider.tres" type="Shape2D" id=3]
-[ext_resource path="res://weapons/guns/spread/SpreadGun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://weapons/guns/spread/3SpreadGun.tscn" type="PackedScene" id=4]
 
 [node name="ShieldEnemy" instance=ExtResource( 1 )]
 LEFT_BOUND = 0
@@ -30,14 +30,10 @@ shape = ExtResource( 3 )
 [node name="Collider" parent="Hurtbox" index="0"]
 shape = ExtResource( 3 )
 
-[node name="SpreadGun" parent="." index="3" instance=ExtResource( 4 )]
-modulate = Color( 1, 0, 0, 1 )
-AUTO_FIRE = true
-AUTO_FIRE_RATE = 0.5
+[node name="3SpreadGun" parent="." index="3" instance=ExtResource( 4 )]
 
 [node name="FloorCast" parent="." index="7"]
 position = Vector2( 7, 8 )
-collision_mask = 65
 
 [node name="WallCast" parent="." index="8"]
 cast_to = Vector2( 13, 0 )
