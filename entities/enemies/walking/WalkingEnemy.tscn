@@ -5,6 +5,7 @@
 
 [node name="WalkingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+DEFEATABLE = true
 LEFT_BOUND = 3
 RIGHT_BOUND = 5
 
