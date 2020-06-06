@@ -5,7 +5,6 @@
 [ext_resource path="res://entities/Hitbox.tscn" type="PackedScene" id=5]
 
 [node name="JumpingEnemy" instance=ExtResource( 1 )]
-position = Vector2( 0, -4 )
 script = ExtResource( 4 )
 SPEED = 144
 DEFEATABLE = true
