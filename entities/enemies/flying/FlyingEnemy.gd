@@ -51,10 +51,6 @@ func decelerate(param1, param2) -> void:
 
 # A check to see if it's in the right direction
 func return_to_patrol_area() -> void:
-	# Needs to check for this as this function will be called on constantly if 
-	# the enemy ever gets knocked out of its patrol area. If it's int he right
-	# direction, no need to perform a patrol flip. if not in right direction, 
-	# it hasn't performed a patrol flip and will perform one.
 	if not check_direction():
 		patrol_flip()
 
