@@ -184,8 +184,9 @@ func game_over() -> void:
 
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
-	knockback(spot)
-	guns.enabled = false
+	if damage > 0:
+		knockback(spot)
+		guns.enabled = false
 
 
 func _on_died() -> void:
