@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GhostEnemy.png-dfb611bcc48560eb56e3ef77e382de7e.stex"
+path="res://.import/GhostEnemy.png-3736d8aeab9e5be5db662e8c91c3b55e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/flying/ghost/GhostEnemy.png"
-dest_files=[ "res://.import/GhostEnemy.png-dfb611bcc48560eb56e3ef77e382de7e.stex" ]
+source_file="res://entities/enemies/homing/ghost/GhostEnemy.png"
+dest_files=[ "res://.import/GhostEnemy.png-3736d8aeab9e5be5db662e8c91c3b55e.stex" ]
 
 [params]
 

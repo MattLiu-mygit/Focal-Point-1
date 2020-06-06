@@ -11,16 +11,7 @@ RIGHT_BOUND = 5
 [node name="EnemyStats" parent="." index="3"]
 max_health = 3
 
-[node name="WallCast" type="RayCast2D" parent="." index="4"]
-enabled = true
-cast_to = Vector2( -4, 0 )
-
-[node name="FloorCast" type="RayCast2D" parent="." index="5"]
-position = Vector2( -4, 0 )
-enabled = true
-cast_to = Vector2( 0, 6 )
-
-[node name="PatrolTimer" type="Timer" parent="." index="6"]
+[node name="PatrolTimer" type="Timer" parent="." index="5"]
 one_shot = true
 
 [editable path="Hurtbox"]
