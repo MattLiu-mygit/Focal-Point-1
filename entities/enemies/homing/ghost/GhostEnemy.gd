@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 # Checks for two cases in which special action needs to occur: 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var player = main_instances.player
 	
 	if spoopy_timer.time_left == 0:

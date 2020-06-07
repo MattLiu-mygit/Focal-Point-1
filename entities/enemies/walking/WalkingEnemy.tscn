@@ -5,6 +5,7 @@
 
 [node name="WalkingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+DEFEATABLE = true
 LEFT_BOUND = 3
 RIGHT_BOUND = 5
 
@@ -13,5 +14,14 @@ max_health = 3
 
 [node name="PatrolTimer" type="Timer" parent="." index="5"]
 one_shot = true
+
+[node name="FloorCast" type="RayCast2D" parent="." index="6"]
+enabled = true
+cast_to = Vector2( 0, 6 )
+collision_mask = 65
+
+[node name="WallCast" type="RayCast2D" parent="." index="7"]
+enabled = true
+cast_to = Vector2( 6, 0 )
 
 [editable path="Hurtbox"]

@@ -10,10 +10,12 @@ class_name Player
 #	1 to 4-block = depends on how long jump is held
 
 const PLAYER_HURTBOX_LAYER_BIT := 3
+const TILE_PLATFORM := 1
+const PLAYER_XRADIUS := 8
 
 export (int) var ACCELERATION = 640
 export (int) var MAX_WALK_SPEED = 128
-#export (int) var MAX_RUN_SPEED = 192
+export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
 export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
@@ -51,6 +53,7 @@ func _physics_process(delta: float) -> void:
 		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
+	drop_check()
 	move()
 
 
@@ -65,10 +68,10 @@ func get_run_strength() -> float:
 
 func apply_horizontal_force(run_strength: float, delta: float) -> void:
 	motion.x += run_strength * ACCELERATION * delta
-	#if Input.is_action_pressed("run"):
-		#motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
-	#else:
-	motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
+	if Input.is_action_pressed("run"):
+		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
+	else:
+		motion.x = clamp(motion.x, -MAX_WALK_SPEED, MAX_WALK_SPEED)
 
 
 # We chose to apply the same friction in the air because it was annoying to
@@ -90,14 +93,38 @@ func jump_check() -> void:
 			motion.y = -JUMP_FORCE
 			jumped = true
 	else:
-		# Depending on how long the player held "up", jump 1-4 blocks
 		if Input.is_action_just_released("up"):
-			if motion.y < -JUMP_FORCE / 4:
-				motion.y = -JUMP_FORCE / 4
-			elif motion.y < -JUMP_FORCE / 3:
-				motion.y = -JUMP_FORCE / 3
-			elif motion.y < -JUMP_FORCE / 2:
-				motion.y = -JUMP_FORCE / 2
+			cut_jump()
+
+
+# If Player releases jump, cut the jump short.
+func cut_jump():
+	if motion.y < -JUMP_FORCE / 4:
+		motion.y = -JUMP_FORCE / 4
+	elif motion.y < -JUMP_FORCE / 3:
+		motion.y = -JUMP_FORCE / 3
+	elif motion.y < -JUMP_FORCE / 2:
+		motion.y = -JUMP_FORCE / 2
+
+
+# If only on a platform, drop a pixel to bypass the one-way-collision
+func drop_check() -> void:
+	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
+	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(-PLAYER_XRADIUS, 0)))
+	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
+	var right_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(PLAYER_XRADIUS, 0)))
+	if Input.is_action_pressed("down") and is_on_floor() and only_platforms(left_tile, center_tile, right_tile):
+		position.y += 1
+		jumped = true
+	# ATTENTION: We set jumped to true here because it's pretty much the same
+
+
+# Check all tiles under the player are platforms or blank space
+func only_platforms(left_tile: int, center_tile: int, right_tile: int):
+	# -1 means blank space, no tile
+	return ((left_tile == -1 or left_tile == TILE_PLATFORM) and
+	(center_tile == -1 or center_tile == TILE_PLATFORM) and
+	(right_tile == -1 or right_tile == TILE_PLATFORM))
 
 
 func move() -> void:
@@ -108,19 +135,20 @@ func move() -> void:
 	
 	motion = move_and_slide(motion, Vector2.UP)
 	
-	# If Player is in the air but hasn't jumped (fell off a platform) or 
-	# wasn't knocked back, allow a small window where the player can still jump.
-	if was_on_floor and not is_on_floor() and not jumped and not knocked_back:
-		motion.y = 0
+	# If Player is in the air but hasn't jumped (fell off a platform),
+	# allow a small window where the player can still jump.
+	if was_on_floor and not is_on_floor() and not jumped:
 		position.y = last_position.y
 		jump_delay_timer.start()
 	
+	# Remove knockback effect if landed.
 	if is_on_floor():
 		if knocked_back:
 			knocked_back = false
 			guns.enabled = true
 
 
+# Launch the Player depending on where the Player was hit.
 func knockback(spot: Vector2) -> void:
 	knocked_back = true
 	var x := global_position.x
@@ -150,11 +178,15 @@ func die() -> void:
 		stats.total_health -= stats.max_health
 
 
+func game_over() -> void:
+	queue_free()
+
+
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
-	if damage != 0:
+	if damage > 0:
 		knockback(spot)
-	guns.enabled = false
+		guns.enabled = false
 
 
 func _on_died() -> void:
@@ -162,7 +194,7 @@ func _on_died() -> void:
 
 
 func _on_game_over() -> void:
-	queue_free()
+	game_over()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:

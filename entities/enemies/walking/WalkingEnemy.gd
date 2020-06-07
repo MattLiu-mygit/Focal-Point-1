@@ -4,6 +4,8 @@ extends Enemy
 
 enum Direction {LEFT = -1, RIGHT = 1}
 
+const XRADIUS := 7
+
 export (Direction) var WALKING_DIRECTION = Direction.LEFT
 export (int) var LEFT_BOUND = 0
 export (int) var RIGHT_BOUND = 0
@@ -24,7 +26,7 @@ func _ready():
 	motion.x = SPEED * WALKING_DIRECTION
 	patrol_timer.wait_time = PAUSE_TIME
 	wall_cast.scale.x = WALKING_DIRECTION
-	floor_cast.position.x = 8 * WALKING_DIRECTION
+	floor_cast.position.x = XRADIUS * WALKING_DIRECTION
 
 
 func _process(_delta: float) -> void:
