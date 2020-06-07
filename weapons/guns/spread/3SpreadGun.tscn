@@ -6,6 +6,10 @@
 
 [node name="3SpreadGun" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+FIRE_RATE = 0.25
+BULLET_SPEED = 256
+AUTO_FIRE = true
+AUTO_FIRE_RATE = 1.0
 
 [node name="BasicGun1" parent="." index="2" instance=ExtResource( 2 )]
 rotation = -0.261799
