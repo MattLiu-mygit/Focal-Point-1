@@ -16,7 +16,7 @@ func _ready() -> void:
 	motion.x = SPEED * WALKING_DIRECTION
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var player = main_instances.player
 	
 	if player != null:
