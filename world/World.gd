@@ -28,6 +28,8 @@ func _ready() -> void:
 		packed_scene.pack(room)
 		_room = packed_scene
 	ResourceLoader.main_instances.world = self
+	player_stats.connect("player_died", self, "reset_room")
+	player_stats.connect("player_fell", self, "reset_room")
 
 
 func queue_free() -> void:
@@ -36,13 +38,13 @@ func queue_free() -> void:
 
 
 func set_room(room_: PackedScene) -> void:
+	player.position = room.player_start_position
 	if room:
 		call_deferred("remove_child", room)
 		room.queue_free()
 	_room = room_
 	room = room_.instance()
 	call_deferred("add_child", room)
-	player.position = room.player_start_position
 
 
 # Resets the room back to its original state and also sets the Player's position.
