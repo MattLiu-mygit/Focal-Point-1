@@ -4,6 +4,8 @@ class_name PlayerStats
 
 signal player_health_changed(health)
 signal player_total_health_changed(total_health)
+# warning-ignore:unused_signal
+signal player_fell    # emitted by KillZone
 signal player_died(total_health, max_health)
 signal player_game_over
 
@@ -13,7 +15,7 @@ var health := max_health setget set_health
 var selected_level: PackedScene = null
 var has_key := false
 # Various unlockable perks
-var basic_gun_unlocked := false
+var basic_gun_unlocked := true
 var ring_gun_unlocked := false
 var reflect_gun_unlocked := false
 var rotate_gun_unlocked := false
