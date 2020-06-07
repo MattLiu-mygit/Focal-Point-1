@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://entities/Entity.gd"
 class_name Player
 # The Player scene has everything relating to controlling the character.
 # Current mechanics:
@@ -148,6 +148,13 @@ func move() -> void:
 			guns.enabled = true
 
 
+func hit(damage: int, spot: Vector2) -> void:
+	stats.health -= damage
+	if damage > 0:
+		knockback(spot)
+		guns.enabled = false
+
+
 # Launch the Player depending on where the Player was hit.
 func knockback(spot: Vector2) -> void:
 	knocked_back = true
@@ -159,6 +166,11 @@ func knockback(spot: Vector2) -> void:
 	if is_on_floor():
 		motion.y = -KNOCKBACK_FORCE / 2
 
+
+func replenish_health() -> void:
+	if stats.total_health > 0:
+		stats.health = stats.total_health
+		stats.total_health -= stats.max_health
 
 func turn_invincible(duration: float):
 	if not invincible:
@@ -173,20 +185,15 @@ func set_invincible(value: bool) -> void:
 
 
 func die() -> void:
-	if stats.total_health > 0:
-		stats.health = stats.total_health
-		stats.total_health -= stats.max_health
+	replenish_health()
 
 
 func game_over() -> void:
-	queue_free()
+	pass
 
 
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
-	stats.health -= damage
-	if damage > 0:
-		knockback(spot)
-		guns.enabled = false
+	hit(damage, spot)
 
 
 func _on_died() -> void:
