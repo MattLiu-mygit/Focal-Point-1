@@ -31,6 +31,7 @@ shape = ExtResource( 3 )
 shape = ExtResource( 3 )
 
 [node name="3SpreadGun" parent="." index="3" instance=ExtResource( 4 )]
+MASK_BIT = 3
 
 [node name="FloorCast" parent="." index="7"]
 position = Vector2( 7, 8 )
