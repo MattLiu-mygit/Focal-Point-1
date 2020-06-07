@@ -17,6 +17,7 @@ func _process(_delta: float) -> void:
 
 
 func _ready() -> void:
+	ResourceLoader.main_instances.world = self
 	# temp
 	if player_stats.selected_level != null:
 		set_room(player_stats.selected_level)
@@ -27,7 +28,6 @@ func _ready() -> void:
 		# warning-ignore:return_value_discarded
 		packed_scene.pack(room)
 		_room = packed_scene
-	ResourceLoader.main_instances.world = self
 	player_stats.connect("player_died", self, "reset_room")
 	player_stats.connect("player_fell", self, "reset_room")
 
