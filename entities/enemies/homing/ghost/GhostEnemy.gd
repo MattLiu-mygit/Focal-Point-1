@@ -69,8 +69,8 @@ func get_player_angle(player) -> float:
 func get_ghost_angle(player) -> float:
 	var y_diff = -position.y + player.position.y 
 	var x_diff = position.x - player.position.x
-	if y_diff == 0:
-		y_diff = 0.0001
+	if x_diff == 0:
+		x_diff = 0.0001
 	var ghost_angle = atan(y_diff/x_diff)
 	return ghost_angle
 

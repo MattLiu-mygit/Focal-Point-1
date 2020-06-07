@@ -1,19 +1,9 @@
-<<<<<<< HEAD
-[gd_scene load_steps=9 format=2]
-=======
 [gd_scene load_steps=12 format=2]
->>>>>>> 18e47aed9afaec7aae35b90fa2cb315e422ec75c
 
 [ext_resource path="res://world/levels/Room.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/World.gd" type="Script" id=3]
 [ext_resource path="res://world/Camera.gd" type="Script" id=4]
-<<<<<<< HEAD
-[ext_resource path="res://entities/enemies/homing/ghost/GhostEnemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://entities/enemies/floor/StickyEnemy/StickyEnemy.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entities/enemies/flying/FlyingEnemy.tscn" type="PackedScene" id=8]
-=======
 [ext_resource path="res://entities/enemies/jumping/slime/SlimeEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/enemies/floor/sticky/StickyEnemy.tscn" type="PackedScene" id=7]
@@ -21,19 +11,9 @@
 [ext_resource path="res://entities/enemies/flying/helicopter/HelicopterEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://entities/enemies/stationary/beacon/BeaconEnemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://entities/enemies/homing/ghost/GhostEnemy.tscn" type="PackedScene" id=11]
->>>>>>> 18e47aed9afaec7aae35b90fa2cb315e422ec75c
 
 [node name="World" type="Node"]
 script = ExtResource( 3 )
-
-[node name="FlyingEnemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 252, 149 )
-SPEED = 50
-LEFT_BOUND = 1000
-RIGHT_BOUND = 1000
-
-[node name="StickyEnemy" parent="." instance=ExtResource( 7 )]
-position = Vector2( 235, 272 )
 
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 follow_viewport_enable = true
@@ -72,9 +52,7 @@ position = Vector2( 420, 272 )
 DEFEATABLE = false
 
 [node name="GhostEnemy" parent="TestingRoom" instance=ExtResource( 11 )]
-modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 244, 120 )
-collision_layer = 4
 
 [node name="BeaconEnemy" parent="TestingRoom" instance=ExtResource( 10 )]
 position = Vector2( 164, 204 )
@@ -87,5 +65,9 @@ position = Vector2( 232, 268 )
 
 [node name="HelicopterEnemy" parent="TestingRoom" instance=ExtResource( 9 )]
 position = Vector2( 368, 136 )
+LEFT_BOUND = 100
+RIGHT_BOUND = 100
 
 [editable path="TestingRoom"]
+
+[editable path="TestingRoom/HelicopterEnemy"]
