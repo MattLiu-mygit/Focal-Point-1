@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://gui/HUD.gd" type="Script" id=1]
 [ext_resource path="res://gui/ThaleahFat_TTF.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://gui/health/HeartIcon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/icons/HeartIcon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/DefaultTheme.tres" type="Theme" id=4]
+[ext_resource path="res://gui/icons/Key.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
@@ -52,6 +53,16 @@ rect_scale = Vector2( 0.5, 0.5 )
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
 text = "x99"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="KeyIcon" type="TextureRect" parent="."]
+visible = false
+margin_left = 40.0
+margin_top = 6.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
