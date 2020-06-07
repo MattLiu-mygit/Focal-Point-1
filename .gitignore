@@ -5,3 +5,7 @@
 bin/
 build/
 lib/
+
+# World scene and project.godot rarely need to be updated
+world/World.tscn
+project.godot
