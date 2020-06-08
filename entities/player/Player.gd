@@ -26,7 +26,7 @@ var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
 var jumped := false
 var knocked_back := false
-var invincible := false setget set_invincible
+var invincible := false setget _set_invincible
 
 onready var hurtbox: Area2D = $Hurtbox
 onready var guns: Node = $PlayerGuns
@@ -40,8 +40,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("temp_invincible"):
-		turn_invincible(5)
-
+		self.invincible = true
+		yield(get_tree().create_timer(5), "timeout")
+		self.invincible = false
 
 func _physics_process(delta: float) -> void:
 	jumped = false
