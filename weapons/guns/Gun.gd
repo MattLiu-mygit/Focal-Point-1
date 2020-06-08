@@ -53,7 +53,7 @@ func set_gun_rotation(mouse_angle: float) -> void:
 # Subscenes are responsible for further initializing the bullet.
 func instance_bullet(Bullet_: PackedScene) -> Bullet:
 	# Bullets don't know which entity to hit, so the gun is responsible for that.
-	var bullet: Bullet = Utils.instance_scene_on_main(
+	var bullet: Bullet = Utils.instance_scene_in_room(
 						 Bullet_, global_position)
 	bullet.hitbox.set_collision_mask_bit(MASK_BIT, true)
 	if MASK_BIT == HurtboxMaskBit.PLAYER:
