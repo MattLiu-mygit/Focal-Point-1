@@ -1,6 +1,6 @@
-extends "res://entities/Entity.gd"
+extends KinematicBody2D
 class_name Player
-# The Player scene has everything relating to controlling the character.
+# The Player scene has everything relating to controlling the physical character.
 # Current mechanics:
 # Player can jump over horizontal gaps:
 #	4-block = no speed
@@ -35,8 +35,6 @@ onready var mouse_helper: Sprite = $MouseHelper
 
 
 func _ready() -> void:
-	stats.connect("player_died", self, "_on_died")
-	stats.connect("player_game_over", self, "_on_game_over")
 	ResourceLoader.main_instances.player = self
 
 
@@ -133,6 +131,7 @@ func move() -> void:
 	#var last_motion := motion
 	var last_position := position
 	
+	# Ignoring body_get_direct_state error here... doesn't seem to cause any problems.
 	motion = move_and_slide(motion, Vector2.UP)
 	
 	# If Player is in the air but hasn't jumped (fell off a platform),
@@ -167,41 +166,19 @@ func knockback(spot: Vector2) -> void:
 		motion.y = -KNOCKBACK_FORCE / 2
 
 
-func replenish_health() -> void:
-	if stats.total_health > 0:
-		stats.health = stats.total_health
-		stats.total_health -= stats.max_health
-
-func turn_invincible(duration: float):
-	if not invincible:
-		set_invincible(true)
-		yield(get_tree().create_timer(duration), "timeout")
-		set_invincible(false)
+func _set_controllable(value: bool) -> void:
+	controllable = value
+	set_process_unhandled_key_input(controllable)
+	guns.enabled = controllable
 
 
-func set_invincible(value: bool) -> void:
+func _set_invincible(value: bool) -> void:
 	invincible = value
 	hurtbox.set_collision_layer_bit(PLAYER_HURTBOX_LAYER_BIT, not value)
 
 
-func die() -> void:
-	replenish_health()
-
-
-func game_over() -> void:
-	pass
-
-
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	hit(damage, spot)
-
-
-func _on_died() -> void:
-	die()
-
-
-func _on_game_over() -> void:
-	game_over()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:
