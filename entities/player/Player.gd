@@ -19,7 +19,7 @@ export (int) var MAX_RUN_SPEED = 192
 export (float) var FRICTION = 0.25
 export (int) var KNOCKBACK_FORCE = 192
 export (int) var GRAVITY = 832
-export (int) var TERMINAL_SPEED = 1024
+export (int) var TERMINAL_SPEED = 2496
 export (int) var JUMP_FORCE = 336
 
 var stats = ResourceLoader.player_stats
