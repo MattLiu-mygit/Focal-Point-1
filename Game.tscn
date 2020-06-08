@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/World.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Game.gd" type="Script" id=4]
 [ext_resource path="res://world/Camera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/enemies/floor/hole/HoleEnemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/enemies/floor/sticky/StickyEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/enemies/jumping/slime/SlimeEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entities/enemies/walking/shield/ShieldEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://entities/enemies/flying/helicopter/HelicopterEnemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://entities/enemies/stationary/beacon/BeaconEnemy.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/enemies/homing/ghost/GhostEnemy.tscn" type="PackedScene" id=12]
 
 [node name="Game" type="Node"]
 script = ExtResource( 4 )
@@ -13,7 +20,7 @@ script = ExtResource( 4 )
 follow_viewport_enable = true
 
 [node name="HUD" parent="HUDLayer" instance=ExtResource( 3 )]
-rect_pivot_offset = Vector2( 144, 168 )
+rect_pivot_offset = Vector2( 256, 144 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 40, 272 )
@@ -21,3 +28,30 @@ position = Vector2( 40, 272 )
 [node name="Camera" parent="." instance=ExtResource( 5 )]
 
 [node name="World" parent="." instance=ExtResource( 2 )]
+
+[node name="StickyEnemy" parent="World/TestingRoom" index="0" instance=ExtResource( 7 )]
+position = Vector2( 420, 272 )
+
+[node name="GhostEnemy" parent="World/TestingRoom" index="1" instance=ExtResource( 12 )]
+position = Vector2( 244, 120 )
+
+[node name="BeaconEnemy" parent="World/TestingRoom" index="2" instance=ExtResource( 11 )]
+position = Vector2( 164, 204 )
+BEACON_SIZE = 2.0
+
+[node name="ShieldEnemy" parent="World/TestingRoom" index="3" instance=ExtResource( 9 )]
+position = Vector2( 204, 200 )
+
+[node name="SlimeEnemy" parent="World/TestingRoom" index="4" instance=ExtResource( 8 )]
+position = Vector2( 232, 268 )
+
+[node name="HelicopterEnemy" parent="World/TestingRoom" index="5" instance=ExtResource( 10 )]
+position = Vector2( 368, 136 )
+LEFT_BOUND = 300
+RIGHT_BOUND = 100
+
+[node name="HoleEnemy" parent="World/TestingRoom" index="8" instance=ExtResource( 6 )]
+position = Vector2( 316, 272 )
+SPEED = 500
+
+[editable path="World"]
