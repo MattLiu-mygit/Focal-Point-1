@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/StickyEnemy.png-9512bf2a9f505ea096c0378039f4d601.stex"
+path="res://.import/HoleEnemy.png-8f77cfc7179325d3ed168ad09953df03.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/floor/sticky/StickyEnemy.png"
-dest_files=[ "res://.import/StickyEnemy.png-9512bf2a9f505ea096c0378039f4d601.stex" ]
+source_file="res://entities/enemies/floor/sticky/HoleEnemy.png"
+dest_files=[ "res://.import/HoleEnemy.png-8f77cfc7179325d3ed168ad09953df03.stex" ]
 
 [params]
 
