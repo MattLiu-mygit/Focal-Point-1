@@ -2,7 +2,7 @@ extends Control
 # The LevelSelctMenu not only provides an interface for the Player to select
 # a level, but also sets Player stats based on which level they chose.
 
-const World: PackedScene = preload("res://world/World.tscn")
+const Game: PackedScene = preload("res://Game.tscn")
 const Level0: PackedScene = preload("res://world/levels/level0/Room1.tscn")
 
 var levels := [Level0]
@@ -18,7 +18,7 @@ func set_player_stats() -> void:
 func _on_SelectButton_pressed() -> void:
 	set_player_stats()
 	# warning-ignore:return_value_discarded
-	get_tree().change_scene_to(World)
+	get_tree().change_scene_to(Game)
 
 
 func _on_LeftButton_pressed() -> void:
