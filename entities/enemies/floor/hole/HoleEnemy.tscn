@@ -6,7 +6,7 @@
 [ext_resource path="res://entities/enemies/floor/hole/HoleEnemy.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14, 2 )
+extents = Vector2( 10, 2 )
 
 [node name="HoleEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
@@ -21,10 +21,10 @@ position = Vector2( 0, -2 )
 shape = ExtResource( 2 )
 
 [node name="Collider" parent="Hurtbox" index="0"]
-shape = SubResource( 1 )
+shape = ExtResource( 2 )
 
 [node name="Collider" parent="Hitbox" index="0"]
-shape = ExtResource( 2 )
+shape = SubResource( 1 )
 
 [node name="FloorCast" parent="." index="6"]
 position = Vector2( 15, 0 )
@@ -32,16 +32,11 @@ position = Vector2( 15, 0 )
 [node name="BackFloorCast" parent="." index="7"]
 position = Vector2( -15, 0 )
 
-[node name="HoleTimer" type="Timer" parent="." index="8"]
-wait_time = 0.3
-one_shot = true
-
-[node name="FallKillTimer" type="Timer" parent="." index="9"]
-wait_time = 3.0
+[node name="FallKillTimer" type="Timer" parent="." index="8"]
+wait_time = 5.0
 one_shot = true
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
-[connection signal="timeout" from="HoleTimer" to="." method="_on_HoleTimer_timeout"]
 [connection signal="timeout" from="FallKillTimer" to="." method="_on_FallKillTimer_timeout"]
 
 [editable path="Hurtbox"]
