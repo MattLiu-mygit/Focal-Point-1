@@ -24,6 +24,7 @@ export (int) var JUMP_FORCE = 336
 
 var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
+var controllable := true setget _set_controllable
 var jumped := false
 var knocked_back := false
 var invincible := false setget _set_invincible
@@ -46,9 +47,9 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	jumped = false
+	var run_strength := get_run_strength()
+	apply_horizontal_force(run_strength, delta)
 	if not knocked_back:
-		var run_strength := get_run_strength()
-		apply_horizontal_force(run_strength, delta)
 		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
@@ -62,10 +63,14 @@ func queue_free() -> void:
 
 
 func get_run_strength() -> float:
+	if not controllable:
+		return 0.0
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
 func apply_horizontal_force(run_strength: float, delta: float) -> void:
+	if not controllable:
+		return
 	motion.x += run_strength * ACCELERATION * delta
 	if Input.is_action_pressed("run"):
 		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
@@ -87,6 +92,8 @@ func apply_gravity(delta: float) -> void:
 
 
 func jump_check() -> void:
+	if not controllable:
+		return
 	if is_on_floor() or jump_delay_timer.time_left > 0:
 		if Input.is_action_just_pressed("up"):
 			motion.y = -JUMP_FORCE
@@ -106,8 +113,11 @@ func cut_jump():
 		motion.y = -JUMP_FORCE / 2
 
 
+# TODO: Put this in World.gd
 # If only on a platform, drop a pixel to bypass the one-way-collision
 func drop_check() -> void:
+	if not controllable:
+		return
 	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
 	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(-PLAYER_XRADIUS, 0)))
 	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
@@ -145,18 +155,19 @@ func move() -> void:
 	if is_on_floor():
 		if knocked_back:
 			knocked_back = false
-			guns.enabled = true
+			if stats.health > 0:
+				self.controllable = true
 
 
 func hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
 	if damage > 0:
 		knockback(spot)
-		guns.enabled = false
 
 
 # Launch the Player depending on where the Player was hit.
 func knockback(spot: Vector2) -> void:
+	self.controllable = false
 	knocked_back = true
 	var x := global_position.x
 	if spot.x - x > 0:
