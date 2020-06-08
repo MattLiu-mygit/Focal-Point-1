@@ -14,7 +14,7 @@ enum HurtboxMaskBit {
 
 const SHIELD_MASK_BIT := 5
 
-export (float) var FIRE_RATE
+export (float) var FIRE_RATE = 0.25
 export (int) var BULLET_SPEED
 export (bool) var AUTO_FIRE
 export (float) var AUTO_FIRE_RATE

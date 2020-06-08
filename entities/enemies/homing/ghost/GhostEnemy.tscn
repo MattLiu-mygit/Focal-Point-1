@@ -51,6 +51,7 @@ tracks/3/keys = {
 
 [node name="GhostEnemy" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+SPOOPYNESS = 10
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )

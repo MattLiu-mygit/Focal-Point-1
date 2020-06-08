@@ -17,6 +17,12 @@ one_shot = true
 [node name="WallCast" type="RayCast2D" parent="." index="6"]
 enabled = true
 cast_to = Vector2( 40, 0 )
+
+[node name="RightBoundCast" type="RayCast2D" parent="." index="7"]
+cast_to = Vector2( 100, 0 )
+
+[node name="LeftBoundCast" type="RayCast2D" parent="." index="8"]
+cast_to = Vector2( -100, 0 )
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 
 [editable path="Hurtbox"]

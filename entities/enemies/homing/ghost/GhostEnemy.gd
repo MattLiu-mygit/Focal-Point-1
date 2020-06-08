@@ -31,28 +31,33 @@ func _physics_process(_delta: float) -> void:
 		fade_timer.start()
 	
 	if player != null:
+		chase_player(player)
 		freeze_check(player)
+	
+	motion = move_and_slide(motion)
 
 
-func freeze_check(player: KinematicBody2D) -> void:
+func freeze_check(player) -> void:
 	var player_angle = get_player_angle(player)
 	var ghost_angle = get_ghost_angle(player)
 	var top_angle = player_angle + deg2rad(FREEZE_ANGLE_RANGE)
 	var bottom_angle = player_angle - deg2rad(FREEZE_ANGLE_RANGE)
+	var direction = (player.global_position - global_position).normalized()
+	
 		
 	# Freezes movement if ghost enemy within an angle range of where the 
 	# player looks
 	if ghost_angle < top_angle and ghost_angle > bottom_angle:
-		motion.x = 0
-		motion.y = 0
+		motion -= direction * ACCELERATION
+		motion = motion.clamped(SPEED)
 
 
-func chase_player(player: KinematicBody2D, delta: float) -> void:
-	.chase_player(player, delta)
+func chase_player(player) -> void:
+	.chase_player(player)
 	motion.y += spoopy_y_mod * spoopy_timer.time_left
 
 
-func get_player_angle(player: KinematicBody2D) -> float:
+func get_player_angle(player) -> float:
 	var player_angle = -player.get_local_mouse_position().angle()
 	if player_angle > PI/2:
 		player_angle = -PI + player_angle
@@ -61,11 +66,11 @@ func get_player_angle(player: KinematicBody2D) -> float:
 	return player_angle
 
 
-func get_ghost_angle(player: KinematicBody2D) -> float:
+func get_ghost_angle(player) -> float:
 	var y_diff = -position.y + player.position.y 
 	var x_diff = position.x - player.position.x
-	if y_diff == 0:
-		y_diff = 0.0001
+	if x_diff == 0:
+		x_diff = 0.0001
 	var ghost_angle = atan(y_diff/x_diff)
 	return ghost_angle
 

@@ -11,12 +11,15 @@ export(float) var ACCELERATION = 0.75
 var start_x
 var motion_x
 var decelerating
+var original_position
 
 onready var sprite: Sprite = $Sprite
 onready var wall_cast: RayCast2D = $WallCast
 onready var patrol_timer: Timer = $PatrolTimer
 onready var hurtbox: Area2D = $Hurtbox
 onready var collider: CollisionShape2D = $Collider
+onready var right_bound_cast: RayCast2D = $RightBoundCast
+onready var left_bound_cast: RayCast2D = $LeftBoundCast
 
 
 func _ready() -> void:
@@ -25,10 +28,13 @@ func _ready() -> void:
 	patrol_timer.wait_time = pause_time
 	rotation_degrees = FLYING_DIRECTION * 30
 	wall_cast.scale.x = FLYING_DIRECTION
+	original_position = position
 
 
 # Checks for two cases in which special action needs to occur:
 func _physics_process(_delta: float) -> void:
+	fix_patrol_range_indicators()
+	
 	if wall_cast.is_colliding():
 		decelerating = true
 		patrol_flip()
@@ -39,6 +45,18 @@ func _physics_process(_delta: float) -> void:
 		decelerate(wall_cast.cast_to.x/2, wall_cast.cast_to.x/2)
 	
 	motion = move_and_slide_with_snap(motion, Vector2.DOWN * 8, Vector2.UP, true, 4, deg2rad(46))
+
+
+# Fixes patrol range indicators to correctly show the patrol range of the 
+# helicopter enemy and not move/rotate with the enemy as it moves. May spazz
+# out from time to time, but it generally indicates patrol range.
+func fix_patrol_range_indicators():
+	right_bound_cast.cast_to.x = RIGHT_BOUND - 8
+	left_bound_cast.cast_to.x = -LEFT_BOUND + 8
+	right_bound_cast.global_position = original_position
+	left_bound_cast.global_position = original_position
+	right_bound_cast.rotation = -rotation
+	left_bound_cast.rotation = -rotation
 
 
 # Performs deceleration
