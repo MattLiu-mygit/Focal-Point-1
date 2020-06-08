@@ -11,7 +11,7 @@ const Key := preload("res://world/powerups/Key.tscn")
 export (Array, Drop) var drops
 
 
-func _exit_tree() -> void:
+func release_drops() -> void:
 	var origin = get_parent().global_position
 	for drop_id in drops:
 		var spawn_position = origin + Vector2(rand_range(-4, 4), rand_range(-4, 4))
