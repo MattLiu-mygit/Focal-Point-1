@@ -1,4 +1,4 @@
-extends "res://entities/Entity.gd"
+extends KinematicBody2D
 class_name Enemy
 
 signal enemy_died
@@ -9,6 +9,7 @@ export (bool) var DEFEATABLE
 var motion = Vector2.ZERO
 
 onready var stats = $EnemyStats
+onready var drops = $Drops
 
 
 func hit(damage: int, _spot: Vector2) -> void:
@@ -17,6 +18,7 @@ func hit(damage: int, _spot: Vector2) -> void:
 
 func die() -> void:
 	queue_free()
+	drops.release_drops()
 	emit_signal("enemy_died")
 
 

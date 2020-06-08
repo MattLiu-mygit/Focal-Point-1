@@ -1,6 +1,6 @@
-extends "res://entities/Entity.gd"
+extends KinematicBody2D
 class_name Player
-# The Player scene has everything relating to controlling the character.
+# The Player scene has everything relating to controlling the physical character.
 # Current mechanics:
 # Player can jump over horizontal gaps:
 #	4-block = no speed
@@ -24,9 +24,10 @@ export (int) var JUMP_FORCE = 336
 
 var stats = ResourceLoader.player_stats
 var motion := Vector2.ZERO
+var controllable := true setget _set_controllable
 var jumped := false
 var knocked_back := false
-var invincible := false setget set_invincible
+var invincible := false setget _set_invincible
 
 onready var hurtbox: Area2D = $Hurtbox
 onready var guns: Node = $PlayerGuns
@@ -35,21 +36,20 @@ onready var mouse_helper: Sprite = $MouseHelper
 
 
 func _ready() -> void:
-	stats.connect("player_died", self, "_on_died")
-	stats.connect("player_game_over", self, "_on_game_over")
 	ResourceLoader.main_instances.player = self
 
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("temp_invincible"):
-		turn_invincible(5)
-
+		self.invincible = true
+		yield(get_tree().create_timer(5), "timeout")
+		self.invincible = false
 
 func _physics_process(delta: float) -> void:
 	jumped = false
+	var run_strength := get_run_strength()
+	apply_horizontal_force(run_strength, delta)
 	if not knocked_back:
-		var run_strength := get_run_strength()
-		apply_horizontal_force(run_strength, delta)
 		apply_friction(run_strength)
 	apply_gravity(delta)
 	jump_check()
@@ -63,10 +63,14 @@ func queue_free() -> void:
 
 
 func get_run_strength() -> float:
+	if not controllable:
+		return 0.0
 	return Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
 func apply_horizontal_force(run_strength: float, delta: float) -> void:
+	if not controllable:
+		return
 	motion.x += run_strength * ACCELERATION * delta
 	if Input.is_action_pressed("run"):
 		motion.x = clamp(motion.x, -MAX_RUN_SPEED, MAX_RUN_SPEED)
@@ -88,6 +92,8 @@ func apply_gravity(delta: float) -> void:
 
 
 func jump_check() -> void:
+	if not controllable:
+		return
 	if is_on_floor() or jump_delay_timer.time_left > 0:
 		if Input.is_action_just_pressed("up"):
 			motion.y = -JUMP_FORCE
@@ -107,8 +113,11 @@ func cut_jump():
 		motion.y = -JUMP_FORCE / 2
 
 
+# TODO: Put this in World.gd
 # If only on a platform, drop a pixel to bypass the one-way-collision
 func drop_check() -> void:
+	if not controllable:
+		return
 	var tile_map: TileMap = ResourceLoader.main_instances.world.room.get_node("TileMap")
 	var left_tile := tile_map.get_cellv(tile_map.world_to_map(global_position + Vector2(-PLAYER_XRADIUS, 0)))
 	var center_tile := tile_map.get_cellv(tile_map.world_to_map(global_position))
@@ -133,6 +142,7 @@ func move() -> void:
 	#var last_motion := motion
 	var last_position := position
 	
+	# Ignoring body_get_direct_state error here... doesn't seem to cause any problems.
 	motion = move_and_slide(motion, Vector2.UP)
 	
 	# If Player is in the air but hasn't jumped (fell off a platform),
@@ -145,18 +155,19 @@ func move() -> void:
 	if is_on_floor():
 		if knocked_back:
 			knocked_back = false
-			guns.enabled = true
+			if stats.health > 0:
+				self.controllable = true
 
 
 func hit(damage: int, spot: Vector2) -> void:
 	stats.health -= damage
 	if damage > 0:
 		knockback(spot)
-		guns.enabled = false
 
 
 # Launch the Player depending on where the Player was hit.
 func knockback(spot: Vector2) -> void:
+	self.controllable = false
 	knocked_back = true
 	var x := global_position.x
 	if spot.x - x > 0:
@@ -167,41 +178,19 @@ func knockback(spot: Vector2) -> void:
 		motion.y = -KNOCKBACK_FORCE / 2
 
 
-func replenish_health() -> void:
-	if stats.total_health > 0:
-		stats.health = stats.total_health
-		stats.total_health -= stats.max_health
-
-func turn_invincible(duration: float):
-	if not invincible:
-		set_invincible(true)
-		yield(get_tree().create_timer(duration), "timeout")
-		set_invincible(false)
+func _set_controllable(value: bool) -> void:
+	controllable = value
+	set_process_unhandled_key_input(controllable)
+	guns.enabled = controllable
 
 
-func set_invincible(value: bool) -> void:
+func _set_invincible(value: bool) -> void:
 	invincible = value
 	hurtbox.set_collision_layer_bit(PLAYER_HURTBOX_LAYER_BIT, not value)
 
 
-func die() -> void:
-	replenish_health()
-
-
-func game_over() -> void:
-	pass
-
-
 func _on_Hurtbox_hit(damage: int, spot: Vector2) -> void:
 	hit(damage, spot)
-
-
-func _on_died() -> void:
-	die()
-
-
-func _on_game_over() -> void:
-	game_over()
 
 
 func _on_PlayerGuns_gun_rotated() -> void:
