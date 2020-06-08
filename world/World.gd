@@ -1,13 +1,11 @@
-extends Node
-# The World is the Room loader and the scene where gameplay takes place.
+extends Node2D
+# The World is the Room loader and is essentially the physical environment.
 
 # Assigned when level is selected and when transitioning levels
 var player_stats = ResourceLoader.player_stats
 
-var _room : PackedScene
+var _room_scene : PackedScene
 
-onready var camera: Camera2D = $Camera
-onready var player: Player = $Player
 onready var room: Room = $TestingRoom
 
 
@@ -17,6 +15,7 @@ func _process(_delta: float) -> void:
 
 
 func _ready() -> void:
+	ResourceLoader.main_instances.world = self
 	# temp
 	if player_stats.selected_level != null:
 		set_room(player_stats.selected_level)
@@ -26,8 +25,7 @@ func _ready() -> void:
 			node.set_owner(room)
 		# warning-ignore:return_value_discarded
 		packed_scene.pack(room)
-		_room = packed_scene
-	ResourceLoader.main_instances.world = self
+		_room_scene = packed_scene
 
 
 func queue_free() -> void:
@@ -39,13 +37,12 @@ func set_room(room_: PackedScene) -> void:
 	if room:
 		call_deferred("remove_child", room)
 		room.queue_free()
-	_room = room_
+	_room_scene = room_
 	room = room_.instance()
 	call_deferred("add_child", room)
-	player.position = room.player_start_position
 
 
 # Resets the room back to its original state and also sets the Player's position.
 # This is NOT responsible for resetting player stats, let Player do that.
 func reset_room() -> void:
-	set_room(_room)
+	set_room(_room_scene)

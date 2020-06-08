@@ -19,8 +19,9 @@ func instance_scene_on_main(scene: PackedScene, position: Vector2) -> Node:
 func instance_scene_in_room(scene: PackedScene, position: Vector2) -> Node:
 	var world : Node = ResourceLoader.main_instances.world
 	var instance := scene.instance()
+	# Ignoring area_set_shape_disabled error here... doesn't seem to cause any problems.
+	world.room.add_child(instance)
 	instance.global_position = position
-	world.room.call_deferred("add_child", instance)
 	return instance
 
 
