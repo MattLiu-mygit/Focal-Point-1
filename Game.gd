@@ -10,6 +10,7 @@ func _ready() -> void:
 	player = ResourceLoader.main_instances.player
 	player_stats = ResourceLoader.player_stats
 	# warning-ignore-all:return_value_discarded
+	player_stats.connect("player_cleared_room", self, "_on_player_cleared_room")
 	player_stats.connect("player_died", self, "_on_player_died")
 	player_stats.connect("player_fell", self, "_on_player_fell")
 	player_stats.connect("player_game_over", self, "_on_player_game_over")
@@ -20,7 +21,13 @@ func enable_player(enabled: bool):
 	player.controllable = enabled
 
 
-func reset() -> void:
+func setup_room() -> void:
+	player.position = world.room.player_start_position
+	player_stats.reset_stats()
+	yield(get_tree().create_timer(1.0), "timeout")
+
+
+func reset_room() -> void:
 	enable_player(false)
 	yield(get_tree().create_timer(1.0), "timeout")
 	player.visible = false
@@ -32,13 +39,18 @@ func reset() -> void:
 	player.visible = true
 
 
+func _on_player_cleared_room() -> void:
+	world.set_room(world.room.next_room)
+	setup_room()
+
+
 func _on_player_died():
-	reset()
+	reset_room()
 
 
 func _on_player_fell():
 	player_stats.total_health -= 1
-	reset()
+	reset_room()
 
 
 func _on_player_game_over():
