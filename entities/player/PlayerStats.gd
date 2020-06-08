@@ -7,7 +7,8 @@ signal player_health_changed(health)
 signal player_total_health_changed(total_health)
 signal player_has_key_changed(has_key)
 # Game signals
-# warning-ignore:unused_signal
+# warning-ignore-all:unused_signal
+signal player_cleared_room    # emitted by Door
 signal player_fell    # emitted by KillZone
 # The next two are mutually exclusive
 signal player_died
